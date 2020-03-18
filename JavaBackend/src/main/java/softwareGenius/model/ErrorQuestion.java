@@ -1,6 +1,9 @@
 package softwareGenius.model;
 
 public class ErrorQuestion extends Question{
+    /**
+     * Wrong answer by the student
+     */
     public String wrongAnswer;
 
     public ErrorQuestion(Integer id, String category, String problem, String choice1, String choice2, String choice3, String choice4, Integer answer, Integer difficultyLevel, String wrongAnswer) {
