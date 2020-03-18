@@ -15,7 +15,7 @@
         <result property="difficultyLevel" column="difficultyLevel"/>
     </resultMap>
 
-    <insert id="insert" parameterType="softwareGenius.model.Question">
+    <insert id="addNewQuestion" parameterType="softwareGenius.model.Question">
         insert into question (
              category,
              problem,
@@ -37,9 +37,10 @@
              #{difficultyLevel}
           )
     </insert>
-    <update id="update" parameterType="softwareGenius.model.Question">
+    <update id="updateQuestion" parameterType="softwareGenius.model.Question">
         update question
         set
+             questionId=#{questionId}
              category=#{category},
              problem=#{problem},
              choice1=#{choice1},
@@ -51,12 +52,12 @@
         where questionId=#{questionId}
     </update>
 
-    <delete id="delete">
+    <delete id="delete" parameterType="java.lang.Integer">
         DELETE FROM question
         WHERE questionId = #{questionId}
     </delete>
 
-    <select id="select" parameterType="java.lang.Integer" resultMap="questionMap">
+    <select id="select" parameterType="map" resultMap="questionMap">
         select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
         from question
         where questionId = #{questionId}
@@ -66,4 +67,11 @@
         select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
         from question
     </select>
+    <select id="selectRand" parameterType="map" resultMap="questionMap">
+        select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
+        WHERE difficultyLevel=#{difficultyLevel} AND category=#{category}
+        ORDER BY RAND()
+        LIMIT #{limit};
+    </select>
+
 </mapper>
