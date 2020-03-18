@@ -6,18 +6,19 @@
     <resultMap id="worldMap" type="softwareGenius.model.World">
         <result property="worldId" column="worldId"/>
         <result property="ownerId" column="ownerId"/>
+        <result property="charId" column="charId"/>
         <result property="category" column="category"/>
     </resultMap>
 
     <insert id="addWorld" parameterType="softwareGenius.model.World" useGeneratedKeys="true" keyProperty="world.worldId">
         insert into world (
-            worldId,
             ownerId,
+            charId,
             category
         )
         VALUES (
-                   #{worldId},
                    #{ownerId},
+                   #{charId},
                    #{category}
                )
     </insert>
@@ -48,6 +49,12 @@
 		select *
 		from world
 		where ownerId = #{ownerId}
+    </select>
+
+    <select id="getCharIdByWorldId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select charId
+        from world
+        where worldId = #{worldId}
     </select>
 
 </mapper>

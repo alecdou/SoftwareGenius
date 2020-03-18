@@ -9,19 +9,24 @@ import softwareGenius.model.World;
 @Service
 public class WorldService {
     private WorldDao worldDao;
-    private UserDao userDao;
     private LandService landService;
 
-    public WorldService(WorldDao worldDao, UserDao userDao, LandDao landDao, LandService landservice) {
+    public WorldService(WorldDao worldDao, LandService landservice) {
         this.worldDao = worldDao;
-        this.userDao = userDao;
         this.landService = landservice;
     }
 
-    public Integer initNewWorld(Integer ownerId, String worldCategory, Integer charId) {
-        World world=new World(ownerId,charId, worldCategory);
+    public Integer addWorld(World world) {
         int worldId=worldDao.addWorld(world);
         landService.initLandForWorld(worldId);
         return worldId;
+    }
+
+    World getWorldByWorldId(Integer worldId) {
+        return worldDao.getWorldByWorldId(worldId);
+    }
+
+    Integer getCharIdByWorldId(Integer worldId) {
+        return worldDao.getCharIdByWorldId(worldId);
     }
 }
