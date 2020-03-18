@@ -27,15 +27,18 @@ public class Combat {
     /** The number of correctly answered questions in a combat. */
     private Integer numOfCorrectAns;
 
+    public Combat() {
 
-    public Combat(Integer combatId, Integer difficultyLevel, String mode, Integer playerId, Integer npcId, String status, LocalDateTime combatTime, Integer totalNumOfQuestions, Integer numOfCorrectAns) {
+    }
+
+    public Combat(Integer combatId, Integer difficultyLevel, String mode, Integer playerId, Integer npcId, String status, Integer totalNumOfQuestions, Integer numOfCorrectAns) {
         this.combatId = combatId;
         this.difficultyLevel = difficultyLevel;
         this.mode = mode;
         this.playerId = playerId;
         this.npcId = npcId;
         this.status = status;
-        this.combatTime = combatTime;
+        // this.combatTime = combatTime;
         this.totalNumOfQuestions = totalNumOfQuestions;
         this.numOfCorrectAns = numOfCorrectAns;
     }

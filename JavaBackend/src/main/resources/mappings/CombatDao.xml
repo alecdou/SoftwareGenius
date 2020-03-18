@@ -13,7 +13,6 @@
         <result property="status" column="status"/>
         <result property="totalNumOfQuestions" column="totalNumOfQuestions"/>
         <result property="numOfCorrectAns" column="numOfCorrectAns"/>
-
     </resultMap>
 
     <insert id="addCombat" parameterType="softwareGenius.model.Combat">
@@ -22,16 +21,18 @@
              mode,
              playerId,
              npcId,
-             combatTime,
-             status
-              )
+             status,
+             totalNumOfQuestions,
+             numOfCorrectAns
+             )
         VALUES (
             #{difficultyLevel},
             #{mode},
             #{playerId},
             #{npcId},
-            DATE(NOW()),
-            #{status}
+            #{status},
+            #{totalNumOfQuestions},
+            #{numOfCorrectAns}
           )
     </insert>
 
@@ -43,14 +44,20 @@
         where combatId=#{combatId}
     </update>
 
-    <select id="getCombatByPlayerId" parameterType="softwareGenius.model.Combat" resultMap="combatMap">
-        select *
+    <select id="getCombatById" parameterType="java.lang.Integer" resultMap="combatMap">
+        select combatId, difficultyLevel, mode, playerId, npcId, status, totalNumOfQuestions, numOfCorrectAns
+        from combat
+        where combatId = #{combatId}
+    </select>
+
+    <select id="getCombatByPlayerId" parameterType="java.lang.Integer" resultMap="combatMap">
+        select combatId, difficultyLevel, mode, playerId, npcId, status, totalNumOfQuestions, numOfCorrectAns
         from combat
         where playerId = #{playerId}
     </select>
 
-    <select id="getCombatByPlayerId" parameterType="softwareGenius.model.Combat" resultMap="combatMap">
-        select *
+    <select id="getCombatByPlayerIdAndMode" parameterType="softwareGenius.model.Combat" resultMap="combatMap">
+        select combatId, difficultyLevel, mode, playerId, npcId, status, totalNumOfQuestions, numOfCorrectAns
         from combat
         where playerId = #{playerId} AND mode = #{mode}
     </select>

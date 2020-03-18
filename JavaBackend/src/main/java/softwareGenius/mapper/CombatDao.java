@@ -15,7 +15,9 @@ public interface CombatDao {
      * @param combat the combat object
      * @return whether the adding is successful
      */
-    Boolean addCombat(Combat combat);
+    Integer addCombat(Combat combat);
+
+    Combat getCombatById(Integer combatId);
 
     /**
      * Updates the result of a combat when the combat completes.

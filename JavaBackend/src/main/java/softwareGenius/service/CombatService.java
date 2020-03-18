@@ -1,10 +1,13 @@
 package softwareGenius.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import softwareGenius.mapper.CombatDao;
 import softwareGenius.model.Combat;
 import softwareGenius.model.Question;
+
+import java.util.List;
 
 @Service
 public class CombatService {
@@ -18,9 +21,21 @@ public class CombatService {
     @Autowired
     private QuestionService questionService;
 
-    Boolean
-    startNewCombat(Combat combat) {
+    public Combat startNewCombat(Combat combat) {
+        combatDao.addCombat(combat);
+        return combatDao.getCombatById(combat.getCombatId());
+    }
 
+    public Combat getCombatById(Integer combatId) {
+        return combatDao.getCombatById(combatId);
+    }
+
+    public List<Combat> getCombatByPlayerId(Integer playerId) {
+        return combatDao.getCombatByPlayerId(playerId);
+    }
+
+    public List<Combat> getCombatByPlayerIdAndMode(Integer playerId, String mode) {
+        return combatDao.getCombatByPlayerIdAndMode(playerId, mode);
     }
 
 
