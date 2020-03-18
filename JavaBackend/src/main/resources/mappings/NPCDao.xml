@@ -29,10 +29,8 @@
     </delete>
 
     <select id="getNPCByDifficultyLevel" parameterType="java.lang.Integer" resultMap="npcMap">
-		select top 1 column from(
-			select npcId, difficultyLevel, hitPoint,attackPoint
-			from npc
-			where difficultyLevel = #{difficultyLevel} )
+		select top 1 column from npc
+		where difficultyLevel = #{difficultyLevel}
 		order by new id()
     </select>
 </mapper>
