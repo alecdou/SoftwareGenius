@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="softwareGenius.mapper.CombatDao">
+    <resultMap id="combatMap" type="softwareGenius.model.Combat">
+        <result property="combatId" column="combatId"/>
+        <result property="difficultyLevel" column="difficultyLevel"/>
+        <result property="mode" column="mode"/>
+        <result property="playerId" column="playerId"/>
+        <result property="npcId" column="npcId"/>
+        <result property="combatTime" column="combatTime"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <insert id="addCombat" parameterType="softwareGenius.model.Combat">
+        insert into combat (
+             difficultyLevel,
+             mode,
+             playerId,
+             npcId,
+             combatTime,
+             status
+              )
+        VALUES (
+            #{difficultyLevel},
+            #{mode},
+            #{playerId},
+            #{npcId},
+            DATE(NOW()),
+            #{status}
+          )
+    </insert>
+
+    <update id="updateCombatStatus" parameterType="softwareGenius.model.Combat">
+        update combat
+        set status=#{status},
+        where combatId=#{combatId}
+    </update>
+
+    <select id="getCombatByPlayerId" parameterType="softwareGenius.model.Combat" resultMap="combatMap">
+        select *
+        from combat
+        where playerId = #{playerId}
+    </select>
+
+    <select id="getCombatByPlayerId" parameterType="softwareGenius.model.Combat" resultMap="combatMap">
+        select *
+        from combat
+        where playerId = #{playerId} AND mode = #{mode}
+    </select>
+</mapper>
