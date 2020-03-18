@@ -2,9 +2,8 @@ package softwareGenius.mapper;
 import org.apache.ibatis.annotations.Param;
 import softwareGenius.model.Question;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
-public interface QuestionDao {
 
+public interface QuestionDao {
     Boolean addNewQuestion(Question question);
     Boolean updateQuestion(Question question);
     Boolean deleteQuestion(@Param("questionId") Integer questionId);
