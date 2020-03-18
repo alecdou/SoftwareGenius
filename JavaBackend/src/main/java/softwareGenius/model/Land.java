@@ -13,6 +13,12 @@ public class Land {
         this.ownerDifficultyLevel = ownerDifficultyLevel;
     }
 
+    public Land(Integer worldId, Integer ownerId, Integer ownerDifficultyLevel) {
+        this.worldId = worldId;
+        this.ownerId = ownerId;
+        this.ownerDifficultyLevel = ownerDifficultyLevel;
+    }
+
     public Integer getLandId() {
         return landId;
     }
