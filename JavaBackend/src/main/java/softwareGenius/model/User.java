@@ -2,7 +2,8 @@ package softwareGenius.model;
 
 public class User {
     private final Integer userId;
-    private String userName;
+    private String username;
+    private String userAvatar;
     private String password;
     private String email;
     /** social account type: FB, Twitter, ... **/
@@ -12,10 +13,11 @@ public class User {
     private Float accuracy;
     private Integer overallExp;
 
-    public User(Integer userId, String userName, String password, String email, String accountType, Boolean isAdmin,
+    public User(Integer userId, String username, String userAvatar, String password, String email, String accountType, Boolean isAdmin,
                 Float accuracy, Integer overallExp) {
         this.userId = userId;
-        this.userName = userName;
+        this.username = username;
+        this.userAvatar = userAvatar;
         this.password = password;
         this.email = email;
         this.accountType = accountType;
@@ -28,12 +30,12 @@ public class User {
         return userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -76,5 +78,12 @@ public class User {
         this.overallExp = overallExp;
     }
 
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
+    }
 
 }

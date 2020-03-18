@@ -39,6 +39,7 @@ public class CombatController {
      */
     @GetMapping(path = "start")
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
+<<<<<<< HEAD
         // initialize a combat: landId, difficultyLevel, mode, playerId, status
         Integer combatId = combatService.startNewCombat(combat);
 
@@ -46,15 +47,26 @@ public class CombatController {
 
         // get question list
 
+=======
+        Combat newCombat = combatService.startNewCombat(combat);
+>>>>>>> 5409698fb927c936ad21d3adb591a9f4b11a459d
         Map<String,Object> map=new HashMap<>();
         //put all the values in the map
         System.out.println(combatId);
         return map;
     }
 
+<<<<<<< HEAD
 //    @PostMapping(path = "combatId={combatId}/end")
 //    public endBattle(@PathVariable("combatId") Integer combatId,
 //                     @Value("status") String status)
+=======
+    @PostMapping(path = "combatId={combatId}/end")
+    public void endBattle(@PathVariable("combatId") Integer combatId,
+                     @Value("status") String status){
+        //???what to do here
+    }
+>>>>>>> 5409698fb927c936ad21d3adb591a9f4b11a459d
 
     @GetMapping(path = "{combatId}")
     public Combat getCombatById(@PathVariable("combatId") Integer combatId) {
