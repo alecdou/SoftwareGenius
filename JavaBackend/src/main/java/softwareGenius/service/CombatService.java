@@ -18,9 +18,13 @@ public class CombatService {
     @Autowired
     private QuestionService questionService;
 
-    Boolean
-    startNewCombat(Combat combat) {
+    public Combat startNewCombat(Combat combat) {
+        combatDao.addCombat(combat);
+        return combatDao.getCombatById(combat.getCombatId());
+    }
 
+    public Combat getCombatById(Integer combatId) {
+        return combatDao.getCombatById(combatId);
     }
 
 

@@ -22,15 +22,13 @@
              mode,
              playerId,
              npcId,
-             combatTime,
              status
-              )
+             )
         VALUES (
             #{difficultyLevel},
             #{mode},
             #{playerId},
             #{npcId},
-            DATE(NOW()),
             #{status}
           )
     </insert>
@@ -43,13 +41,20 @@
         where combatId=#{combatId}
     </update>
 
-    <select id="getCombatByPlayerId" parameterType="softwareGenius.model.Combat" resultMap="combatMap">
+    <select id="getCombatById" parameterType="softwareGenius.model.Combat" resultMap="combatMap">
+        select *
+        from combat
+        where combatId = #{combatId}
+    </select>
+
+
+    <select id="getCombatByPlayerId" parameterType="softwareGenius.model.Combat">
         select *
         from combat
         where playerId = #{playerId}
     </select>
 
-    <select id="getCombatByPlayerId" parameterType="softwareGenius.model.Combat" resultMap="combatMap">
+    <select id="getCombatByPlayerIdAndMode" parameterType="softwareGenius.model.Combat">
         select *
         from combat
         where playerId = #{playerId} AND mode = #{mode}
