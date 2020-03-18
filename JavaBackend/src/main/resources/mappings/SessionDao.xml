@@ -10,40 +10,28 @@
         <result property="logoutTime" column="logoutTime"/>
     </resultMap>
 
-    <insert id="insert" parameterType="softwareGenius.model.Session">
+    <insert id="addSession" parameterType="map">
         insert into session (
              userId,
              loginTime,
-             logoutTime
               )
         VALUES (
              #{userId},
-             #{loginTime},
-             #{logoutTime}
+             #{loginTime}
           )
     </insert>
-    <update id="update" parameterType="softwareGenius.model.Session">
+    <update id="updateSessionEndTime" parameterType="map">
         update session
         set
-             userId=#{userId},
-             loginTime=#{loginTime},
              logoutTime=#{logoutTime},
         where sessionId=#{sessionId}
     </update>
 
-    <delete id="delete">
-        DELETE FROM session
-        WHERE sessionId = #{sessionId}
-    </delete>
 
-    <select id="select" parameterType="java.lang.Integer" resultMap="sessionMap">
+    <select id="getSessionByUserID" parameterType="java.lang.Integer" resultMap="sessionMap">
         select sessionId,userId,loginTime,logoutTime
         from session
         where sessionId = #{sessionId}
     </select>
 
-    <select id="selectAll" resultMap="sessionMap">
-        select sessionId,userId,loginTime,logoutTime
-        from session
-    </select>
 </mapper>

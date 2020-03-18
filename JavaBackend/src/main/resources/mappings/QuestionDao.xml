@@ -52,22 +52,22 @@
         where questionId=#{questionId}
     </update>
 
-    <delete id="delete" parameterType="java.lang.Integer">
+    <delete id="deleteQuestion" parameterType="java.lang.Integer">
         DELETE FROM question
         WHERE questionId = #{questionId}
     </delete>
 
-    <select id="select" parameterType="map" resultMap="questionMap">
-        select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
-        from question
-        where questionId = #{questionId}
-    </select>
+<!--    <select id="select" parameterType="map" resultMap="questionMap">-->
+<!--        select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel-->
+<!--        from question-->
+<!--        where questionId = #{questionId}-->
+<!--    </select>-->
 
-    <select id="selectAll" resultMap="questionMap">
-        select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
-        from question
-    </select>
-    <select id="selectRand" parameterType="map" resultMap="questionMap">
+<!--    <select id="selectAll" resultMap="questionMap">-->
+<!--        select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel-->
+<!--        from question-->
+<!--    </select>-->
+    <select id="getQuestionsByCategory" parameterType="map" resultMap="questionMap">
         select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
         WHERE difficultyLevel=#{difficultyLevel} AND category=#{category}
         ORDER BY RAND()
