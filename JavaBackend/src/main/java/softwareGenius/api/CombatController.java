@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.Combat;
+import softwareGenius.model.Question;
 import softwareGenius.service.CombatService;
+import softwareGenius.service.LandService;
+import softwareGenius.service.NPCService;
+import softwareGenius.service.QuestionService;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +19,19 @@ import java.util.Map;
 @RestController
 public class CombatController {
 
-    @Autowired
     private CombatService combatService;
+    private LandService landService;
+    private NPCService npcService;
+    private QuestionService questionService;
 
-
+    @Autowired
+    public CombatController(CombatService combatService, LandService landService,
+                            NPCService npcService, QuestionService questionService) {
+        this.combatService = combatService;
+        this.landService = landService;
+        this.npcService = npcService;
+        this.questionService = questionService;
+    }
 
     /**
      * To start a new combat.
@@ -28,18 +39,34 @@ public class CombatController {
      */
     @GetMapping(path = "start")
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
+<<<<<<< HEAD
+        // initialize a combat: landId, difficultyLevel, mode, playerId, status
+        Integer combatId = combatService.startNewCombat(combat);
+
+        // get NPC
+
+        // get question list
+
+=======
         Combat newCombat = combatService.startNewCombat(combat);
+>>>>>>> 5409698fb927c936ad21d3adb591a9f4b11a459d
         Map<String,Object> map=new HashMap<>();
         //put all the values in the map
-        map.put("combat", newCombat);
+        System.out.println(combatId);
         return map;
     }
 
+<<<<<<< HEAD
+//    @PostMapping(path = "combatId={combatId}/end")
+//    public endBattle(@PathVariable("combatId") Integer combatId,
+//                     @Value("status") String status)
+=======
     @PostMapping(path = "combatId={combatId}/end")
     public void endBattle(@PathVariable("combatId") Integer combatId,
                      @Value("status") String status){
         //???what to do here
     }
+>>>>>>> 5409698fb927c936ad21d3adb591a9f4b11a459d
 
     @GetMapping(path = "{combatId}")
     public Combat getCombatById(@PathVariable("combatId") Integer combatId) {

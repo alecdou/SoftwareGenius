@@ -21,9 +21,8 @@ public class CombatService {
     @Autowired
     private QuestionService questionService;
 
-    public Combat startNewCombat(Combat combat) {
-        combatDao.addCombat(combat);
-        return combatDao.getCombatById(combat.getCombatId());
+    public Integer startNewCombat(Combat combat) {
+        return combatDao.addCombat(combat);
     }
 
     public Combat getCombatById(Integer combatId) {
