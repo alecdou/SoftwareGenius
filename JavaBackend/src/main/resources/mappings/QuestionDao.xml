@@ -40,7 +40,7 @@
     <update id="updateQuestion" parameterType="softwareGenius.model.Question">
         update question
         set
-             questionId=#{questionId}
+             questionId=#{questionId},
              category=#{category},
              problem=#{problem},
              choice1=#{choice1},
@@ -69,8 +69,9 @@
 <!--    </select>-->
     <select id="getQuestionsByCategory" parameterType="map" resultMap="questionMap">
         select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
+        from main.question
         WHERE difficultyLevel=#{difficultyLevel} AND category=#{category}
-        ORDER BY RAND()
+        ORDER BY random()
         LIMIT #{limit};
     </select>
 
