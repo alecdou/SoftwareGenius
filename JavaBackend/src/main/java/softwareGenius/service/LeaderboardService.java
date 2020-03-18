@@ -1,5 +1,7 @@
 package softwareGenius.service;
 
+import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@EnableScheduling
+@Lazy(value = false)
 @Component
 public class LeaderboardService {
     private LeaderboardDao leaderboardDao;
