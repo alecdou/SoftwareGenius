@@ -59,7 +59,7 @@
     <select id="select" parameterType="java.lang.Integer" resultMap="questionMap">
         select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
         from question
-        where id = #{id}
+        where questionId = #{questionId}
     </select>
 
     <select id="selectAll" resultMap="questionMap">
