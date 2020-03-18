@@ -1,5 +1,7 @@
 package softwareGenius.model;
 
+import java.time.LocalDateTime;
+
 public class Combat {
 
     private Integer combatId;
@@ -13,16 +15,19 @@ public class Combat {
 
     private Integer npcId;
 
-    /** Representing whether the player won the combat or not. */
-    private Boolean isSuccessful;
+    /** The status includes pending, failed, succeeded. */
+    private String status;
 
-    public Combat(Integer combatId, Integer difficultyLevel, String mode, Integer playerId, Integer npcId, Boolean isSuccessful) {
+    /** The time when the combat begins. */
+    private LocalDateTime combatTime;
+
+    public Combat(Integer combatId, Integer difficultyLevel, String mode, Integer playerId, Integer npcId, String status) {
         this.combatId = combatId;
         this.difficultyLevel = difficultyLevel;
         this.mode = mode;
         this.playerId = playerId;
         this.npcId = npcId;
-        this.isSuccessful = isSuccessful;
+        this.status = status;
     }
 
     public Integer getCombatId() {
@@ -65,11 +70,19 @@ public class Combat {
         this.npcId = npcId;
     }
 
-    public Boolean getSuccessful() {
-        return isSuccessful;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSuccessful(Boolean successful) {
-        isSuccessful = successful;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCombatTime() {
+        return combatTime;
+    }
+
+    public void setCombatTime(LocalDateTime combatTime) {
+        this.combatTime = combatTime;
     }
 }

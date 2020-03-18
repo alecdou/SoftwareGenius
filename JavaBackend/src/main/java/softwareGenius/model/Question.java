@@ -2,7 +2,7 @@ package softwareGenius.model;
 
 public class Question {
     private Integer questionId;
-    /*the category that the question belong to,*/
+    /** the category that the question belong to */
     private String category;
     private String problem;
     private String choice1;
