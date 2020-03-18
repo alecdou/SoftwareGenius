@@ -1,21 +1,21 @@
 package softwareGenius.model;
 
 public class Character {
-    private final int charId;
-    private final int userId;
+    private final Integer charId;
+    private final Integer userId;
     private final String charName;
-    private int exp;
-    private int level;
-    private int attackPt;
-    private int defencePt;
+    private Integer exp;
+    private Integer level;
+    private Integer attackPt;
+    private Integer defencePt;
     /** number of correctly answered question **/
-    private int correctQuesNo;
+    private Integer correctQuesNo;
     /** number of answered question **/
-    private int totalQuesNo;
+    private Integer totalQuesNo;
 
 
-    public Character(int charId, int userId, String charName, int exp, int level, int attackPt, int defencePt,
-                     int correctQuesNo, int totalQuesNo) {
+    public Character(Integer charId, Integer userId, String charName, Integer exp, Integer level, Integer attackPt,
+                     Integer defencePt, Integer correctQuesNo, Integer totalQuesNo) {
         this.charId = charId;
         this.userId = userId;
         this.charName = charName;
@@ -27,11 +27,11 @@ public class Character {
         this.totalQuesNo = totalQuesNo;
     }
 
-    public int getCharId() {
+    public Integer getCharId() {
         return charId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -39,7 +39,7 @@ public class Character {
         return charName;
     }
 
-    public int getExp() {
+    public Integer getExp() {
         return exp;
     }
 
@@ -47,7 +47,7 @@ public class Character {
         this.exp = exp;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
@@ -55,7 +55,7 @@ public class Character {
         this.level = level;
     }
 
-    public int getAttackPt() {
+    public Integer getAttackPt() {
         return attackPt;
     }
 
@@ -63,7 +63,7 @@ public class Character {
         this.attackPt = attackPt;
     }
 
-    public int getDefencePt() {
+    public Integer getDefencePt() {
         return defencePt;
     }
 
@@ -71,7 +71,7 @@ public class Character {
         this.defencePt = defencePt;
     }
 
-    public int getCorrectQuesNo() {
+    public Integer getCorrectQuesNo() {
         return correctQuesNo;
     }
 
@@ -79,7 +79,7 @@ public class Character {
         this.correctQuesNo = correctQuesNo;
     }
 
-    public int getTotalQuesNo() {
+    public Integer getTotalQuesNo() {
         return totalQuesNo;
     }
 

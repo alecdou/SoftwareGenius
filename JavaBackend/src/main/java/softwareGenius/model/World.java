@@ -1,15 +1,15 @@
 package softwareGenius.model;
 
 public class World {
-    private final int ownerId;
+    private final Integer ownerId;
     private final String category;
 
-    public World(int ownerId, String category) {
+    public World(Integer ownerId, String category) {
         this.ownerId = ownerId;
         this.category = category;
     }
 
-    public int getOwnerId() {
+    public Integer getOwnerId() {
         return ownerId;
     }
 
