@@ -20,7 +20,7 @@
 			#{worldId},
             #{ownerId},
             #{ownerDifficultyLevel},
-          )
+            )
     </insert>
 
     <delete id="deleteLand" parameterType="java.lang.Integer">
@@ -39,4 +39,10 @@
 		from land
 		where landId = #{landId}
     </select>
+
+    <update id="changeOwner" parameterType="map">
+        update land
+        set newOwnerId=#{nid},newDifficultyLevel=#{ndl}
+        where landId=#{lid}
+    </update>
 </mapper>
