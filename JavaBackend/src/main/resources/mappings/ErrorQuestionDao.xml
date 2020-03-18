@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="softwareGenius.mapper.ErrorQuestionDao">
     <resultMap id="errorQuestions" type="softwareGenius.model.ErrorQuestion">
-        <result property="id" column="id"/>
+        <result property="questionId" column="id"/>
         <result property="category" column="category"/>
         <result property="problem" column="problem"/>
         <result property="choice1" column="choice1"/>
@@ -30,8 +30,8 @@
     </insert>
 
     <select id="getErrorQuestionByUserId" parameterType="map" resultMap="errorQuestions">
-        select id, category, problem, choice1, choice2, choice3, choice4, answer, difficultyLevel, wrongAnswer
-        from errorQuestion e left join question q on q.id = e.questionId
+        select questionId, category, problem, choice1, choice2, choice3, choice4, answer, difficultyLevel, wrongAnswer
+        from errorQuestion e left join question q on q.questionId = e.questionId
         where e.userId = #{userId}
     </select>
 </mapper>
