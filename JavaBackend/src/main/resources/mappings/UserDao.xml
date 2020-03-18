@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="softwareGenius.mapper.UserDao">
+    <resultMap id="userMap" type="softwareGenius.model.User">
+        <result property="userId" column="userId"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="accountType" column="accountType"/>
+        <result property="isAdmin" column="isAdmin"/>
+        <result property="accuracy" column="accuracy"/>
+        <result property="overallExp" column="overallExp"/>
+    </resultMap>
+
+    <insert id="addUser" parameterType="softwareGenius.model.User">
+        insert into user (
+            username,
+            password,
+            email,
+            accountType,
+            isAdmin,
+            accuracy,
+            overallExp
+        )
+        VALUES (
+            #{username},
+            #{password},
+            #{email},
+            #{accountType},
+            #{isAdmin},
+            #{accuracy},
+            #{overallExp}
+        )
+    </insert>
+
+    <update id="updateUser" parameterType="softwareGenius.model.User">
+        update user
+        set username = #{username},
+            password = #{password},
+            email = #{email},
+            accuracy = #{accuracy},
+            overallExp = #{overallExp}
+        where userId=#{userId}
+    </update>
+
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="userMap">
+        select userId, username, password, email, accountType, isAdmin, accuracy, overallExp
+        from user
+        where userId = #{userId}
+    </select>
+
+    <select id="getAll" resultMap="userMap">
+        select userId, username, password, email, accountType, isAdmin, accuracy, overallExp
+        from user
+    </select>
+
+    <delete id="deleteUser">
+        DELETE FROM user
+        WHERE userId = #{userId}
+    </delete>
+
+
+</mapper>
