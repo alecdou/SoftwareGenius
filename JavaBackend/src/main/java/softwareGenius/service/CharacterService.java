@@ -21,11 +21,23 @@ public class CharacterService {
         this.userDao = userDao;
     }
 
+    /**
+     * Initiate a new character with given character object
+     * @param character character object
+     * @return status of the request (ex. True if succeed)
+     */
     public Boolean initNewCharacter(Character character) {
         return characterDao.addCharacter(character);
     }
 
-    public Boolean upgradeCharacter(Integer userId, Character newCharacter) {
+    /**
+     * update the exp, attack points, defense points, level, and other fields of the character object and
+     * the overall experience points of the user object with given userId and newCharacter object
+     * @param userId id of the user
+     * @param newCharacter updated character object
+     * @return status of the request (ex. True if succeed)
+     */
+    public Boolean updateCharacter(Integer userId, Character newCharacter) {
         // Get the old character data by the id of the new Character
         Character oldCharacter =  characterDao.getCharacterByCharId(newCharacter.getCharId());
 
@@ -48,18 +60,37 @@ public class CharacterService {
         return characterDao.updateCharacter(newCharacter);
     }
 
+    /**
+     * Get Character by the given userId
+     * @param userId id of the user
+     * @return list of Character objects
+     */
     public List<Character> getCharacterByUserId(Integer userId) {
         return characterDao.getCharacterByUserId(userId);
     }
 
+    /**
+     * Get Character by given charId
+     * @param charId id of the character
+     * @return a character object with matching charId
+     */
     public Character getCharacterByCharId(Integer charId) {
         return characterDao.getCharacterByCharId(charId);
     }
 
+    /**
+     * Get all characters
+     * @return a list of all character objects
+     */
     public List<Character> getAll() {
         return characterDao.getAll();
     }
 
+    /**
+     * Delete character with given userId
+     * @param userId id of the user
+     * @return status of the request (ex. True if succeed)
+     */
     public Boolean deleteCharacter(Integer userId) {
         return characterDao.deleteCharacter(userId);
     }
