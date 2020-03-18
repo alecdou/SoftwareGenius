@@ -1,7 +1,8 @@
 package softwareGenius.model;
 
 public class Question {
-    private Integer id;
+    private Integer questionId;
+    /*the category that the question belong to,*/
     private String category;
     private String problem;
     private String choice1;
@@ -12,7 +13,7 @@ public class Question {
     private Integer difficultyLevel;
 
     public Question(Integer id, String category, String problem, String choice1, String choice2, String choice3, String choice4, Integer answer, Integer difficultyLevel) {
-        this.id = id;
+        this.questionId = id;
         this.category = category;
         this.problem = problem;
         this.choice1 = choice1;
@@ -24,7 +25,7 @@ public class Question {
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.questionId = id;
     }
 
     public void setCategory(String category) {
@@ -60,7 +61,7 @@ public class Question {
     }
 
     public Integer getId() {
-        return id;
+        return questionId;
     }
 
     public String getCategory() {
@@ -94,5 +95,5 @@ public class Question {
     public Integer getDifficultyLevel() {
         return difficultyLevel;
     }
-}
 
+}
