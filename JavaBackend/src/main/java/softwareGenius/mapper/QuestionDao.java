@@ -1,4 +1,5 @@
 package softwareGenius.mapper;
+import org.apache.ibatis.annotations.Param;
 import softwareGenius.model.Question;
 import java.util.List;
 public interface QuestionDao {
