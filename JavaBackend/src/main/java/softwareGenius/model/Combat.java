@@ -21,13 +21,23 @@ public class Combat {
     /** The time when the combat begins. */
     private LocalDateTime combatTime;
 
-    public Combat(Integer combatId, Integer difficultyLevel, String mode, Integer playerId, Integer npcId, String status) {
+    /** The total number of question showed in a combat. */
+    private Integer totalNumOfQuestions;
+
+    /** The number of correctly answered questions in a combat. */
+    private Integer numOfCorrectAns;
+
+
+    public Combat(Integer combatId, Integer difficultyLevel, String mode, Integer playerId, Integer npcId, String status, LocalDateTime combatTime, Integer totalNumOfQuestions, Integer numOfCorrectAns) {
         this.combatId = combatId;
         this.difficultyLevel = difficultyLevel;
         this.mode = mode;
         this.playerId = playerId;
         this.npcId = npcId;
         this.status = status;
+        this.combatTime = combatTime;
+        this.totalNumOfQuestions = totalNumOfQuestions;
+        this.numOfCorrectAns = numOfCorrectAns;
     }
 
     public Integer getCombatId() {
@@ -84,5 +94,21 @@ public class Combat {
 
     public void setCombatTime(LocalDateTime combatTime) {
         this.combatTime = combatTime;
+    }
+
+    public Integer getTotalNumOfQuestions() {
+        return totalNumOfQuestions;
+    }
+
+    public void setTotalNumOfQuestions(Integer totalNumOfQuestions) {
+        this.totalNumOfQuestions = totalNumOfQuestions;
+    }
+
+    public Integer getNumOfCorrectAns() {
+        return numOfCorrectAns;
+    }
+
+    public void setNumOfCorrectAns(Integer numOfCorrectAns) {
+        this.numOfCorrectAns = numOfCorrectAns;
     }
 }

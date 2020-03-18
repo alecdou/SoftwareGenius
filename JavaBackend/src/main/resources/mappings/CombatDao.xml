@@ -11,6 +11,9 @@
         <result property="npcId" column="npcId"/>
         <result property="combatTime" column="combatTime"/>
         <result property="status" column="status"/>
+        <result property="totalNumOfQuestions" column="totalNumOfQuestions"/>
+        <result property="numOfCorrectAns" column="numOfCorrectAns"/>
+
     </resultMap>
 
     <insert id="addCombat" parameterType="softwareGenius.model.Combat">
@@ -32,9 +35,11 @@
           )
     </insert>
 
-    <update id="updateCombatStatus" parameterType="softwareGenius.model.Combat">
+    <update id="updateCombatResult" parameterType="softwareGenius.model.Combat">
         update combat
-        set status=#{status},
+        set status = #{status},
+            totalNumOfQuestions = #{totalNumOfQuestions},
+            numOfCorrectAns = #{numOfCorrectAns}
         where combatId=#{combatId}
     </update>
 

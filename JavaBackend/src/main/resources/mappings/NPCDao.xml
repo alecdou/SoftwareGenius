@@ -19,7 +19,7 @@
         VALUES (
 			#{difficultyLevel},
             #{hitPoint},
-            #{attackPoint},
+            #{attackPoint}
           )
     </insert>
 
