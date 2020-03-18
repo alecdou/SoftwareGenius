@@ -41,13 +41,13 @@
         update question
         set
              category=#{category},
-             #{problem},
-             #{choice1},
-             #{choice2},
-             #{choice3},
-             #{choice4},
-             #{answer},
-             #{difficultyLevel}
+             problem=#{problem},
+             choice1=#{choice1},
+             choice2=#{choice2},
+             choice3=#{choice3},
+             choice4=#{choice4},
+             answer=#{answer},
+             difficultyLevel=#{difficultyLevel}
         where questionId=#{questionId}
     </update>
 
