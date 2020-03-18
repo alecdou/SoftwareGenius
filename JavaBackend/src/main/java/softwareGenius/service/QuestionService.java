@@ -25,12 +25,12 @@ public class QuestionService {
         return true;
     }
 
-    public Boolean deleteQuestion(Integer qid){
+    public Boolean deleteQuestion(Integer qid) {
         questionDao.deleteQuestion(qid);
         return true;
     }
-    public List<Qustion> getQuestionsByCategory(String category, String difficultyLevel, Integer limit){
-        return questionDao.getQuestionsByCategory(category,difficultyLevel,limit);
+    public List<Question> getQuestionsByCategory(String category, Integer difficultyLevel, Integer limit) {
+        return questionDao.getQuestionsByCategory(category, difficultyLevel, limit);
     }
 
 

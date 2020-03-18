@@ -13,7 +13,7 @@ public class SessionService {
     @Autowired
     private SessionDao sessionDao;
 
-    public Booolean addSession(Integer sessionId, Integer userId, LocalDateTime loginTime){
+    public Boolean addSession(Integer sessionId, Integer userId, LocalDateTime loginTime){
         return sessionDao.addSession(sessionId, userId, loginTime);
     }
     public Boolean updateSessionEndTime(Integer sessionId, LocalDateTime logoutTime){

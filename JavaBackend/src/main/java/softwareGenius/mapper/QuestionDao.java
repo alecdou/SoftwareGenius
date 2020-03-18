@@ -1,8 +1,12 @@
 package softwareGenius.mapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 import softwareGenius.model.Question;
 import java.util.List;
 
+@Mapper
+@Component
 public interface QuestionDao {
     Boolean addNewQuestion(Question question);
     Boolean updateQuestion(Question question);
