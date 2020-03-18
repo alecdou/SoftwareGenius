@@ -1,9 +1,13 @@
 package softwareGenius.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 import softwareGenius.model.Combat;
 
 import java.util.List;
 
+@Mapper
+@Component
 public interface CombatDao {
 
     /**
