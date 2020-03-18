@@ -18,12 +18,14 @@ public interface CombatDao {
     Boolean addCombat(Combat combat);
 
     /**
-     * Updates the status of a combat when the combat completes.
+     * Updates the result of a combat when the combat completes.
      * @param combatId the id of the combat
      * @param status the status of the combat
+     * @param totalNumOfQuestions the total number of questions showed in a combat
+     * @param numOfCorrectAns the number of correctly answered questions
      * @return whether the update is successful
      */
-    Boolean updateCombatStatus(Integer combatId, String status);
+    Boolean updateCombatResult(Integer combatId, String status, Integer totalNumOfQuestions, Integer numOfCorrectAns);
 
     /**
      * Gets all combats in which a player involved in descending chronological order.
