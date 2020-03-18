@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="softwareGenius.mapper.LandDao">
+    <resultMap id="landMap" type="softwareGenius.model.Land">
+        <result property="landId" column="landId"/>
+        <result property="worldId" column="worldId"/>
+        <result property="ownerId" column="ownerId"/>
+        <result property="ownerDifficultyLevel" column="ownerDifficultyLevel"/>
+    </resultMap>
+
+    <insert id="addLand" parameterType="softwareGenius.model.Land">
+        insert into land (
+			worldId,
+			ownerId,
+			ownerDifficultyLevel
+              )
+        VALUES (
+			#{worldId},
+            #{ownerId},
+            #{ownerDifficultyLevel},
+          )
+    </insert>
+
+    <delete id="deleteLand" parameterType="java.lang.Integer">
+        DELETE FROM land
+        WHERE landId = #{landId}
+    </delete>
+
+    <select id="getLandByWorldId" parameterType="java.lang.Integer" resultMap="landMap">
+		select landId, worldId, ownerId,ownerDifficultyLevel
+		from land
+		where worldId = #{worldId}
+    </select>
+
+    <select id="getLandByLandId" parameterType="java.lang.Integer" resultMap="landMap">
+		select landId, worldId, ownerId,ownerDifficultyLevel
+		from land
+		where landId = #{landId}
+    </select>
+</mapper>

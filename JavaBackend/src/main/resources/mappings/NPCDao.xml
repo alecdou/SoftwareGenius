@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="softwareGenius.mapper.NPCDao">
+    <resultMap id="npcMap" type="softwareGenius.model.NPC">
+        <result property="npcId" column="npcId"/>
+        <result property="difficultyLevel" column="difficultyLevel"/>
+        <result property="hitPoint" column="hitPoint"/>
+        <result property="attackPoint" column="attackPoint"/>
+    </resultMap>
+
+    <insert id="addNPC" parameterType="softwareGenius.model.NPC">
+        insert into npc (
+			difficultyLevel,
+			hitPoint,
+			attackPoint
+              )
+        VALUES (
+			#{difficultyLevel},
+            #{hitPoint},
+            #{attackPoint}
+          )
+    </insert>
+
+    <delete id="deleteNPC" parameterType="java.lang.Integer">
+        DELETE FROM npc
+        WHERE npcId = #{npcId}
+    </delete>
+
+    <select id="getNPCByDifficultyLevel" parameterType="java.lang.Integer" resultMap="npcMap">
+		select top 1 column from(
+			select npcId, difficultyLevel, hitPoint,attackPoint
+			from npc
+			where difficultyLevel = #{difficultyLevel} )
+		order by new id()
+    </select>
+</mapper>

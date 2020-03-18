@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="softwareGenius.mapper.SessionDao">
+    <resultMap id="sessionMap" type="softwareGenius.model.Session">
+        <result property="sessionId" column="sessionId"/>
+        <result property="userId" column="userId"/>
+        <result property="loginTime" column="loginTime"/>
+        <result property="logoutTime" column="logoutTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="softwareGenius.model.Session">
+        insert into session (
+             userId,
+             loginTime,
+             logoutTime
+              )
+        VALUES (
+             #{userId},
+             #{loginTime},
+             #{logoutTime}
+          )
+    </insert>
+    <update id="update" parameterType="softwareGenius.model.Session">
+        update session
+        set
+             userId=#{userId},
+             loginTime=#{loginTime},
+             logoutTime=#{logoutTime},
+        where sessionId=#{sessionId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM session
+        WHERE sessionId = #{sessionId}
+    </delete>
+
+    <select id="select" parameterType="java.lang.Integer" resultMap="sessionMap">
+        select sessionId,userId,loginTime,logoutTime
+        from session
+        where sessionId = #{sessionId}
+    </select>
+
+    <select id="selectAll" resultMap="sessionMap">
+        select sessionId,userId,loginTime,logoutTime
+        from session
+    </select>
+</mapper>
