@@ -1,6 +1,7 @@
 package softwareGenius.mapper;
 import softwareGenius.model.Question;
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 public interface QuestionDao {
 
     Boolean addNewQuestion(Question question);
