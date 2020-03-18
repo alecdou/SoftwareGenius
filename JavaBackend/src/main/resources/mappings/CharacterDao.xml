@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="softwareGenius.mapper.CharacterDao">
+    <resultMap id="characterMap" type="softwareGenius.model.Character">
+        <result property="charId" column="charId"/>
+        <result property="userId" column="userId"/>
+        <result property="charName" column="charName"/>
+        <result property="exp" column="exp"/>
+        <result property="level" column="level"/>
+        <result property="attackPt" column="attackPt"/>
+        <result property="defencePt" column="defencePt"/>
+        <result property="correctQuesNo" column="correctQuesNo"/>
+        <result property="totalQuesNo" column="totalQuesNo"/>
+    </resultMap>
+
+    <insert id="addCharacter" parameterType="softwareGenius.model.Character">
+        insert into character (
+            userId,
+            charName,
+            exp,
+            level,
+            attackPt,
+            defencePt,
+            correctQuesNo,
+            totalQuesNo
+        )
+        VALUES (
+            #{userId},
+            #{charName},
+            #{exp},
+            #{level},
+            #{attackPt},
+            #{defencePt},
+            #{correctQuesNo},
+            #{totalQuesNo}
+        )
+    </insert>
+
+    <update id="updateCharacter" parameterType="softwareGenius.model.Character">
+        update character
+        set exp = #{exp},
+            level = #{level},
+            attackPt = #{attackPt},
+            defencePt = #{defencePt},
+            correctQuesNo = #{correctQuesNo},
+            totalQuesNo = #{totalQuesNo}
+        where charId=#{charId}
+    </update>
+
+    <select id="getCharacterByCharId" parameterType="java.lang.Integer" resultMap="characterMap">
+        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, numOfCorrectAns
+        from character
+        where charId = #{charId}
+    </select>
+
+    <select id="getCharacterByUserId" parameterType="java.lang.Integer" resultMap="characterMap">
+        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, numOfCorrectAns
+        from character
+        where playerId = #{playerId}
+    </select>
+
+    <select id="getAll" resultMap="characterMap">
+        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, numOfCorrectAns
+        from character
+    </select>
+
+    <delete id="deleteCharacter">
+        DELETE FROM character
+        WHERE userId = #{userId}
+    </delete>
+
+
+</mapper>
+

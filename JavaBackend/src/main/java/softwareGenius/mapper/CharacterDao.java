@@ -23,14 +23,14 @@ public interface CharacterDao {
      * @param charId the unique identifier of the Character object
      * @return Character object matching the charId
      */
-    Character getCharacterByUserId(Integer charId);
+    Character getCharacterByCharId(Integer charId);
 
     /**
      * Fetch a list of character objects by the userId
      * @param userId id of the user
      * @return list of Character objects matching the userId
      */
-    List<Character> getCharacterByCharId(Integer userId);
+    List<Character> getCharacterByUserId(Integer userId);
 
     /**
      * Get all gcharacter objects
