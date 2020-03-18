@@ -1,7 +1,7 @@
 package softwareGenius.model;
 
 public class User {
-    private final int userId;
+    private final Integer userId;
     private String userName;
     private String password;
     private String email;
@@ -9,10 +9,11 @@ public class User {
     private final String accountType;
     /** user type **/
     private final Boolean isAdmin;
-    private float accuracy;
-    private int overallExp;
+    private Float accuracy;
+    private Integer overallExp;
 
-    public User(int userId, String userName, String password, String email, String accountType, Boolean isAdmin, float accuracy, int overallExp) {
+    public User(Integer userId, String userName, String password, String email, String accountType, Boolean isAdmin,
+                Float accuracy, Integer overallExp) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -23,7 +24,7 @@ public class User {
         this.overallExp = overallExp;
     }
 
-    public int getId() {
+    public Integer getId() {
         return userId;
     }
 
@@ -59,7 +60,7 @@ public class User {
         return isAdmin;
     }
 
-    public float getAccuracy() {
+    public Float getAccuracy() {
         return accuracy;
     }
 
@@ -67,7 +68,7 @@ public class User {
         this.accuracy = accuracy;
     }
 
-    public int getOverallExp() {
+    public Integer getOverallExp() {
         return overallExp;
     }
 
