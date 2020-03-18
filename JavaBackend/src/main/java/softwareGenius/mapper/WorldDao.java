@@ -18,35 +18,35 @@ public interface WorldDao {
 
     /**
      * Fetch the world object with matching userId
-     * @param userId id of the user
+     * @param worldId id of the user
      * @return matching World object
      */
-    World getWorldById(Integer userId);
+    World getWorldByWorldId(Integer worldId);
 
     /**
      * Fetch the world object with matching category
      * @param category category of the world (ex. "SoftwareEngineering")
-     * @return matching World object
+     * @return matching World List
      */
-    World getWorldByCategory(String category);
+    List<World> getWorldByWorldCategory(String category);
 
     /**
      * Fetch the world object with matching ownerId
      * @param ownerId Id of the world owner
-     * @return matching World object
+     * @return matching World List
      */
-    World getWorldByOwner(Integer ownerId);
+    List<World> getWorldByOwnerId(Integer ownerId);
 
     /**
      * Get all the World objects
      * @return list of World objects
      */
-    List<World> getAll();
+    List<World> getAllWorld();
 
     /**
      * Delete the world with matching userId
-     * @param userId id of the user
+     * @param worldId id of the user
      * @return status of the query (ex. True if query succeed)
      */
-    Boolean deleteWorld(Integer userId);
+    Boolean deleteWorld(Integer worldId);
 }

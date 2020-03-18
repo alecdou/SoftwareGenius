@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="softwareGenius.mapper.WorldDao">
+    <resultMap id="worldMap" type="softwareGenius.model.World">
+        <result property="worldId" column="worldId"/>
+        <result property="ownerId" column="ownerId"/>
+        <result property="category" column="category"/>
+    </resultMap>
+
+    <insert id="addWorld" parameterType="softwareGenius.model.World">
+        insert into world (
+            worldId,
+            ownerId,
+            category
+        )
+        VALUES (
+                   #{worldId},
+                   #{ownerId},
+                   #{category}
+               )
+    </insert>
+
+    <delete id="deleteWorld" parameterType="java.lang.Integer">
+        DELETE FROM world
+        WHERE worldId = #{worldId}
+    </delete>
+
+    <select id="getWorldByWorldId" parameterType="java.lang.Integer" resultMap="worldMap">
+		select *
+		from world
+        where worldId = #{worldId}
+    </select>
+
+    <select id="getAllWorld" parameterType="java.lang.Integer" resultMap="worldMap">
+		select *
+		from world
+    </select>
+
+    <select id="getWorldByWorldCategory" parameterType="java.lang.String" resultMap="worldMap">
+		select *
+		from world
+		where category = #{category}
+    </select>
+
+    <select id="getWorldByOwnerId" parameterType="java.lang.Integer" resultMap="worldMap">
+		select *
+		from world
+		where ownerId = #{ownerId}
+    </select>
+
+</mapper>
