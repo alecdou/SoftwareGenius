@@ -4,11 +4,13 @@ package softwareGenius.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import softwareGenius.model.Character;
 import softwareGenius.model.Combat;
-import softwareGenius.service.CombatService;
+import softwareGenius.model.NPC;
+import softwareGenius.model.Question;
+import softwareGenius.model.World;
+import softwareGenius.service.*;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +19,23 @@ import java.util.Map;
 @RestController
 public class CombatController {
 
-    @Autowired
     private CombatService combatService;
+    private LandService landService;
+    private NPCService npcService;
+    private QuestionService questionService;
+    private WorldService worldService;
+    private CharacterService characterService;
 
-
+    public CombatController(CombatService combatService, LandService landService, NPCService npcService,
+                            QuestionService questionService, WorldService worldService,
+                            CharacterService characterService) {
+        this.combatService = combatService;
+        this.landService = landService;
+        this.npcService = npcService;
+        this.questionService = questionService;
+        this.worldService = worldService;
+        this.characterService = characterService;
+    }
 
     /**
      * To start a new combat.
@@ -28,17 +43,38 @@ public class CombatController {
      */
     @GetMapping(path = "start")
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
-        combatService.startNewCombat(combat);
-        Map<String,Object> map=new HashMap<>();
+        // initialize a combat: worldId, landId, difficultyLevel, mode, playerId, status
+        Integer combatId = combatService.startNewCombat(combat);
+
+        // get world
+
+        // get NPC
+        NPC npc = npcService.getNPCByDifficultyLevel(combat.getDifficultyLevel());
+
+        // get question list
+        List<Question> questions = questionService.getQuestionsByCategory("1",
+                combat.getDifficultyLevel(), 10);
+
+        // get character
+        Character character = new Character(1, 1, "1", 10, 1, 1, 1, 0, 0);
+
+        Map<String,Object> map = new HashMap<>();
         //put all the values in the map
-        map.put("combat", newCombat);
+        map.put("npc", npc);
+        map.put("questions", questions);
+        map.put("character", character);
+
         return map;
     }
 
+//    @PostMapping(path = "combatId={combatId}/end")
+//    public endBattle(@PathVariable("combatId") Integer combatId,
+//                     @Value("status") String status)
     @PostMapping(path = "combatId={combatId}/end")
-    public endBattle(@PathVariable("combatId") Integer combatId,
-                     @Value("status") String status)
-
+    public void endBattle(@PathVariable("combatId") Integer combatId,
+                     @Value("status") String status){
+        //???what to do here
+    }
     @GetMapping(path = "{combatId}")
     public Combat getCombatById(@PathVariable("combatId") Integer combatId) {
         return combatService.getCombatById(combatId);

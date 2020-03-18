@@ -13,7 +13,6 @@ public class Character {
     /** number of answered question **/
     private Integer totalQuesNo;
 
-
     public Character(Integer charId, Integer userId, String charName, Integer exp, Integer level, Integer attackPt,
                      Integer defencePt, Integer correctQuesNo, Integer totalQuesNo) {
         this.charId = charId;
