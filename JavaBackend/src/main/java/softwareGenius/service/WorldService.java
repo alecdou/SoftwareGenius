@@ -20,8 +20,8 @@ public class WorldService {
         this.landDao = landDao;
     }
 
-    public Integer initNewWorld(Integer ownerId, String worldCategory) {
-        World world=new World(ownerId,worldCategory);
+    public Integer initNewWorld(Integer ownerId, String worldCategory, Integer charId) {
+        World world=new World(ownerId,charId, worldCategory);
         int worldId=worldDao.addWorld(world);
         //initLandForWorld()
         return worldId;
