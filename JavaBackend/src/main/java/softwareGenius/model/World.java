@@ -5,10 +5,16 @@ public class World {
     private final Integer ownerId;
     private final Integer charId;
     private final String category;
-    
+
 
     public World(Integer worldId, Integer ownerId, Integer charId, String category) {
         this.worldId = worldId;
+        this.ownerId = ownerId;
+        this.charId = charId;
+        this.category = category;
+    }
+
+    public World(Integer ownerId, Integer charId, String category) {
         this.ownerId = ownerId;
         this.charId = charId;
         this.category = category;
