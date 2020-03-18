@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import softwareGenius.model.Land;
+
 import java.util.List;
 
 @Mapper
@@ -14,6 +15,7 @@ public interface LandDao {
      * @param land land object
      * @return success or not
      */
+
     Boolean addLand(Land land);
 
     /**
@@ -40,9 +42,9 @@ public interface LandDao {
     /**
      * change the owner and ownerDifficultyLevel of a land
      * @param landId the id of the land
-     * @param newOwnerId the id of the new owner
-     * @param newDifficultyLevel the new difficulty level
+     * @param ownerId the id of the new owner
+     * @param difficultyLevel the new difficulty level
      * @return success or not
      */
-    Boolean changeOwner(@Param("lid") Integer landId, @Param("nid") Integer newOwnerId, @Param("ndl") Integer newDifficultyLevel);
+    Boolean changeOwner(@Param("lid") Integer landId, @Param("nid") Integer ownerId, @Param("ndl") Integer difficultyLevel);
 }

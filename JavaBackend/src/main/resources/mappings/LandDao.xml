@@ -42,7 +42,7 @@
 
     <update id="changeOwner" parameterType="map">
         update land
-        set newOwnerId=#{nid},newDifficultyLevel=#{ndl}
+        set ownerId=#{nid},ownerDifficultyLevel=#{ndl}
         where landId=#{lid}
     </update>
 </mapper>
