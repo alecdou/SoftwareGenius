@@ -28,7 +28,7 @@ public class CombatController {
      */
     @GetMapping(path = "start")
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
-        combatService.startNewCombat(combat);
+        Combat newCombat = combatService.startNewCombat(combat);
         Map<String,Object> map=new HashMap<>();
         //put all the values in the map
         map.put("combat", newCombat);
@@ -36,8 +36,10 @@ public class CombatController {
     }
 
     @PostMapping(path = "combatId={combatId}/end")
-    public endBattle(@PathVariable("combatId") Integer combatId,
-                     @Value("status") String status)
+    public void endBattle(@PathVariable("combatId") Integer combatId,
+                     @Value("status") String status){
+        //???what to do here
+    }
 
     @GetMapping(path = "{combatId}")
     public Combat getCombatById(@PathVariable("combatId") Integer combatId) {
