@@ -8,8 +8,10 @@ public class Character {
     private int level;
     private int attackPt;
     private int defencePt;
-    private int correctQuesNo; // number of correctly answered question
-    private int totalQuesNo; // number of answered question
+    /** number of correctly answered question **/
+    private int correctQuesNo;
+    /** number of answered question **/
+    private int totalQuesNo;
 
 
     public Character(int charId, int userId, String charName, int exp, int level, int attackPt, int defencePt,

@@ -5,8 +5,10 @@ public class User {
     private String userName;
     private String password;
     private String email;
-    private final String accountType; // social account type: FB, Twitter, ...
-    private final Boolean isAdmin; // user type
+    /** social account type: FB, Twitter, ... **/
+    private final String accountType;
+    /** user type **/
+    private final Boolean isAdmin;
     private float accuracy;
     private int overallExp;
 
