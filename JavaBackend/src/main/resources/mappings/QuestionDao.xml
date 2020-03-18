@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="softwareGenius.mapper.QuestionlDao">
+<mapper namespace="softwareGenius.mapper.QuestionDao">
     <resultMap id="questionMap" type="softwareGenius.model.Question">
         <result property="questionId" column="questionId"/>
         <result property="category" column="category"/>
@@ -41,13 +41,13 @@
         update question
         set
              category=#{category},
-             #{problem},
-             #{choice1},
-             #{choice2},
-             #{choice3},
-             #{choice4},
-             #{answer},
-             #{difficultyLevel}
+             problem=#{problem},
+             choice1=#{choice1},
+             choice2=#{choice2},
+             choice3=#{choice3},
+             choice4=#{choice4},
+             answer=#{answer},
+             difficultyLevel=#{difficultyLevel}
         where questionId=#{questionId}
     </update>
 
@@ -59,7 +59,7 @@
     <select id="select" parameterType="java.lang.Integer" resultMap="questionMap">
         select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
         from question
-        where id = #{id}
+        where questionId = #{questionId}
     </select>
 
     <select id="selectAll" resultMap="questionMap">
