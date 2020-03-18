@@ -2,13 +2,21 @@ package softwareGenius.model;
 
 public class Land {
     private Integer landId;
+    private Integer worldId;
     private Integer ownerId;
-    private Integer ownerDifficulty;
+    private Integer ownerDifficultyLevel;
 
-    public Land(Integer landId, Integer ownerId, Integer ownerDifficulty) {
+    public Land(Integer landId, Integer worldId, Integer ownerId, Integer ownerDifficultyLevel) {
         this.landId = landId;
+        this.worldId = worldId;
         this.ownerId = ownerId;
-        this.ownerDifficulty = ownerDifficulty;
+        this.ownerDifficultyLevel = ownerDifficultyLevel;
+    }
+
+    public Land(Integer worldId, Integer ownerId, Integer ownerDifficultyLevel) {
+        this.worldId = worldId;
+        this.ownerId = ownerId;
+        this.ownerDifficultyLevel = ownerDifficultyLevel;
     }
 
     public Integer getLandId() {
@@ -17,6 +25,14 @@ public class Land {
 
     public void setLandId(Integer landId) {
         this.landId = landId;
+    }
+
+    public Integer getWorldId() {
+        return worldId;
+    }
+
+    public void setWorldId(Integer worldId) {
+        this.worldId = worldId;
     }
 
     public Integer getOwnerId() {
@@ -28,10 +44,10 @@ public class Land {
     }
 
     public Integer getOwnerDifficulty() {
-        return ownerDifficulty;
+        return ownerDifficultyLevel;
     }
 
-    public void setOwnerDifficulty(Integer ownerDifficulty) {
-        this.ownerDifficulty = ownerDifficulty;
+    public void setOwnerDifficulty(Integer ownerDifficultyLevel) {
+        this.ownerDifficultyLevel = ownerDifficultyLevel;
     }
 }

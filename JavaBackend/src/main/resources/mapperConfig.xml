@@ -16,4 +16,9 @@
         <typeAlias alias="ArrayList" type="java.util.ArrayList" />
         <typeAlias alias="LinkedList" type="java.util.LinkedList" />
     </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.LocalDateTimeTypeHandler"
+                     javaType="java.time.LocalDateTime"/>
+    </typeHandlers>
 </configuration>

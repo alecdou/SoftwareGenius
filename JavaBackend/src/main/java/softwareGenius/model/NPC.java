@@ -2,13 +2,31 @@ package softwareGenius.model;
 
 public class NPC {
     private Integer npcId;
-    private Integer difficulty;
+    private Integer difficultyLevel;
     private Integer hitPoint;
+    private Integer attackPoint;
 
-    public NPC(Integer npcId, Integer difficulty, Integer hitPoint) {
+    public NPC(Integer npcId, Integer difficultyLevel, Integer hitPoint, Integer attackPoint) {
         this.npcId = npcId;
-        this.difficulty = difficulty;
+        this.difficultyLevel = difficultyLevel;
         this.hitPoint = hitPoint;
+        this.attackPoint = attackPoint;
+    }
+
+    public Integer getAttackPoint() {
+        return attackPoint;
+    }
+
+    public void setAttackPoint(Integer attackPoint) {
+        this.attackPoint = attackPoint;
+    }
+
+    public Integer getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    public void setDifficultyLevel(Integer difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
     }
 
     public Integer getNpcId() {
@@ -17,14 +35,6 @@ public class NPC {
 
     public void setNpcId(Integer npcId) {
         this.npcId = npcId;
-    }
-
-    public Integer getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Integer difficulty) {
-        this.difficulty = difficulty;
     }
 
     public Integer getHitPoint() {
