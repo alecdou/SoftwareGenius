@@ -2,7 +2,10 @@ package softwareGenius.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import softwareGenius.model.Leaderboard;
+import softwareGenius.model.User;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is to get leader boards from different worlds
@@ -16,7 +19,7 @@ public interface LeaderboardDao {
      * @param limit num of user records
      * @return a Leaderboard object, which contains a list of User with top scores
      */
-    Leaderboard getLeaderBoardByWorld(@Param("worldCategory") int worldCategory, @Param("offset") int offset, @Param("limit") int limit);
+    List<User> getLeaderBoardByWorld(@Param("worldCategory") String worldCategory, @Param("offset") int offset, @Param("limit") int limit);
 
     /**
      * To get a leader board for general score across all worlds
@@ -24,7 +27,7 @@ public interface LeaderboardDao {
      * @param limit num of user records
      * @return a Leaderboard object, which contains a list of User with top scores
      */
-    Leaderboard getGeneralLeaderBoard(@Param("offset") int offset, @Param("limit") int limit);
+    List<User> getGeneralLeaderBoard(@Param("offset") int offset, @Param("limit") int limit);
 
     /**
      * To get leader boards for all 4 worlds respectively and one for general score
@@ -32,5 +35,5 @@ public interface LeaderboardDao {
      * @param limit num of user records
      * @return a list of leaderboard
      */
-    Leaderboard[] getAllLeaderBoard(@Param("offset") int offset, @Param("limit") int limit);
+    Map<String, List<User>> getAllLeaderBoard(@Param("offset") int offset, @Param("limit") int limit);
 }
