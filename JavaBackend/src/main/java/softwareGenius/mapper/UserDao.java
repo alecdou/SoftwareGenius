@@ -9,9 +9,9 @@ import java.util.List;
 @Mapper
 @Component
 public interface UserDao {
-    int addUser(User user);
-    User select(Integer userId);
-    List<User> selectAll();
-    int delete(Integer id);
-    int update(User user);
+    Boolean addUser(User user);
+    User getUserById(Integer userId);
+    List<User> getAll();
+    Boolean deleteUser(Integer userId);
+    Boolean updateUser(User user);
 }
