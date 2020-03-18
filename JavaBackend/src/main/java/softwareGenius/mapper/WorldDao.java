@@ -12,9 +12,9 @@ public interface WorldDao {
     /**
      * Insert new World object to the database
      * @param world world object
-     * @return status of the query (ex. True if query succeed)
+     * @return
      */
-    Boolean addWorld(World world);
+    Integer addWorld(World world);
 
     /**
      * Fetch the world object with matching userId
