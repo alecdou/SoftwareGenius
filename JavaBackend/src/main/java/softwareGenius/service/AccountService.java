@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import softwareGenius.mapper.UserDao;
 import softwareGenius.model.Character;
 import softwareGenius.model.User;
+import softwareGenius.model.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,91 +29,105 @@ public class AccountService {
      * @param user user object
      * @return status of the request (ex. True if succeed)
      */
-    public Boolean addNewUser(User user) {
+    public Boolean addNewUser(User user, Character character, World world ) {
         if (!user.getAdmin()){
-            user = initNewUser(user);
+            user = initNewUser(user, character, world);
         }
         return userDao.addUser(user);
     }
 
-    User initNewUser(User user){
+    User initNewUser(User user, Character character, World world){
         for (Category category: Category.values()) {
+
             // need to get char id to init world
-            if(!charService.initNewCharacter(user.getId(), category)){
-                throw new RuntimeException("Fail to initiate new character: "+ category);
-            }
-            if(!worldService.addWorld(user.getId(), )){
+            charService.initNewCharacter(character);
 
-            }
+            // paradox: need user id to init character but init character should be done during user initialization
+
+//            if(!charService.initNewCharacter(user.getId(), category)){
+//                throw new RuntimeException("Fail to initiate new character: "+ category);
+//            }
+            worldService.addWorld(world);
         }
-
-
         return user;
     }
 
     /**
-     * update the exp, attack points, defense points, level, and other fields of the character object and
-     * the overall experience points of the user object with given userId and newCharacter object
-     * @param userId id of the user
-     * @param newCharacter updated character object
+     * update non-credential user info including email, username, and more
+     * @param user updated user object
      * @return status of the request (ex. True if succeed)
      */
-    public Boolean updateCharacter(Integer userId, Character newCharacter) {
-        // Get the old character data by the id of the new Character
-        Character oldCharacter =  characterDao.getCharacterByCharId(newCharacter.getCharId());
-
-        // Calculate the difference of experience points between the old and new character
-        int expDiff = newCharacter.getExp() - oldCharacter.getExp();
-
-        // Get the old User with the given userId
-        User oldUser = userDao.getUserById(userId);
-
-        // Get the previous overall experience points of the old user
-        Integer prevExp = oldUser.getOverallExp();
-
-        // Reset the overall Experience points
-        oldUser.setOverallExp(prevExp + expDiff);
-
-        // Update the user
-        userDao.updateUser(oldUser);
-
-        // Update the character
-        return characterDao.updateCharacter(newCharacter);
+    public Boolean updateUserInfo(User user) {
+        return userDao.updateUser(user);
     }
 
     /**
-     * Get Character by the given userId
-     * @param userId id of the user
-     * @return list of Character objects
-     */
-    public List<Character> getCharacterByUserId(Integer userId) {
-        return characterDao.getCharacterByUserId(userId);
-    }
-
-    /**
-     * Get Character by given charId
-     * @param charId id of the character
-     * @return a character object with matching charId
-     */
-    public Character getCharacterByCharId(Integer charId) {
-        return characterDao.getCharacterByCharId(charId);
-    }
-
-    /**
-     * Get all characters
-     * @return a list of all character objects
-     */
-    public List<Character> getAll() {
-        return characterDao.getAll();
-    }
-
-    /**
-     * Delete character with given userId
+     * update user password with validation
+     * @param newPassword new password
+     * @param oldPassword original password for validation purpose
      * @param userId id of the user
      * @return status of the request (ex. True if succeed)
      */
-    public Boolean deleteCharacter(Integer userId) {
-        return characterDao.deleteCharacter(userId);
+    public Boolean updateUserInfo(String newPassword, String oldPassword, Integer userId) {
+
+        //try validate the old password before update to new one
+        try{
+            validatePassword(oldPassword, userId);
+        } catch (Exception e){
+            System.err.println("Unmatched password");
+            e.printStackTrace();
+            return false;
+        }
+
+        // get the original user object by userId
+        User user = getUserById(userId);
+
+        // modify the user password
+        user.setPassword(newPassword);
+
+        return userDao.updateUser(user);
+    }
+
+    /**
+     * validate user password with validation
+     * @param inputPassword password input by user for validation purpose
+     * @param userId id of the user
+     * @return result of the validation (ex. True if succeed)
+     */
+
+    // do we need token to do so??
+    public Boolean validatePassword(String inputPassword, Integer userId) {
+        // get the original user password by userId
+        String origPassword = getUserById(userId).getPassword();
+
+        // validate the pw
+        return origPassword == inputPassword;
+    }
+
+    /**
+     * Get User by the given userId
+     * @param userId id of the user
+     * @return the matching user object
+     */
+    public User getUserById(Integer userId) {
+        return userDao.getUserById(userId);
+    }
+
+    /**
+     * Get all users
+     * @return a list of all user objects
+     */
+    public List<User> getAll() {
+        return userDao.getAll();
+    }
+
+    /**
+     * Delete user with given userId
+     * @param userId id of the user
+     * @return status of the request (ex. True if succeed)
+     */
+    public Boolean deleteUser(Integer userId) {
+        return userDao.deleteUser(userId);
     }
 
 }

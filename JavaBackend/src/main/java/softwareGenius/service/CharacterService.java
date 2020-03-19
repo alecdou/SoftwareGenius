@@ -41,7 +41,6 @@ public class CharacterService {
     public Boolean initNewCharacter(Integer userId, AccountService.Category charName) {
         Integer exp = 30, level = 0, attackPt = 10, defencePt = 10, correctQueNo = 0, totalQuesNo = 0;
         Character character = new Character(userId, charName, exp, level, attackPt, defencePt, correctQueNo, totalQuesNo);
-        worldService.
         return characterDao.addCharacter(character);
     }
 
