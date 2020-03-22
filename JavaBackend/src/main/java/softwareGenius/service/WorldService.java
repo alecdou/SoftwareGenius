@@ -22,6 +22,12 @@ public class WorldService {
         return worldId;
     }
 
+//    public Integer addWorld(Integer userId, Integer charId, Enum<AccountService.Category> category) {
+//        int worldId=worldDao.addWorld(world);
+//        landService.initLandForWorld(worldId);
+//        return worldId;
+//    }
+
     World getWorldByWorldId(Integer worldId) {
         return worldDao.getWorldByWorldId(worldId);
     }

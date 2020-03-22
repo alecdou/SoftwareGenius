@@ -13,11 +13,13 @@ import java.util.List;
 public class CharacterService {
 
     private final CharacterDao characterDao;
+    private final WorldService worldService;
     private final UserDao userDao;
 
     @Autowired
-    public CharacterService(CharacterDao characterDao, UserDao userDao) {
+    public CharacterService(CharacterDao characterDao, WorldService worldService, UserDao userDao) {
         this.characterDao = characterDao;
+        this.worldService = worldService;
         this.userDao = userDao;
     }
 
@@ -27,6 +29,18 @@ public class CharacterService {
      * @return status of the request (ex. True if succeed)
      */
     public Boolean initNewCharacter(Character character) {
+        return characterDao.addCharacter(character);
+    }
+
+    /**
+     * Initiate a new character with associated world with given character object
+     * @param userId id of user
+     * @param charName name of the character
+     * @return status of the request (ex. True if succeed)
+     */
+    public Boolean initNewCharacter(Integer userId, AccountService.Category charName) {
+        Integer exp = 30, level = 0, attackPt = 10, defencePt = 10, correctQueNo = 0, totalQuesNo = 0;
+        Character character = new Character(userId, charName, exp, level, attackPt, defencePt, correctQueNo, totalQuesNo);
         return characterDao.addCharacter(character);
     }
 
