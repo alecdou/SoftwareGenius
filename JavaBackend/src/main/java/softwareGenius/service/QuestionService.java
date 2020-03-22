@@ -32,6 +32,13 @@ public class QuestionService {
     public List<Question> getQuestionsByCategory(String category, Integer difficultyLevel, Integer limit) {
         return questionDao.getQuestionsByCategory(category, difficultyLevel, limit);
     }
+    public Boolean questionAnswered(Integer qid, Boolean correct){
+        questionDao.answerQuestion(qid);
+        if (correct==true){
+            questionDao.correctQuestion(qid);
+        }
+        return true;
+    }
 
 
 

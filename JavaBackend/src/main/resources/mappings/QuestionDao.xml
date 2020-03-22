@@ -13,6 +13,8 @@
         <result property="choice4" column="choice4"/>
         <result property="answer" column="answer"/>
         <result property="difficultyLevel" column="difficultyLevel"/>
+        <result property="userAnswered" column="userAnswered"/>
+        <result property="userCorrect" column="userCorrect"/>
     </resultMap>
 
     <insert id="addNewQuestion" parameterType="softwareGenius.model.Question">
@@ -74,5 +76,14 @@
         ORDER BY random()
         LIMIT #{limit};
     </select>
-
+    <update id="answerQuestion" parameterType="java.lang.Integer">
+        update question
+        set userAnswered=userAnswered+1
+        where questionId=#{questionId}
+    </update>
+    <update id="correctQuestion" parameterType="java.lang.Integer">
+        update question
+        set userCorrect=userCorrect+1
+        where questionId=#{questionId}
+    </update>
 </mapper>

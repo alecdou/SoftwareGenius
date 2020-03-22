@@ -11,6 +11,8 @@ public class Question {
     private String choice4;
     private Integer answer;
     private Integer difficultyLevel;
+    private Integer userAnswered;
+    private Integer userCorrect;
 
     public Question(Integer id, String category, String problem, String choice1, String choice2, String choice3, String choice4, Integer answer, Integer difficultyLevel) {
         this.questionId = id;
@@ -22,6 +24,8 @@ public class Question {
         this.choice4 = choice4;
         this.answer = answer;
         this.difficultyLevel = difficultyLevel;
+        this.userAnswered=0;
+        this.userCorrect=0;
     }
 
     public void setId(Integer id) {
@@ -60,6 +64,14 @@ public class Question {
         this.difficultyLevel = difficultyLevel;
     }
 
+    public void setUserAnswered(Integer userAnswered) {
+        this.userAnswered = userAnswered;
+    }
+
+    public void setUserCorrect(Integer userCorrect) {
+        this.userCorrect = userCorrect;
+    }
+
     public Integer getId() {
         return questionId;
     }
@@ -96,4 +108,11 @@ public class Question {
         return difficultyLevel;
     }
 
+    public Integer getUserAnswered() {
+        return userAnswered;
+    }
+
+    public Integer getUserCorrect() {
+        return userCorrect;
+    }
 }
