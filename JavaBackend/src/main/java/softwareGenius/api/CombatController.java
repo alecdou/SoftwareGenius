@@ -93,8 +93,8 @@ public class CombatController {
         // update the character
         character.setExp(character.getExp() + addedExp);
         character.setLevel(characterLevel);
-        character.setTotalQuesNo(numOfQnsAnswered);
-        character.setCorrectQuesNo(idOfCorrectlyAnsweredQns.length);
+        character.setTotalQuesNo(character.getTotalQuesNo() + numOfQnsAnswered);
+        character.setCorrectQuesNo(character.getCorrectQuesNo() + idOfCorrectlyAnsweredQns.length);
         // TODO: update other attributes such as attackPoint and hitPoint
         character.setAttackPt(1);
         character.setDefencePt(1);
