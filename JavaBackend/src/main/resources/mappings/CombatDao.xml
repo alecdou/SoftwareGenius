@@ -15,7 +15,8 @@
         <result property="numOfCorrectAns" column="numOfCorrectAns"/>
     </resultMap>
 
-    <insert id="addCombat" parameterType="softwareGenius.model.Combat" useGeneratedKeys="true" keyProperty="combatId" keyColumn="combatId">
+<!--    <insert id="createEmpty" parameterType="Project" useGeneratedKeys="true" keyProperty="project.projectId" keyColumn="PROJECT_ID">-->
+    <insert id="addCombat" parameterType="softwareGenius.model.Combat" useGeneratedKeys="true" keyProperty="combat.combatId" keyColumn="combatId">
         insert into combat (
              difficultyLevel,
              mode,

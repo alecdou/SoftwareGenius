@@ -48,19 +48,20 @@ public class CharacterService {
 
     /**
      * update the exp, attack points, defense points, level, and other fields of the character object and
-     * the overall experience points of the user object with given userId and newCharacter object
-     * @param newCharacter updated character object
+     * the overall experience points of the user object with given userId and updatedCharacter object
+     * @param updatedCharacter updated character object
      * @return status of the request (ex. True if succeed)
      */
-    public Boolean updateCharacter(Character newCharacter) {
+    public Boolean updateCharacter(Character updatedCharacter) {
         // Get the old character data by the id of the new Character
-        Character oldCharacter = characterDao.getCharacterByCharId(newCharacter.getCharId());
+        Character oldCharacter =  characterDao.getCharacterByCharId(updatedCharacter.getCharId());
 
         // Calculate the difference of experience points between the old and new character
-        int expDiff = newCharacter.getExp() - oldCharacter.getExp();
+        int expDiff = updatedCharacter.getExp() - oldCharacter.getExp();
 
         // Get the old User with the given userId
-        User oldUser = userDao.getUserById(newCharacter.getUserId());
+        User oldUser = userDao.getUserById(updatedCharacter.getUserId());
+
 
         // Get the previous overall experience points of the old user
         Integer prevExp = oldUser.getOverallExp();
@@ -72,7 +73,7 @@ public class CharacterService {
         userDao.updateUser(oldUser);
 
         // Update the character
-        return characterDao.updateCharacter(newCharacter);
+        return characterDao.updateCharacter(updatedCharacter);
     }
 
     /**

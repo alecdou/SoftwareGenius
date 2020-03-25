@@ -43,13 +43,15 @@ public class CombatController {
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
         // initialize a combat: worldId, landId, difficultyLevel, mode, playerId, status
         Integer combatId = combatService.startNewCombat(combat);
+        System.out.println(combat.getCombatId());
 
         // get world
+
 
         // get NPC
         NPC npc = npcService.getNPCByDifficultyLevel(combat.getDifficultyLevel());
 
-        // get question list
+        // get question list (with 10 questions)
         List<Question> questions = questionService.getQuestionsByCategory("1",
                 combat.getDifficultyLevel(), 10);
 
@@ -65,14 +67,22 @@ public class CombatController {
         return map;
     }
 
-//    @PostMapping(path = "combatId={combatId}/end")
-//    public endBattle(@PathVariable("combatId") Integer combatId,
-//                     @Value("status") String status)
-    @PostMapping(path = "combatId={combatId}/end")
+
+    @PostMapping(path = "{combatId}/end")
     public void endBattle(@PathVariable("combatId") Integer combatId,
-                     @Value("status") String status){
-        //???what to do here
+                          @Value("status") String status,
+                          @Value("numOfQnsAnswered") Integer numOfQnsAnswered,
+                          @Value("idOfAnsweredQns") List<Integer> idOfAnsweredQns,
+                          @Value("idOfCorrectlyAnsweredQns") List<Integer> idOfCorrectlyAnsweredQns,
+                          @Value("addedExp") Integer addedExp
+                          )
+    {
+        combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.size());
+        characterService.updateCharacter()
+
     }
+
+
     @GetMapping(path = "{combatId}")
     public Combat getCombatById(@PathVariable("combatId") Integer combatId) {
         return combatService.getCombatById(combatId);
