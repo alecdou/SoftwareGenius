@@ -34,6 +34,12 @@
         where worldId = #{worldId}
     </select>
 
+    <select id="getWorldByCharId" parameterType="java.lang.Integer" resultMap="worldMap">
+        select *
+        from world
+        where charId = #{charId}
+    </select>
+
     <select id="getAllWorld" parameterType="java.lang.Integer" resultMap="worldMap">
 		select *
 		from world
