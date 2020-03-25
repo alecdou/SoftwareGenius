@@ -8,6 +8,7 @@ import java.util.List;
 // TODO: changed according character and user
 public class Report {
     private Float accuracy;
+    private final Integer reportId;
     private Integer overallExp;
     List<Character> characterList;
     /** The type of the report: admin or player. */
@@ -19,8 +20,9 @@ public class Report {
     /** The average online time of a player */
     Duration avgGameTime;
 
-    public Report(Float accuracy, Integer overallExp, List<Character> characterList, String type, Integer userId, String userEmail, List<LocalDateTime> loginRecords, Duration avgGameTime) {
+    public Report(Float accuracy, Integer reportId, Integer overallExp, List<Character> characterList, String type, Integer userId, String userEmail, List<LocalDateTime> loginRecords, Duration avgGameTime) {
         this.accuracy = accuracy;
+        this.reportId = reportId;
         this.overallExp = overallExp;
         this.characterList = characterList;
         this.type = type;
@@ -80,6 +82,10 @@ public class Report {
 
     public void setAvgGameTime(Duration avgGameTime) {
         this.avgGameTime = avgGameTime;
+    }
+
+    public Integer getReportId() {
+        return reportId;
     }
 
 }
