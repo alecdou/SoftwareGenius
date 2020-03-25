@@ -6,17 +6,16 @@ public class World {
     private Integer worldId;
     private final Integer ownerId;
     private final Integer charId;
-    private final Enum<AccountService.Category> category;
+    private final Category category;
 
-
-    public World(Integer worldId, Integer ownerId, Integer charId, Enum<AccountService.Category> category) {
+    public World(Integer worldId, Integer ownerId, Integer charId, Category category) {
         this.worldId = worldId;
         this.ownerId = ownerId;
         this.charId = charId;
         this.category = category;
     }
 
-    public World(Integer ownerId, Integer charId, Enum<AccountService.Category> category) {
+    public World(Integer ownerId, Integer charId, Category category) {
         this.ownerId = ownerId;
         this.charId = charId;
         this.category = category;
@@ -26,7 +25,7 @@ public class World {
         return ownerId;
     }
 
-    public Enum<AccountService.Category> getCategory() {
+    public Category getCategory() {
         return category;
     }
 

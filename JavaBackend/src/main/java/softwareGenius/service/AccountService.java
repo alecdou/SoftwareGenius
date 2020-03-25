@@ -6,51 +6,27 @@ import softwareGenius.mapper.UserDao;
 import softwareGenius.model.Character;
 import softwareGenius.model.User;
 import softwareGenius.model.World;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AccountService {
-    public enum Category {SE, SA, PM, QA};
     private final UserDao userDao;
-    private final CharacterService charService;
-    private final WorldService worldService;
 
     @Autowired
-    public AccountService(UserDao userDao, CharacterService charService, WorldService worldService) {
+    public AccountService(UserDao userDao) {
         this.userDao = userDao;
-        this.charService = charService;
-        this.worldService = worldService;
     }
 
     /**
      * Add and initiate a new user to database with given user object
      * @param user user object
-     * @return status of the request (ex. True if succeed)
+     * @return id of the user
      */
-    public Boolean addNewUser(User user, Character character, World world ) {
-        if (!user.getAdmin()){
-            user = initNewUser(user, character, world);
-        }
+
+    public Integer addNewUser(User user) {
         return userDao.addUser(user);
     }
 
-    User initNewUser(User user, Character character, World world){
-        for (Category category: Category.values()) {
-
-            // need to get char id to init world
-            charService.initNewCharacter(character);
-
-            // paradox: need user id to init character but init character should be done during user initialization
-
-//            if(!charService.initNewCharacter(user.getId(), category)){
-//                throw new RuntimeException("Fail to initiate new character: "+ category);
-//            }
-            worldService.addWorld(world);
-        }
-        return user;
-    }
 
     /**
      * update non-credential user info including email, username, and more
@@ -96,12 +72,12 @@ public class AccountService {
      */
 
     // do we need token to do so??
-    public Boolean validatePassword(String inputPassword, Integer userId) {
+    private Boolean validatePassword(String inputPassword, Integer userId) {
         // get the original user password by userId
         String origPassword = getUserById(userId).getPassword();
 
         // validate the pw
-        return origPassword == inputPassword;
+        return origPassword.equals(inputPassword);
     }
 
     /**

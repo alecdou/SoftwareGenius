@@ -20,5 +20,6 @@
     <typeHandlers>
         <typeHandler handler="org.apache.ibatis.type.LocalDateTimeTypeHandler"
                      javaType="java.time.LocalDateTime"/>
+        <typeHandler javaType='softwareGenius.model.Category' handler='softwareGenius.util.CharNameTypeHandler' />
     </typeHandlers>
 </configuration>
