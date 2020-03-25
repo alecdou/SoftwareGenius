@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.Category;
 import softwareGenius.model.User;
-import softwareGenius.service.AccountService;
-import softwareGenius.service.CharacterService;
-import softwareGenius.service.WorldService;
+import softwareGenius.service.*;
 
 import java.util.List;
 
@@ -16,12 +14,16 @@ public class PlayerController {
     private final CharacterService charService;
     private final WorldService worldService;
     private final AccountService accountService;
+    private final LandService landService;
+    private final SessionService sessionService;
 
     @Autowired
-    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService) {
+    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService, SessionService sessionService) {
         this.charService = charService;
         this.worldService = worldService;
         this.accountService = accountService;
+        this.landService = landService;
+        this.sessionService = sessionService;
     }
 
     @GetMapping("/get/{userId}")
@@ -38,10 +40,14 @@ public class PlayerController {
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
         for (Category category: Category.values()) {
-            worldService.initNewWorld(userId, charService.initNewCharacter(userId, category), category);
+            landService.initNewLand(
+                    worldService.initNewWorld(userId,
+                            charService.initNewCharacter(userId, category), category));
         }
         return userId;
     }
+
+
 }
 
 

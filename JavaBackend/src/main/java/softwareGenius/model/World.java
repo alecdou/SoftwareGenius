@@ -7,10 +7,9 @@ public class World {
     private Integer unlock;
     private final Integer ownerId;
     private final Integer charId;
-    private final Enum<Category> category;
+    private final Category category;
 
-
-    public World(Integer worldId, Integer ownerId, Integer charId, Enum<Category> category) {
+    public World(Integer worldId, Integer ownerId, Integer charId, Category category) {
         this.worldId = worldId;
         this.ownerId = ownerId;
         this.charId = charId;
@@ -18,7 +17,7 @@ public class World {
         this.unlock=0;
     }
 
-    public World(Integer ownerId, Integer charId, Enum<Category> category) {
+    public World(Integer ownerId, Integer charId, Category category) {
         this.ownerId = ownerId;
         this.charId = charId;
         this.category = category;
@@ -28,7 +27,7 @@ public class World {
         return ownerId;
     }
 
-    public Enum<Category> getCategory() {
+    public Category getCategory() {
         return category;
     }
 

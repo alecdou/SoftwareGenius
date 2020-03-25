@@ -3,9 +3,7 @@ package softwareGenius.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softwareGenius.mapper.UserDao;
-import softwareGenius.model.Character;
 import softwareGenius.model.User;
-import softwareGenius.model.World;
 import java.util.List;
 
 @Service

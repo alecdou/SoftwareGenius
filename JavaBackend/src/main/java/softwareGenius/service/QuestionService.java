@@ -17,7 +17,6 @@ public class QuestionService {
         this.questionDao = questionDao;
     }
 
-
     public Boolean addNewQuestion(Question question) {
         questionDao.addNewQuestion(question);
         return true;
@@ -32,16 +31,27 @@ public class QuestionService {
         questionDao.deleteQuestion(qid);
         return true;
     }
+
     public List<Question> getQuestionsByCategory(String category, Integer difficultyLevel, Integer limit) {
         return questionDao.getQuestionsByCategory(category, difficultyLevel, limit);
     }
-    public Boolean questionAnswered(Integer qid, Boolean correct){
+
+    public Boolean questionAnswered(Integer qid, Boolean isCorrect){
         questionDao.answerQuestion(qid);
-        if (correct){
+        if (isCorrect){
             questionDao.correctQuestion(qid);
         }
         return true;
     }
+
+    public Integer calculateScore(Question[] questions){
+        int score=0;
+        for (int i = 0; i < questions.length; i++){
+            score+=questions[i].getDifficultyLevel();
+        }
+        return score;
+    }
+
 
 
 
