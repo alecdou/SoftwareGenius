@@ -23,18 +23,21 @@ public class WorldService {
     }
 
     public Integer initNewWorld(Integer ownerId,Integer charId, Category category){
-        int worldId=worldDao.addWorld(new World(ownerId,charId,category));
-        return worldId;
+        return worldDao.addWorld(new World(ownerId,charId,category));
+    }
+
+    public void unlockWorld(Integer worldId) {
+        worldDao.unlockWorld(worldId);
     }
 
 
-    World getWorldByWorldId(Integer worldId) {
+    public World getWorldByWorldId(Integer worldId) {
         return worldDao.getWorldByWorldId(worldId);
     }
 
-    World getWorldByCharId(Integer charId) { return worldDao.getWorldByCharId(charId); }
+    public World getWorldByCharId(Integer charId) { return worldDao.getWorldByCharId(charId); }
 
-    List<World> getWorldByOwnerId(Integer ownerId) { return worldDao.getWorldByOwnerId(ownerId); }
+    public List<World> getWorldByOwnerId(Integer ownerId) { return worldDao.getWorldByOwnerId(ownerId); }
 
-    Integer getCharIdByWorldId(Integer worldId) { return worldDao.getCharIdByWorldId(worldId); }
+    public Integer getCharIdByWorldId(Integer worldId) { return worldDao.getCharIdByWorldId(worldId); }
 }

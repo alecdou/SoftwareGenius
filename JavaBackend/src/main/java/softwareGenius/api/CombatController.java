@@ -56,6 +56,7 @@ public class CombatController {
                 combat.getDifficultyLevel(), 10);
 
         // get character
+
         Character character = new Character(1, Category.SE, 1, 10, 1, 1, true, 0, 0);
 
         Map<String,Object> map = new HashMap<>();
@@ -70,16 +71,19 @@ public class CombatController {
 
     @PostMapping(path = "{combatId}/end")
     public void endBattle(@PathVariable("combatId") Integer combatId,
+                          @Value("characterId") Integer characterId,
                           @Value("status") String status,
                           @Value("numOfQnsAnswered") Integer numOfQnsAnswered,
                           @Value("idOfAnsweredQns") List<Integer> idOfAnsweredQns,
                           @Value("idOfCorrectlyAnsweredQns") List<Integer> idOfCorrectlyAnsweredQns,
-                          @Value("addedExp") Integer addedExp
                           )
     {
         combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.size());
-        characterService.updateCharacter()
+        Character character = characterService.getCharacterByCharId(characterId);
 
+        character.setExp(character.getExp() + addedExp);
+        // TODO: update other attributes such as attackPoint and hitPoint
+        characterService.updateCharacter(character);
     }
 
 

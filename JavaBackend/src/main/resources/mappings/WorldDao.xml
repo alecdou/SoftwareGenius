@@ -63,4 +63,10 @@
         where worldId = #{worldId}
     </select>
 
+    <update id="unlockWorld" parameterType="java.lang.Integer">
+        update world
+        set unlock = 1
+        where worldId=#{worldId}
+    </update>
+
 </mapper>

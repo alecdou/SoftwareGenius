@@ -40,9 +40,9 @@ public class QuestionService {
         return questionDao.getQuestionsByCategory(category, difficultyLevel, limit);
     }
 
-    public Boolean questionAnswered(Integer qid, Boolean correct){
+    public Boolean questionAnswered(Integer qid, Boolean isCorrect){
         questionDao.answerQuestion(qid);
-        if (correct){
+        if (isCorrect){
             questionDao.correctQuestion(qid);
         }
         return true;
@@ -56,6 +56,7 @@ public class QuestionService {
         }
         return score;
     }
+
 
 
 
