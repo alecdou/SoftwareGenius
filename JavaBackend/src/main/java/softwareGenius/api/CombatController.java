@@ -80,12 +80,16 @@ public class CombatController {
     {
         // update combat record
         combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.length);
+
         // get the character used in the battle
         Character character = characterService.getCharacterByCharId(characterId);
+
         // get the total experience point earned in the battle
         Integer addedExp = questionService.calculateScore(idOfCorrectlyAnsweredQns);
+
         // get the new level of the character
         Integer characterLevel = (int) Math.ceil((character.getExp() + addedExp) / 10.0);
+
         // update the character
         character.setExp(character.getExp() + addedExp);
         character.setLevel(characterLevel);
@@ -95,6 +99,15 @@ public class CombatController {
         character.setAttackPt(1);
         character.setDefencePt(1);
         characterService.updateCharacter(character);
+
+        // TODO: do we need to update user's overall experience point?
+        // update user overall exp
+
+        // update question record
+        questionService.addQnsAnswered(idOfAnsweredQns);
+        questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
+
+
     }
 
 

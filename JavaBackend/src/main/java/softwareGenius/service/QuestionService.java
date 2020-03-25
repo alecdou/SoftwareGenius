@@ -40,9 +40,15 @@ public class QuestionService {
         return questionDao.getQuestionsByCategory(category, difficultyLevel, limit);
     }
 
-    public Boolean questionAnswered(Integer qid, Boolean isCorrect){
-        questionDao.answerQuestion(qid);
-        if (isCorrect){
+    public Boolean addQnsAnswered(Integer[] questionIds) {
+        for (Integer qid : questionIds) {
+            questionDao.answerQuestion(qid);
+        }
+        return true;
+    }
+
+    public Boolean addQnsCorrectlyAnswered(Integer[] questionIds) {
+        for (Integer qid : questionIds) {
             questionDao.correctQuestion(qid);
         }
         return true;
