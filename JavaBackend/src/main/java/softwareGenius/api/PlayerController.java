@@ -38,7 +38,7 @@ public class PlayerController {
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
         for (Category category: Category.values()) {
-            worldService.initNewWorld(userId, charService.initNewCharacter(userId, category), category);
+//            worldService.initNewWorld(userId, charService.initNewCharacter(userId, category), category); //FIXME no method called initNewWorld
         }
         return userId;
     }

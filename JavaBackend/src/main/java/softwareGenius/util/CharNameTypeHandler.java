@@ -2,6 +2,7 @@ package softwareGenius.util;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import softwareGenius.model.Category;
 import softwareGenius.service.AccountService;
 
 import java.sql.CallableStatement;
@@ -15,7 +16,7 @@ public class CharNameTypeHandler extends BaseTypeHandler {
     @Override
     public Object getNullableResult(ResultSet rs, String columnName)
             throws SQLException {
-        return AccountService.Category.valueOf(rs.getString(columnName).toUpperCase());
+        return Category.valueOf(rs.getString(columnName).toUpperCase());
     }
 
     @Override
@@ -26,12 +27,12 @@ public class CharNameTypeHandler extends BaseTypeHandler {
     @Override
     public Object getNullableResult(CallableStatement cs, int columnIndex)
             throws SQLException {
-        return AccountService.Category.valueOf((cs.getString(columnIndex)));
+        return Category.valueOf((cs.getString(columnIndex)));
     }
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i,
                                     Object parameter, JdbcType jdbcType) throws SQLException {
-        ps.setString(i, ((AccountService.Category) parameter).toString());
+        ps.setString(i, ((Category) parameter).toString());
     }
 }
