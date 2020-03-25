@@ -14,9 +14,9 @@ public interface CharacterDao {
     /**
      * Insert a character object to database
      * @param character
-     * @return status of the post query(ex. True if the query succeed)
+     * @return id of the character
      */
-    Boolean addCharacter(Character character);
+    Integer addCharacter(Character character);
 
     /**
      * Fetch a character object by its unique character Id(charId)
@@ -40,10 +40,10 @@ public interface CharacterDao {
 
     /**
      * Delete the character in database with matching userId
-     * @param userId id of the user
+     * @param charId id of the character
      * @return status of the query(ex. True if the query succeed)
      */
-    Boolean deleteCharacter(Integer userId);
+    Boolean deleteCharacter(Integer charId);
 
     /**
      * Update the Character object in database by the given new character
