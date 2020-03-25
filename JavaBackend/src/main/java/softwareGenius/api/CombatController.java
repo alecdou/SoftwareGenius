@@ -78,10 +78,14 @@ public class CombatController {
                           @Value("idOfCorrectlyAnsweredQns") List<Integer> idOfCorrectlyAnsweredQns,
                           )
     {
+        // update combat record
         combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.size());
+        // get the character used in the battle
         Character character = characterService.getCharacterByCharId(characterId);
-
-        character.setExp(character.getExp() + addedExp);
+        // get the total experience point earned in the battle
+        Integer totalExp = questionService.calculateScore(idOfCorrectlyAnsweredQns);
+        // update the character
+        character.setExp(character.getExp() + totalExp);
         // TODO: update other attributes such as attackPoint and hitPoint
         characterService.updateCharacter(character);
     }

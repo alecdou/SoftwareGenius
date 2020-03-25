@@ -45,9 +45,9 @@ public class QuestionService {
     }
 
     public Integer calculateScore(Question[] questions){
-        int score=0;
+        int score = 0;
         for (int i = 0; i < questions.length; i++){
-            score+=questions[i].getDifficultyLevel();
+            score += questions[i].getDifficultyLevel();
         }
         return score;
     }
