@@ -7,6 +7,9 @@ import softwareGenius.mapper.UserDao;
 import softwareGenius.mapper.WorldDao;
 import softwareGenius.model.World;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class WorldService {
     private WorldDao worldDao;
@@ -18,23 +21,19 @@ public class WorldService {
         this.landService = landservice;
     }
 
-    public Integer addWorld(World world) {
-        int worldId=worldDao.addWorld(world);
-        landService.initLandForWorld(worldId);
+    public Integer initNewWorld(Integer ownerId,Integer charId, Enum<AccountService.Category> category){
+        int worldId=worldDao.addWorld(new World(ownerId,charId,category));
         return worldId;
     }
 
-//    public Integer addWorld(Integer userId, Integer charId, Enum<AccountService.Category> category) {
-//        int worldId=worldDao.addWorld(world);
-//        landService.initLandForWorld(worldId);
-//        return worldId;
-//    }
 
     World getWorldByWorldId(Integer worldId) {
         return worldDao.getWorldByWorldId(worldId);
     }
 
-    Integer getCharIdByWorldId(Integer worldId) {
-        return worldDao.getCharIdByWorldId(worldId);
-    }
+    World getWorldByCharId(Integer charId) { return worldDao.getWorldByCharId(charId); }
+
+    List<World> getWorldByOwnerId(Integer ownerId) { return worldDao.getWorldByOwnerId(ownerId); }
+
+    Integer getCharIdByWorldId(Integer worldId) { return worldDao.getCharIdByWorldId(worldId); }
 }
