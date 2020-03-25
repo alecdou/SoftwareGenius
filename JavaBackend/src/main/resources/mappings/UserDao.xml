@@ -47,13 +47,20 @@
 
     <select id="getUserById" parameterType="java.lang.Integer" resultMap="userMap">
         select userId, username, password, email, accountType, isAdmin, accuracy, overallExp
-        from user
-        where userId = #{userId}
+        from user join
+            (select u.userId,SUM(c.correctQuesNo)/SUM(c.totalQuesNo) as accuracy
+            from user u, character c
+            where u.userId = #{userId} and u.userId = c.userId
+            group by u.userId) on userId
     </select>
 
     <select id="getAll" resultMap="userMap">
         select userId, username, password, email, accountType, isAdmin, accuracy, overallExp
-        from user
+        from user join
+             (select u.userId,SUM(c.correctQuesNo)/SUM(c.totalQuesNo) as accuracy
+              from user u, character c
+              where u.userId = c.userId
+              group by u.userId) on userId
     </select>
 
     <delete id="deleteUser">
