@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.Category;
 import softwareGenius.model.User;
-import softwareGenius.service.AccountService;
-import softwareGenius.service.CharacterService;
-import softwareGenius.service.LandService;
-import softwareGenius.service.WorldService;
+import softwareGenius.service.*;
 
 import java.util.List;
 
@@ -18,13 +15,15 @@ public class PlayerController {
     private final WorldService worldService;
     private final AccountService accountService;
     private final LandService landService;
+    private final SessionService sessionService;
 
     @Autowired
-    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService) {
+    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService, SessionService sessionService) {
         this.charService = charService;
         this.worldService = worldService;
         this.accountService = accountService;
         this.landService = landService;
+        this.sessionService = sessionService;
     }
 
     @GetMapping("/get/{userId}")
