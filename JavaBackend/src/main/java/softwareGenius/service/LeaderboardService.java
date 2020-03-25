@@ -1,5 +1,6 @@
 package softwareGenius.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +18,11 @@ import java.util.List;
 @Component
 public class LeaderboardService {
     private LeaderboardDao leaderboardDao;
+
+    @Autowired
+    public LeaderboardService(LeaderboardDao leaderboardDao) {
+        this.leaderboardDao = leaderboardDao;
+    }
 
     public List<LeaderBoardRecord> getLeaderBoardByWorldName(String worldCategory, int offset, int limit){
         return leaderboardDao.getLeaderBoardByWorldNameViaCache(worldCategory, offset, limit);

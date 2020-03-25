@@ -2,6 +2,7 @@ package softwareGenius.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 import softwareGenius.model.LeaderBoardRecord;
 import softwareGenius.model.User;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  * This is to get leader boards from different worlds
  */
 @Mapper
+@Component
 public interface LeaderboardDao {
     ArrayList<LeaderBoardRecord> topUserForWorld1 = new ArrayList<LeaderBoardRecord>();
     ArrayList<LeaderBoardRecord> topUserForWorld2 = new ArrayList<LeaderBoardRecord>();

@@ -23,6 +23,7 @@ public class CombatController {
     private WorldService worldService;
     private CharacterService characterService;
 
+    @Autowired
     public CombatController(CombatService combatService, LandService landService, NPCService npcService,
                             QuestionService questionService, WorldService worldService,
                             CharacterService characterService) {
@@ -53,6 +54,7 @@ public class CombatController {
                 combat.getDifficultyLevel(), 10);
 
         // get character
+
         Character character = new Character(1, 1, Category.SE, 10, 1, 1, 1, 0, 0);
 
         Map<String,Object> map = new HashMap<>();

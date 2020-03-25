@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class SessionService {
 
-    @Autowired
     private SessionDao sessionDao;
+
+    @Autowired
+    public SessionService(SessionDao sessionDao) {
+        this.sessionDao = sessionDao;
+    }
 
     public Boolean addSession(Integer sessionId, Integer userId, LocalDateTime loginTime){
         return sessionDao.addSession(sessionId, userId, loginTime);

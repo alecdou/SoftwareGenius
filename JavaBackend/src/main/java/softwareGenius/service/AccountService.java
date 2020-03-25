@@ -22,6 +22,7 @@ public class AccountService {
      * @param user user object
      * @return id of the user
      */
+
     public Integer addNewUser(User user) {
         return userDao.addUser(user);
     }
@@ -71,12 +72,12 @@ public class AccountService {
      */
 
     // do we need token to do so??
-    public Boolean validatePassword(String inputPassword, Integer userId) {
+    private Boolean validatePassword(String inputPassword, Integer userId) {
         // get the original user password by userId
         String origPassword = getUserById(userId).getPassword();
 
         // validate the pw
-        return origPassword == inputPassword;
+        return origPassword.equals(inputPassword);
     }
 
     /**
