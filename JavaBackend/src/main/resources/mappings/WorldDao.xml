@@ -14,12 +14,14 @@
         insert into world (
             ownerId,
             charId,
-            category
+            category,
+            unlock
         )
         VALUES (
                    #{ownerId},
                    #{charId},
-                   #{category}
+                   #{category},
+                   #{unlock}
                )
     </insert>
 
