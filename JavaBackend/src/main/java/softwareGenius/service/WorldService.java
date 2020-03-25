@@ -1,5 +1,6 @@
 package softwareGenius.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softwareGenius.mapper.LandDao;
 import softwareGenius.mapper.UserDao;
@@ -11,6 +12,7 @@ public class WorldService {
     private WorldDao worldDao;
     private LandService landService;
 
+    @Autowired
     public WorldService(WorldDao worldDao, LandService landservice) {
         this.worldDao = worldDao;
         this.landService = landservice;
