@@ -36,6 +36,7 @@ public class LandService {
      * @param newDifficultyLevel the new difficulty level
      * @return success or not
      */
+    //after receive combat result
     public Boolean changeOwner(Integer landId,Integer newOwnerId,Integer newDifficultyLevel) {
         landDao.changeOwner(landId,newOwnerId,newDifficultyLevel);
         return Boolean.TRUE;
