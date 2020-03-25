@@ -45,19 +45,19 @@ public class CombatController {
         Integer combatId = combatService.startNewCombat(combat);
         System.out.println(combat.getCombatId());
 
-        // get world
-
-
         // get NPC
         NPC npc = npcService.getNPCByDifficultyLevel(combat.getDifficultyLevel());
 
         // get question list (with 10 questions)
+        // TODO: add category
         List<Question> questions = questionService.getQuestionsByCategory("1",
                 combat.getDifficultyLevel(), 10);
 
-        // get character
+        // get world such that we can get characters
+        Integer worldId = worldService.getCharIdByWorldId(combat.getWorldId());
 
-        Character character = new Character(1, Category.SE, 1, 10, 1, 1, true, 0, 0);
+        // get character
+        Character character = characterService.getCharacterByCharId(worldId);
 
         Map<String,Object> map = new HashMap<>();
         //put all the values in the map
@@ -106,6 +106,9 @@ public class CombatController {
         // update question record
         questionService.addQnsAnswered(idOfAnsweredQns);
         questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
+
+
+        // TODO: update land
 
 
     }

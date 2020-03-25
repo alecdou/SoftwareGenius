@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 public class Combat {
 
+    private Integer worldId;
+
+    private Integer landId;
+
     private Integer combatId;
 
     private Integer difficultyLevel;
@@ -27,20 +31,36 @@ public class Combat {
     /** The number of correctly answered questions in a combat. */
     private Integer numOfCorrectAns;
 
-    public Combat() {
-
-    }
-
-    public Combat(Integer combatId, Integer difficultyLevel, String mode, Integer playerId, Integer npcId, String status, Integer totalNumOfQuestions, Integer numOfCorrectAns) {
+    public Combat(Integer worldId, Integer landId, Integer combatId, Integer difficultyLevel,
+                  String mode, Integer playerId, Integer npcId, String status, LocalDateTime combatTime,
+                  Integer totalNumOfQuestions, Integer numOfCorrectAns) {
+        this.worldId = worldId;
+        this.landId = landId;
         this.combatId = combatId;
         this.difficultyLevel = difficultyLevel;
         this.mode = mode;
         this.playerId = playerId;
         this.npcId = npcId;
         this.status = status;
-        // this.combatTime = combatTime;
+        this.combatTime = combatTime;
         this.totalNumOfQuestions = totalNumOfQuestions;
         this.numOfCorrectAns = numOfCorrectAns;
+    }
+
+    public Integer getWorldId() {
+        return worldId;
+    }
+
+    public void setWorldId(Integer worldId) {
+        this.worldId = worldId;
+    }
+
+    public Integer getLandId() {
+        return landId;
+    }
+
+    public void setLandId(Integer landId) {
+        this.landId = landId;
     }
 
     public Integer getCombatId() {
