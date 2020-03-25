@@ -7,6 +7,7 @@ import softwareGenius.mapper.QuestionDao;
 import softwareGenius.model.Question;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class QuestionService {
@@ -31,6 +32,9 @@ public class QuestionService {
         questionDao.deleteQuestion(qid);
         return true;
     }
+    public Question getQuestion(Integer qid) {
+        return questionDao.getQuestion(qid);
+    }
 
     public List<Question> getQuestionsByCategory(String category, Integer difficultyLevel, Integer limit) {
         return questionDao.getQuestionsByCategory(category, difficultyLevel, limit);
@@ -44,10 +48,12 @@ public class QuestionService {
         return true;
     }
 
-    public Integer calculateScore(Question[] questions){
-        int score = 0;
-        for (int i = 0; i < questions.length; i++){
-            score += questions[i].getDifficultyLevel();
+
+    public Integer calculateScore(Integer[] questionIds){
+        int score=0;
+        for (int i = 0; i < questionIds.length; i++){
+            Question questionI=questionDao.getQuestion(questionIds[i]);
+            score+=questionI.getDifficultyLevel();
         }
         return score;
     }

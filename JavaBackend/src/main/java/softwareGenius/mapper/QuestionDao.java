@@ -26,6 +26,12 @@ public interface QuestionDao {
      */
     Boolean deleteQuestion(@Param("questionId") Integer questionId);
     /**
+     * Get the question by Id
+     * @param questionId the id of the question to be deleted
+     */
+    Question getQuestion(@Param("questionId") Integer questionId);
+    /**
+    /**
      * Get a number of qustions according to category and difficulty
      * @param category the categor that the question belongs to
      * @param difficultyLevel the difficulty level of the question

@@ -2,6 +2,7 @@ package softwareGenius.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import softwareGenius.model.Category;
 import softwareGenius.model.World;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface WorldDao {
      * @return new world Id
      */
     Integer addWorld(World world);
+
+    void unlockWorld(Integer worldId);
 
     /**
      * Fetch the world object with matching worldId
