@@ -50,19 +50,19 @@
     </update>
 
     <select id="getCharacterByCharId" parameterType="java.lang.Integer" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, numOfCorrectAns
+        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, totalQuesNo
         from character
         where charId = #{charId}
     </select>
 
     <select id="getCharacterByUserId" parameterType="java.lang.Integer" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, numOfCorrectAns
+        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, totalQuesNo
         from character
         where userId = #{playerId}
     </select>
 
     <select id="getAll" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, numOfCorrectAns
+        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, totalQuesNo
         from character
     </select>
 
