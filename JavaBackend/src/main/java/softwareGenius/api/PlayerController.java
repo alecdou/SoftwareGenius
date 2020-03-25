@@ -29,7 +29,7 @@ public class PlayerController {
         return accountService.getUserById(userId);
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public List<User> getAll(){
             return accountService.getAll();
         }
@@ -38,31 +38,10 @@ public class PlayerController {
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
         for (Category category: Category.values()) {
-            charService.initNewCharacter(userId, category);
+            worldService.initNewWorld(userId, charService.initNewCharacter(userId, category), category);
         }
         return userId;
     }
-
-//    User initNewUser(Integer userId, User user, Character character, World world){
-//        for (Category category: Category.values()) {
-//
-//            // need to get char id to init world
-//            charService.initNewCharacter(character);
-//
-//            // paradox: need user id to init character but init character should be done during user initialization
-//
-////            if(!charService.initNewCharacter(user.getId(), category)){
-////                throw new RuntimeException("Fail to initiate new character: "+ category);
-////            }
-//            worldService.addWorld(world);
-//        }
-//        return user;
-//    }
-
-    @GetMapping(path = "{msg}")
-    public String demoApi(@PathVariable("msg") String msg) {
-            return msg;
-        }
 }
 
 
