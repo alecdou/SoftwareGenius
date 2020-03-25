@@ -41,7 +41,8 @@ public class CharacterService {
      */
     public Integer initNewCharacter(Integer userId, Category charName) {
         Integer exp = 30, level = 0, attackPt = 10, defencePt = 10, correctQueNo = 0, totalQuesNo = 0;
-        Character character = new Character(userId, charName, exp, level, attackPt, defencePt, correctQueNo, totalQuesNo);
+        Boolean isUnlocked = false;
+        Character character = new Character(userId, charName, exp, level, attackPt, defencePt, isUnlocked, correctQueNo, totalQuesNo);
         return characterDao.addCharacter(character);
     }
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import softwareGenius.mapper.LandDao;
 import softwareGenius.mapper.UserDao;
 import softwareGenius.mapper.WorldDao;
+import softwareGenius.model.Category;
 import softwareGenius.model.World;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class WorldService {
         this.landService = landservice;
     }
 
-    public Integer initNewWorld(Integer ownerId,Integer charId, Enum<AccountService.Category> category){
+    public Integer initNewWorld(Integer ownerId,Integer charId, Category category){
         int worldId=worldDao.addWorld(new World(ownerId,charId,category));
         return worldId;
     }

@@ -41,7 +41,7 @@ public class PlayerController {
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
         for (Category category: Category.values()) {
-            landService.initLandForWorld(
+            landService.initNewLand(
                     worldService.initNewWorld(userId,
                             charService.initNewCharacter(userId, category), category));
         }

@@ -5,7 +5,7 @@ import softwareGenius.service.AccountService;
 public class Character {
     private Integer charId;
     private final Integer userId;
-    private final Enum<Category> charName;
+    private final Category charName;
     private Integer exp;
     private Integer level;
     private Integer attackPt;
@@ -17,7 +17,7 @@ public class Character {
     /** number of answered question **/
     private Integer totalQuesNo;
 
-    public Character(Integer charId, Integer userId, Enum<Category> charName, Integer exp, Integer level, Integer attackPt,
+    public Character(Integer charId, Integer userId, Category charName, Integer exp, Integer level, Integer attackPt,
                      Integer defencePt, Boolean isUnlocked, Integer correctQuesNo, Integer totalQuesNo) {
         this.charId = charId;
         this.userId = userId;
@@ -31,7 +31,7 @@ public class Character {
         this.totalQuesNo = totalQuesNo;
     }
 
-    public Character(Integer userId, Enum<Category> charName, Integer exp, Integer level, Integer attackPt,
+    public Character(Integer userId, Category charName, Integer exp, Integer level, Integer attackPt,
                      Integer defencePt,  Boolean isUnlocked, Integer correctQuesNo, Integer totalQuesNo) {
         this.userId = userId;
         this.charName = charName;
@@ -52,7 +52,7 @@ public class Character {
         return userId;
     }
 
-    public Enum<Category> getCharName() {
+    public Category getCharName() {
         return charName;
     }
 
