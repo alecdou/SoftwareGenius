@@ -101,7 +101,7 @@ public class AccountService {
         String origPassword = getUserById(userId).getPassword();
 
         // validate the pw
-        return origPassword == inputPassword;
+        return origPassword.equals(inputPassword);
     }
 
     /**
