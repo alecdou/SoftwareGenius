@@ -4,11 +4,8 @@ package softwareGenius.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import softwareGenius.model.*;
 import softwareGenius.model.Character;
-import softwareGenius.model.Combat;
-import softwareGenius.model.NPC;
-import softwareGenius.model.Question;
-import softwareGenius.model.World;
 import softwareGenius.service.*;
 
 import java.util.HashMap;
@@ -57,7 +54,8 @@ public class CombatController {
                 combat.getDifficultyLevel(), 10);
 
         // get character
-        Character character = new Character(1, 1, AccountService.Category.PM, 10, 1, 1, 1, 0, 0);
+
+        Character character = new Character(1, 1, Category.SE, 10, 1, 1, 1, 0, 0);
 
         Map<String,Object> map = new HashMap<>();
         //put all the values in the map

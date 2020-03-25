@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softwareGenius.mapper.CharacterDao;
 import softwareGenius.mapper.UserDao;
+import softwareGenius.model.Category;
 import softwareGenius.model.Character;
 import softwareGenius.model.User;
 
@@ -26,9 +27,9 @@ public class CharacterService {
     /**
      * Initiate a new character with given character object
      * @param character character object
-     * @return status of the request (ex. True if succeed)
+     * @return id of the character
      */
-    public Boolean initNewCharacter(Character character) {
+    public Integer initNewCharacter(Character character) {
         return characterDao.addCharacter(character);
     }
 
@@ -36,9 +37,9 @@ public class CharacterService {
      * Initiate a new character with associated world with given character object
      * @param userId id of user
      * @param charName name of the character
-     * @return status of the request (ex. True if succeed)
+     * @return id of the character
      */
-    public Boolean initNewCharacter(Integer userId, AccountService.Category charName) {
+    public Integer initNewCharacter(Integer userId, Category charName) {
         Integer exp = 30, level = 0, attackPt = 10, defencePt = 10, correctQueNo = 0, totalQuesNo = 0;
         Character character = new Character(userId, charName, exp, level, attackPt, defencePt, correctQueNo, totalQuesNo);
         return characterDao.addCharacter(character);
