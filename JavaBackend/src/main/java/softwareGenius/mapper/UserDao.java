@@ -12,9 +12,9 @@ public interface UserDao {
     /**
      * Insert new User object to the database
      * @param user User object
-     * @return status of the post query(ex. True if the query succeed)
+     * @return id of the user
      */
-    Boolean addUser(User user);
+    Integer addUser(User user);
 
     /**
      * Fetch the user object with matching userId
