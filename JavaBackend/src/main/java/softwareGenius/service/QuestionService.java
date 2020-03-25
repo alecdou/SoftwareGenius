@@ -10,9 +10,12 @@ import java.util.List;
 
 @Service
 public class QuestionService {
+    private QuestionDao questionDao;
 
     @Autowired
-    private QuestionDao questionDao;
+    public QuestionService(QuestionDao questionDao) {
+        this.questionDao = questionDao;
+    }
 
 
     public Boolean addNewQuestion(Question question) {
@@ -34,7 +37,7 @@ public class QuestionService {
     }
     public Boolean questionAnswered(Integer qid, Boolean correct){
         questionDao.answerQuestion(qid);
-        if (correct==true){
+        if (correct){
             questionDao.correctQuestion(qid);
         }
         return true;

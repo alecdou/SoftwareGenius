@@ -1,5 +1,6 @@
 package softwareGenius.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softwareGenius.mapper.NPCDao;
 import softwareGenius.model.NPC;
@@ -8,6 +9,7 @@ import softwareGenius.model.NPC;
 public class NPCService {
     private NPCDao npcDao;
 
+    @Autowired
     public NPCService(NPCDao npcDao) {
         this.npcDao = npcDao;
     }

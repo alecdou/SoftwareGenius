@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 public class DemoController {
 
-    @Autowired
     private DemoModelService demoModelService;
+
+    @Autowired
+    public DemoController(DemoModelService demoModelService) {
+        this.demoModelService = demoModelService;
+    }
 
     @GetMapping("/get/{id}")
     public DemoModel get(@PathVariable Integer id){

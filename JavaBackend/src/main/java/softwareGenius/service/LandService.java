@@ -1,5 +1,6 @@
 package softwareGenius.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softwareGenius.mapper.LandDao;
 import softwareGenius.model.Land;
@@ -10,6 +11,7 @@ import java.util.List;
 public class LandService {
     private LandDao landDao;
 
+    @Autowired
     public LandService(LandDao landDao) {
         this.landDao = landDao;
     }
