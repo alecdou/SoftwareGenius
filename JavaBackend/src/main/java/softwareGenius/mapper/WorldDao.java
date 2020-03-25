@@ -17,11 +17,18 @@ public interface WorldDao {
     Integer addWorld(World world);
 
     /**
-     * Fetch the world object with matching userId
-     * @param worldId id of the user
+     * Fetch the world object with matching worldId
+     * @param worldId id of the world
      * @return matching World object
      */
     World getWorldByWorldId(Integer worldId);
+
+    /**
+     * Fetch the world object with matching charId
+     * @param charId id of the char
+     * @return matching World object
+     */
+    World getWorldByCharId(Integer charId);
 
     /**
      * Fetch the world object with matching category

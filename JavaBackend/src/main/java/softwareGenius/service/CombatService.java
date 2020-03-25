@@ -37,6 +37,10 @@ public class CombatService {
         return combatDao.getCombatByPlayerIdAndMode(playerId, mode);
     }
 
+    public Boolean updateCombatResult(Integer combatId, String status, Integer totalNumOfQns, Integer numOfCorrectAns) {
+        return combatDao.updateCombatResult(combatId, status, totalNumOfQns, numOfCorrectAns);
+    }
+
 
 
 }

@@ -21,7 +21,7 @@ public class LandService {
      * @param worldId the id of the world
      * @return success or not
      */
-    public Boolean initLandForWorld(Integer worldId) {
+    public Boolean initNewLand(Integer worldId) {
         for (int i=0;i<24;i++) {
             Land land=new Land(worldId,0,0);
             landDao.addLand(land);
@@ -36,6 +36,7 @@ public class LandService {
      * @param newDifficultyLevel the new difficulty level
      * @return success or not
      */
+    //after receive combat result
     public Boolean changeOwner(Integer landId,Integer newOwnerId,Integer newDifficultyLevel) {
         landDao.changeOwner(landId,newOwnerId,newDifficultyLevel);
         return Boolean.TRUE;

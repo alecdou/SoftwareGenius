@@ -58,7 +58,7 @@
     <select id="getCharacterByUserId" parameterType="java.lang.Integer" resultMap="characterMap">
         select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, numOfCorrectAns
         from character
-        where playerId = #{playerId}
+        where userId = #{playerId}
     </select>
 
     <select id="getAll" resultMap="characterMap">
