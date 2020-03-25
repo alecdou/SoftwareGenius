@@ -74,19 +74,26 @@ public class CombatController {
                           @Value("characterId") Integer characterId,
                           @Value("status") String status,
                           @Value("numOfQnsAnswered") Integer numOfQnsAnswered,
-                          @Value("idOfAnsweredQns") List<Integer> idOfAnsweredQns,
-                          @Value("idOfCorrectlyAnsweredQns") List<Integer> idOfCorrectlyAnsweredQns,
+                          @Value("idOfAnsweredQns") Integer[] idOfAnsweredQns,
+                          @Value("idOfCorrectlyAnsweredQns") Integer[] idOfCorrectlyAnsweredQns
                           )
     {
         // update combat record
-        combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.size());
+        combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.length);
         // get the character used in the battle
         Character character = characterService.getCharacterByCharId(characterId);
         // get the total experience point earned in the battle
-        Integer totalExp = questionService.calculateScore(idOfCorrectlyAnsweredQns);
+        Integer addedExp = questionService.calculateScore(idOfCorrectlyAnsweredQns);
+        // get the new level of the character
+        Integer characterLevel = (int) Math.ceil((character.getExp() + addedExp) / 10.0);
         // update the character
-        character.setExp(character.getExp() + totalExp);
+        character.setExp(character.getExp() + addedExp);
+        character.setLevel(characterLevel);
+        character.setTotalQuesNo(numOfQnsAnswered);
+        character.setCorrectQuesNo(idOfCorrectlyAnsweredQns.length);
         // TODO: update other attributes such as attackPoint and hitPoint
+        character.setAttackPt(1);
+        character.setDefencePt(1);
         characterService.updateCharacter(character);
     }
 
