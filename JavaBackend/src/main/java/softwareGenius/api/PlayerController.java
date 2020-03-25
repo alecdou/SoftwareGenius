@@ -6,6 +6,7 @@ import softwareGenius.model.Category;
 import softwareGenius.model.User;
 import softwareGenius.service.AccountService;
 import softwareGenius.service.CharacterService;
+import softwareGenius.service.LandService;
 import softwareGenius.service.WorldService;
 
 import java.util.List;
@@ -16,12 +17,14 @@ public class PlayerController {
     private final CharacterService charService;
     private final WorldService worldService;
     private final AccountService accountService;
+    private final LandService landService;
 
     @Autowired
-    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService) {
+    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService) {
         this.charService = charService;
         this.worldService = worldService;
         this.accountService = accountService;
+        this.landService = landService;
     }
 
     @GetMapping("/get/{userId}")
@@ -38,7 +41,9 @@ public class PlayerController {
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
         for (Category category: Category.values()) {
-            worldService.initNewWorld(userId, charService.initNewCharacter(userId, category), category);
+            landService.initLandForWorld(
+                    worldService.initNewWorld(userId,
+                            charService.initNewCharacter(userId, category), category));
         }
         return userId;
     }

@@ -10,13 +10,15 @@ public class Character {
     private Integer level;
     private Integer attackPt;
     private Integer defencePt;
+    /** whether the character is unlocked**/
+    private Boolean isUnlocked;
     /** number of correctly answered question **/
     private Integer correctQuesNo;
     /** number of answered question **/
     private Integer totalQuesNo;
 
     public Character(Integer charId, Integer userId, Enum<Category> charName, Integer exp, Integer level, Integer attackPt,
-                     Integer defencePt, Integer correctQuesNo, Integer totalQuesNo) {
+                     Integer defencePt, Boolean isUnlocked, Integer correctQuesNo, Integer totalQuesNo) {
         this.charId = charId;
         this.userId = userId;
         this.charName = charName;
@@ -24,18 +26,20 @@ public class Character {
         this.level = level;
         this.attackPt = attackPt;
         this.defencePt = defencePt;
+        this.isUnlocked = isUnlocked;
         this.correctQuesNo = correctQuesNo;
         this.totalQuesNo = totalQuesNo;
     }
 
     public Character(Integer userId, Enum<Category> charName, Integer exp, Integer level, Integer attackPt,
-                     Integer defencePt, Integer correctQuesNo, Integer totalQuesNo) {
+                     Integer defencePt,  Boolean isUnlocked, Integer correctQuesNo, Integer totalQuesNo) {
         this.userId = userId;
         this.charName = charName;
         this.exp = exp;
         this.level = level;
         this.attackPt = attackPt;
         this.defencePt = defencePt;
+        this.isUnlocked = isUnlocked;
         this.correctQuesNo = correctQuesNo;
         this.totalQuesNo = totalQuesNo;
     }
@@ -98,5 +102,13 @@ public class Character {
 
     public void setTotalQuesNo(int totalQuesNo) {
         this.totalQuesNo = totalQuesNo;
+    }
+
+    public Boolean getUnlocked() {
+        return isUnlocked;
+    }
+
+    public void setUnlocked(Boolean unlocked) {
+        isUnlocked = unlocked;
     }
 }
