@@ -20,7 +20,14 @@ public interface ReportDao {
      * @param userId unique id of the user
      * @return Report object
      */
-    Report getReportById(Integer userId);
+    Report getReportByUserId(Integer userId);
+
+    /**
+     * Fetch the report object with matching reportId
+     * @param reportId unique id of the report
+     * @return Report object
+     */
+    Report getReportByReportId(Integer reportId);
 
     /**
      * Get all reports
