@@ -12,7 +12,7 @@ public interface WorldDao {
     /**
      * Insert new World object to the database
      * @param world world object
-     * @return
+     * @return new world Id
      */
     Integer addWorld(World world);
 
@@ -49,4 +49,6 @@ public interface WorldDao {
      * @return status of the query (ex. True if query succeed)
      */
     Boolean deleteWorld(Integer worldId);
+
+    Integer getCharIdByWorldId(Integer worldId);
 }

@@ -1,29 +1,38 @@
 package softwareGenius.service;
 
 import org.springframework.stereotype.Service;
-import softwareGenius.service.LandService;
 import softwareGenius.mapper.LandDao;
 import softwareGenius.mapper.UserDao;
 import softwareGenius.mapper.WorldDao;
-import softwareGenius.model.Land;
 import softwareGenius.model.World;
 
 @Service
 public class WorldService {
     private WorldDao worldDao;
-    private UserDao userDao;
-    private LandDao landDao;
+    private LandService landService;
 
-    public WorldService(WorldDao worldDao, UserDao userDao, LandDao landDao) {
+    public WorldService(WorldDao worldDao, LandService landservice) {
         this.worldDao = worldDao;
-        this.userDao = userDao;
-        this.landDao = landDao;
+        this.landService = landservice;
     }
 
-    public Integer initNewWorld(Integer ownerId, String worldCategory, Integer charId) {
-        World world=new World(ownerId,charId, worldCategory);
+    public Integer addWorld(World world) {
         int worldId=worldDao.addWorld(world);
-        //initLandForWorld()
+        landService.initLandForWorld(worldId);
         return worldId;
+    }
+
+//    public Integer addWorld(Integer userId, Integer charId, Enum<AccountService.Category> category) {
+//        int worldId=worldDao.addWorld(world);
+//        landService.initLandForWorld(worldId);
+//        return worldId;
+//    }
+
+    World getWorldByWorldId(Integer worldId) {
+        return worldDao.getWorldByWorldId(worldId);
+    }
+
+    Integer getCharIdByWorldId(Integer worldId) {
+        return worldDao.getCharIdByWorldId(worldId);
     }
 }

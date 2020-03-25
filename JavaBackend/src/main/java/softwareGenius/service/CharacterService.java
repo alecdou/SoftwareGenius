@@ -13,19 +13,45 @@ import java.util.List;
 public class CharacterService {
 
     private final CharacterDao characterDao;
+    private final WorldService worldService;
     private final UserDao userDao;
 
     @Autowired
-    public CharacterService(CharacterDao characterDao, UserDao userDao) {
+    public CharacterService(CharacterDao characterDao, WorldService worldService, UserDao userDao) {
         this.characterDao = characterDao;
+        this.worldService = worldService;
         this.userDao = userDao;
     }
 
+    /**
+     * Initiate a new character with given character object
+     * @param character character object
+     * @return status of the request (ex. True if succeed)
+     */
     public Boolean initNewCharacter(Character character) {
         return characterDao.addCharacter(character);
     }
 
-    public Boolean upgradeCharacter(Integer userId, Character newCharacter) {
+    /**
+     * Initiate a new character with associated world with given character object
+     * @param userId id of user
+     * @param charName name of the character
+     * @return status of the request (ex. True if succeed)
+     */
+    public Boolean initNewCharacter(Integer userId, AccountService.Category charName) {
+        Integer exp = 30, level = 0, attackPt = 10, defencePt = 10, correctQueNo = 0, totalQuesNo = 0;
+        Character character = new Character(userId, charName, exp, level, attackPt, defencePt, correctQueNo, totalQuesNo);
+        return characterDao.addCharacter(character);
+    }
+
+    /**
+     * update the exp, attack points, defense points, level, and other fields of the character object and
+     * the overall experience points of the user object with given userId and newCharacter object
+     * @param userId id of the user
+     * @param newCharacter updated character object
+     * @return status of the request (ex. True if succeed)
+     */
+    public Boolean updateCharacter(Integer userId, Character newCharacter) {
         // Get the old character data by the id of the new Character
         Character oldCharacter =  characterDao.getCharacterByCharId(newCharacter.getCharId());
 
@@ -48,18 +74,37 @@ public class CharacterService {
         return characterDao.updateCharacter(newCharacter);
     }
 
+    /**
+     * Get Character by the given userId
+     * @param userId id of the user
+     * @return list of Character objects
+     */
     public List<Character> getCharacterByUserId(Integer userId) {
         return characterDao.getCharacterByUserId(userId);
     }
 
+    /**
+     * Get Character by given charId
+     * @param charId id of the character
+     * @return a character object with matching charId
+     */
     public Character getCharacterByCharId(Integer charId) {
         return characterDao.getCharacterByCharId(charId);
     }
 
+    /**
+     * Get all characters
+     * @return a list of all character objects
+     */
     public List<Character> getAll() {
         return characterDao.getAll();
     }
 
+    /**
+     * Delete character with given userId
+     * @param userId id of the user
+     * @return status of the request (ex. True if succeed)
+     */
     public Boolean deleteCharacter(Integer userId) {
         return characterDao.deleteCharacter(userId);
     }

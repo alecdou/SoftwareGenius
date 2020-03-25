@@ -1,9 +1,11 @@
 package softwareGenius.model;
 
+import softwareGenius.service.AccountService;
+
 public class Character {
-    private final Integer charId;
+    private Integer charId;
     private final Integer userId;
-    private final String charName;
+    private final Enum<AccountService.Category> charName;
     private Integer exp;
     private Integer level;
     private Integer attackPt;
@@ -13,9 +15,21 @@ public class Character {
     /** number of answered question **/
     private Integer totalQuesNo;
 
-    public Character(Integer charId, Integer userId, String charName, Integer exp, Integer level, Integer attackPt,
+    public Character(Integer charId, Integer userId, Enum<AccountService.Category> charName, Integer exp, Integer level, Integer attackPt,
                      Integer defencePt, Integer correctQuesNo, Integer totalQuesNo) {
         this.charId = charId;
+        this.userId = userId;
+        this.charName = charName;
+        this.exp = exp;
+        this.level = level;
+        this.attackPt = attackPt;
+        this.defencePt = defencePt;
+        this.correctQuesNo = correctQuesNo;
+        this.totalQuesNo = totalQuesNo;
+    }
+
+    public Character(Integer userId, Enum<AccountService.Category> charName, Integer exp, Integer level, Integer attackPt,
+                     Integer defencePt, Integer correctQuesNo, Integer totalQuesNo) {
         this.userId = userId;
         this.charName = charName;
         this.exp = exp;
@@ -34,7 +48,7 @@ public class Character {
         return userId;
     }
 
-    public String getCharName() {
+    public Enum<AccountService.Category> getCharName() {
         return charName;
     }
 
