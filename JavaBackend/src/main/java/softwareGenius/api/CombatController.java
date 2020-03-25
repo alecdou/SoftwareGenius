@@ -48,6 +48,7 @@ public class CombatController {
 
         // get world
 
+
         // get NPC
         NPC npc = npcService.getNPCByDifficultyLevel(combat.getDifficultyLevel());
 
