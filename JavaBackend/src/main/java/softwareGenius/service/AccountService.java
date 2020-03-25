@@ -31,12 +31,12 @@ public class AccountService {
      */
     public Boolean addNewUser(User user, Character character, World world ) {
         if (!user.getAdmin()){
-            user = initNewUser(user, character, world);
+            return userDao.addUser(initNewUser(user, character, world));
         }
         return userDao.addUser(user);
     }
 
-    User initNewUser(User user, Character character, World world){
+    private User initNewUser(User user, Character character, World world){
         for (Category category: Category.values()) {
 
             // need to get char id to init world
@@ -96,7 +96,7 @@ public class AccountService {
      */
 
     // do we need token to do so??
-    public Boolean validatePassword(String inputPassword, Integer userId) {
+    private Boolean validatePassword(String inputPassword, Integer userId) {
         // get the original user password by userId
         String origPassword = getUserById(userId).getPassword();
 
