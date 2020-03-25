@@ -40,7 +40,7 @@ public class CharacterService {
      * @return id of the character
      */
     public Integer initNewCharacter(Integer userId, Category charName) {
-        Integer exp = 30, level = 0, attackPt = 10, defencePt = 10, correctQueNo = 0, totalQuesNo = 0;
+        Integer exp = 0, level = 0, attackPt = 10, defencePt = 10, correctQueNo = 0, totalQuesNo = 0;
         Boolean isUnlocked = false;
         Character character = new Character(userId, charName, exp, level, attackPt, defencePt, isUnlocked, correctQueNo, totalQuesNo);
         return characterDao.addCharacter(character);

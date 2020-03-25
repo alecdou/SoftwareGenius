@@ -57,7 +57,7 @@ public class CombatController {
 
         // get character
 
-        Character character = new Character(1,1, Category.SE, 10, 1, 1, false, 0, 0);
+        Character character = new Character(1, Category.SE, 1, 10, 1, 1, true, 0, 0);
 
         Map<String,Object> map = new HashMap<>();
         //put all the values in the map

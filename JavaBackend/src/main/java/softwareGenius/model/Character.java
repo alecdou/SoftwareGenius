@@ -32,7 +32,7 @@ public class Character {
     }
 
     public Character(Integer userId, Category charName, Integer exp, Integer level, Integer attackPt,
-                     Integer defencePt,  Boolean isUnlocked, Integer correctQuesNo, Integer totalQuesNo) {
+                     Integer defencePt, Boolean isUnlocked, Integer correctQuesNo, Integer totalQuesNo) {
         this.userId = userId;
         this.charName = charName;
         this.exp = exp;
