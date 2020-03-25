@@ -17,13 +17,30 @@ public class SessionService {
     public SessionService(SessionDao sessionDao) {
         this.sessionDao = sessionDao;
     }
-
+    /**
+     * Initiate a new session with given attributes
+     * @param sessionId the id of the session
+     * @param userId the id of the user
+     * @param loginTime time that the user logged in
+     * @return boolean of whether successful
+     */
     public Boolean addSession(Integer sessionId, Integer userId, LocalDateTime loginTime){
         return sessionDao.addSession(sessionId, userId, loginTime);
     }
+    /**
+     * Initiate a new session with given attributes
+     * @param sessionId the id of the session
+     * @param logoutTime time that the user logged out
+     * @return boolean of whether successful
+     */
     public Boolean updateSessionEndTime(Integer sessionId, LocalDateTime logoutTime){
         return sessionDao.updateSessionEndTime(sessionId, logoutTime);
     }
+    /**
+     * Initiate a new session with given attributes
+     * @param sessionId the id of the session
+     * @return list of the session for this user
+     */
     public List<Session> getSessionByUserID(Integer sessionId){
         return sessionDao.getSessionByUserID(sessionId);
     }
