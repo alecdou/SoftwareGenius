@@ -33,7 +33,7 @@ public interface CharacterDao {
     List<Character> getCharacterByUserId(Integer userId);
 
     /**
-     * Get all gcharacter objects
+     * Get all character objects
      * @return list of Character objects
      */
     List<Character> getAll();
