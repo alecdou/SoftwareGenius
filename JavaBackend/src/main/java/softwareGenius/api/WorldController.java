@@ -20,15 +20,29 @@ public class WorldController {
     private LeaderboardService leaderboardService;
     private LandService landService;
 
+    @GetMapping("/getWorldByWorldId/{worldId}")
+    public World getWorldByWorldId(@PathVariable Integer worldId) {
+        return worldService.getWorldByWorldId(worldId);
+    }
 
-    @GetMapping("/getWorld/{userId}")
+    @GetMapping("/getWorldByUserId/{userId}")
     public List<World> getAllWorldByUser(@PathVariable Integer userId) {
         return worldService.getWorldByOwnerId(userId);
     }
 
-    @GetMapping("/getAll/{offset}/{limit}")
-    public List<List<LeaderBoardRecord>> getAllLeaderboard(@PathVariable Integer offset,@PathVariable Integer limit) {
+    @GetMapping("/getLeaderBoard/all/{offset}/{limit}")
+    public List<List<LeaderBoardRecord>> getAllLeaderBoard(@PathVariable Integer offset,@PathVariable Integer limit) {
         return leaderboardService.getAllLeaderBoard(offset,limit);
+    }
+
+    @GetMapping("/getLeaderBoard/general/{offset}/{limit}")
+    public List<LeaderBoardRecord> getGeneralLeaderBoard(@PathVariable Integer offset,@PathVariable Integer limit) {
+        return leaderboardService.getGeneralLeaderBoard(offset,limit);
+    }
+
+    @GetMapping("/getLeaderBoard/category/{category}/{offset}/{limit}")
+    public List<LeaderBoardRecord> getLeaderBoardByWorldName(@PathVariable Category category,@PathVariable Integer offset,@PathVariable Integer limit) {
+        return leaderboardService.getLeaderBoardByWorldName(category,offset,limit);
     }
 
     @PostMapping("/changeOwner/{landId}/{ownerId}/{difficulty}")
