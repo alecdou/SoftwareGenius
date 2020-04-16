@@ -21,6 +21,7 @@ public class World {
         this.ownerId = ownerId;
         this.charId = charId;
         this.category = category;
+        this.unlock=0;
     }
 
     public Integer getOwnerId() {
