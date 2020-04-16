@@ -52,13 +52,15 @@ public class PlayerController {
     }
 
     @GetMapping("/login")
-    public void login(@RequestBody User user) {
+    public Boolean login(@RequestBody User user) {
         try{
             accountService.validatePassword(user.getPassword(), user.getId());
             sessionService.addSession(user.getId(), LocalDateTime.now());
         } catch (Exception e){
             System.err.println(e.toString());
+            return false;
         }
+        return true;
     }
 
 }
