@@ -2,10 +2,8 @@ package softwareGenius.api;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import softwareGenius.model.Category;
-import softwareGenius.model.Land;
-import softwareGenius.model.LeaderBoardRecord;
-import softwareGenius.model.World;
+import softwareGenius.model.*;
+import softwareGenius.service.CharacterService;
 import softwareGenius.service.LandService;
 import softwareGenius.service.LeaderboardService;
 import softwareGenius.service.WorldService;
@@ -20,6 +18,7 @@ public class WorldController {
     private WorldService worldService;
     private LeaderboardService leaderboardService;
     private LandService landService;
+    private CharacterService charService;
 
 
 
@@ -66,4 +65,11 @@ public class WorldController {
         worldService.unlockWorld(worldId);
     }
 
+    @PostMapping("/addCharacter/{userId}")
+    public Integer initNewCharacter(@PathVariable Integer userId,@RequestBody Category category){
+        int charId=charService.initNewCharacter(userId,category);
+        landService.initNewLand(
+                worldService.initNewWorld(userId,charId,category));
+        return charId;
+    }
 }
