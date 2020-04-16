@@ -19,13 +19,12 @@ public class SessionService {
     }
     /**
      * Initiate a new session with given attributes
-     * @param sessionId the id of the session
      * @param userId the id of the user
      * @param loginTime time that the user logged in
      * @return boolean of whether successful
      */
-    public Boolean addSession(Integer sessionId, Integer userId, LocalDateTime loginTime){
-        return sessionDao.addSession(sessionId, userId, loginTime);
+    public Boolean addSession(Integer userId, LocalDateTime loginTime){
+        return sessionDao.addSession(userId, loginTime);
     }
     /**
      * Initiate a new session with given attributes

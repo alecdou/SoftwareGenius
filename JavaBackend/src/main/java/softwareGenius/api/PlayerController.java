@@ -3,10 +3,14 @@ package softwareGenius.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.Category;
+import java.time.LocalDateTime;
+import softwareGenius.model.Combat;
+import softwareGenius.model.Session;
 import softwareGenius.model.User;
 import softwareGenius.service.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("api/player")
 @RestController
@@ -39,14 +43,23 @@ public class PlayerController {
     @PostMapping("/add")
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
-        for (Category category: Category.values()) {
-            landService.initNewLand(
-                    worldService.initNewWorld(userId,
-                            charService.initNewCharacter(userId, category), category));
-        }
+//        for (Category category: Category.values()) {
+//            landService.initNewLand(
+//                    worldService.initNewWorld(userId,
+//                            charService.initNewCharacter(userId, category), category));
+//        }
         return userId;
     }
 
+    @GetMapping("/login")
+    public void login(@RequestBody User user) {
+        try{
+            accountService.validatePassword(user.getPassword(), user.getId());
+            sessionService.addSession(user.getId(), LocalDateTime.now());
+        } catch (Exception e){
+            System.err.println(e.toString());
+        }
+    }
 
 }
 

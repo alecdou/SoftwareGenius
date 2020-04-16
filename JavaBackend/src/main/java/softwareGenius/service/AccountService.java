@@ -70,7 +70,7 @@ public class AccountService {
      */
 
     // do we need token to do so??
-    private void validatePassword(String inputPassword, Integer userId) throws Exception {
+    public void validatePassword(String inputPassword, Integer userId) throws Exception {
         // get the original user password by userId
         String origPassword = getUserById(userId).getPassword();
 
