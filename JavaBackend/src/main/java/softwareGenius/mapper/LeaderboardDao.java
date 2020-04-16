@@ -3,6 +3,7 @@ package softwareGenius.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+import softwareGenius.model.Category;
 import softwareGenius.model.LeaderBoardRecord;
 import softwareGenius.model.User;
 
@@ -29,7 +30,7 @@ public interface LeaderboardDao {
      * @param limit num of user records
      * @return a list of user info and character experience
      */
-    List<LeaderBoardRecord> getLeaderBoardByWorldName(@Param("worldCategory") String worldCategory, @Param("offset") int offset, @Param("limit") int limit);
+    List<LeaderBoardRecord> getLeaderBoardByWorldName(@Param("worldCategory") Category worldCategory, @Param("offset") int offset, @Param("limit") int limit);
 
     /**
      * To get a leader board for general score across all worlds
@@ -39,15 +40,15 @@ public interface LeaderboardDao {
      */
     List<LeaderBoardRecord>  getGeneralLeaderBoard(@Param("offset") int offset, @Param("limit") int limit);
 
-    default List<LeaderBoardRecord> getLeaderBoardByWorldNameViaCache(@Param("worldCategory") String worldCategory, @Param("offset") int offset, @Param("limit") int limit){
+    default List<LeaderBoardRecord> getLeaderBoardByWorldNameViaCache(@Param("worldCategory") Category worldCategory, @Param("offset") int offset, @Param("limit") int limit){
         switch (worldCategory) {
-            case "1":
+            case SE:
                 return topUserForWorld1.subList(offset, offset+limit);
-            case "2":
+            case SA:
                 return topUserForWorld2.subList(offset, offset+limit);
-            case "3":
+            case PM:
                 return topUserForWorld3.subList(offset, offset+limit);
-            case "4":
+            case QA:
                 return topUserForWorld4.subList(offset, offset+limit);
             default:
                 return getGeneralLeaderBoardViaCache(offset, limit);

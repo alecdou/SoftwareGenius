@@ -3,6 +3,7 @@ package softwareGenius.api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.Category;
+import softwareGenius.model.Land;
 import softwareGenius.model.LeaderBoardRecord;
 import softwareGenius.model.World;
 import softwareGenius.service.LandService;
@@ -20,15 +21,23 @@ public class WorldController {
     private LeaderboardService leaderboardService;
     private LandService landService;
 
+
+
     @GetMapping("/getWorldByWorldId/{worldId}")
     public World getWorldByWorldId(@PathVariable Integer worldId) {
         return worldService.getWorldByWorldId(worldId);
     }
 
     @GetMapping("/getWorldByUserId/{userId}")
-    public List<World> getAllWorldByUser(@PathVariable Integer userId) {
+    public List<World> getAllWorldByUserId(@PathVariable Integer userId) {
         return worldService.getWorldByOwnerId(userId);
     }
+
+    @GetMapping("/getLandByWorldId/{worldId}")
+    public List<Land> getLandByWorldId(@PathVariable Integer worldId) {
+        return landService.getLandByWorld(worldId);
+    }
+
 
     @GetMapping("/getLeaderBoard/all/{offset}/{limit}")
     public List<List<LeaderBoardRecord>> getAllLeaderBoard(@PathVariable Integer offset,@PathVariable Integer limit) {
@@ -45,6 +54,8 @@ public class WorldController {
         return leaderboardService.getLeaderBoardByWorldName(category,offset,limit);
     }
 
+
+    //after win a combat
     @PostMapping("/changeOwner/{landId}/{ownerId}/{difficulty}")
     public void changeOwner(@PathVariable Integer landId,@PathVariable Integer ownerId,@PathVariable Integer difficulty) {
         landService.changeOwner(landId,ownerId,difficulty);
