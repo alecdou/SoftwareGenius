@@ -30,16 +30,30 @@ public class PlayerController {
         this.sessionService = sessionService;
     }
 
+    /***
+     *
+     * @param userId id of the user
+     * @return user object with the given userId
+     */
     @GetMapping("/get/{userId}")
     public User get(@PathVariable Integer userId){
         return accountService.getUserById(userId);
     }
 
+    /***
+     *
+     * @return get all users
+     */
     @GetMapping("/getAll")
     public List<User> getAll(){
             return accountService.getAll();
         }
 
+    /***
+     *
+      * @param user user object
+     * @return initialize a new user
+     */
     @PostMapping("/add")
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
@@ -51,6 +65,11 @@ public class PlayerController {
         return userId;
     }
 
+    /***
+     *
+     * @param user user object
+     * @return login with current session recorded
+     */
     @GetMapping("/login")
     public Boolean login(@RequestBody User user) {
         try{
@@ -63,6 +82,11 @@ public class PlayerController {
         return true;
     }
 
+    /***
+     *
+     * @param user user object
+     * @return logout with current session ending time updated
+     */
     @GetMapping("/logout")
     public Boolean logout(@RequestBody User user) {
         // get the session list of the user
