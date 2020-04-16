@@ -37,10 +37,11 @@ public class SessionService {
     }
     /**
      * Initiate a new session with given attributes
-     * @param sessionId the id of the session
+     * @param userId the id of the user
      * @return list of the session for this user
      */
-    public List<Session> getSessionByUserID(Integer sessionId){
-        return sessionDao.getSessionByUserID(sessionId);
+    public List<Session> getSessionByUserID(Integer userId){
+        return sessionDao.getSessionByUserID(userId);
     }
+
 }

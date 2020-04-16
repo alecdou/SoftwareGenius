@@ -26,7 +26,7 @@ public interface SessionDao {
     Boolean updateSessionEndTime(@Param("sessionId") Integer sessionId, @Param("logoutTime") LocalDateTime logoutTime);
     /**
      * Get the session according to Id
-     * @param sessionId the id of the session to be added
+     * @param userId the id of the user
      */
-    List<Session> getSessionByUserID(@Param("sessionId") Integer sessionId);
+    List<Session> getSessionByUserID(@Param("userId") Integer userId);
 }

@@ -63,6 +63,21 @@ public class PlayerController {
         return true;
     }
 
+    @GetMapping("/logout")
+    public Boolean logout(@RequestBody User user) {
+        // get the session list of the user
+        List<Session> sessionList = sessionService.getSessionByUserID(user.getId());
+
+        // get the latest session
+        Session session = sessionList.get(sessionList.size() - 1);
+
+        // return true if update session time successfully
+       if (sessionService.updateSessionEndTime(session.getSessionId(),LocalDateTime.now())){
+            return true;
+        }
+        return false;
+    }
+
 }
 
 
