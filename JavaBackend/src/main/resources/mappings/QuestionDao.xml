@@ -26,7 +26,9 @@
              choice3,
              choice4,
              answer,
-             difficultyLevel
+             difficultyLevel,
+             userAnswered,
+             userCorrect
               )
         VALUES (
              #{category},
@@ -36,7 +38,9 @@
              #{choice3},
              #{choice4},
              #{answer},
-             #{difficultyLevel}
+             #{difficultyLevel},
+             #{userAnswered},
+             #{userCorrect}
           )
     </insert>
     <update id="updateQuestion" parameterType="softwareGenius.model.Question">
@@ -59,7 +63,7 @@
         WHERE questionId = #{questionId}
     </delete>
     <select id="getQuestion" parameterType="java.lang.Integer" resultMap="questionMap">
-        SELECT *
+        SELECT questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
         FROM question
         WHERE questionId = #{questionId}
     </select>
@@ -75,7 +79,7 @@
 <!--        from question-->
 <!--    </select>-->
     <select id="getQuestionsByCategory" parameterType="map" resultMap="questionMap">
-        select *
+        select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
         from main.question
         WHERE difficultyLevel=#{difficultyLevel} AND category=#{category}
         ORDER BY random()
