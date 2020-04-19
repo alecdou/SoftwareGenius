@@ -65,7 +65,7 @@ public class PlayerController {
      * @param user user object
      * @return true if login successfully; false otherwise
      */
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Boolean login(@RequestBody User user) {
         try{
             accountService.validatePassword(user.getPassword(), user.getId());
