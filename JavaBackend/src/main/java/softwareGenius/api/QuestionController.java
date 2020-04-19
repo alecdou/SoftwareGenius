@@ -14,21 +14,22 @@ import java.util.Map;
 @RestController
 public class QuestionController {
     private QuestionService questionService;
+
     @Autowired
     public QuestionController(QuestionService questionService){
         this.questionService = questionService;
     }
+
     @GetMapping(path = "{questionId}")
     public Question getQuestionById(@PathVariable Integer questionId) {
         return questionService.getQuestion(questionId);
     }
 
-
-
     @GetMapping(path = "{category}/{difficultyLevel}/{limit}")
     public List<Question> getQuestionByCategory(@PathVariable String category, @PathVariable Integer difficultyLevel, @PathVariable Integer limit) {
         return questionService.getQuestionsByCategory(category,difficultyLevel,limit);
     }
+
     @DeleteMapping(path="{questionId}")
     public void deleteQuestionById(@PathVariable Integer questionId){
         questionService.deleteQuestion(questionId);
@@ -43,6 +44,7 @@ public class QuestionController {
     public Float qnsScore(@RequestBody Integer qid) {
         return questionService.getAccuracy(qid);
     }
+
     @PostMapping(path = "correctAnswered")
     public void qnsCorrectlyAnswered(@RequestBody Integer[] questionIds) {
         questionService.addQnsCorrectlyAnswered(questionIds);
