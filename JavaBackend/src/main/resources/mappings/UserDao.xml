@@ -13,7 +13,7 @@
         <result property="overallExp" column="overallExp"/>
     </resultMap>
 
-    <insert id="addUser" parameterType="softwareGenius.model.User">
+    <insert id="addUser" parameterType="softwareGenius.model.User" useGeneratedKeys="true" keyProperty="user.userId" keyColumn="userId">
         insert into user (
             username,
             password,

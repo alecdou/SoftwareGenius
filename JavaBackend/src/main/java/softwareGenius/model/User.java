@@ -63,9 +63,9 @@ public class User {
     public Boolean getIsAdmin() {
         return isAdmin;
     }
-    
-    public void setIsAdmin(Boolean isAdmin) {
-         this.isAdmin = isAdmin;
+
+    public void setIsAdmin(String isAdmin) {
+         this.isAdmin = new Boolean(isAdmin);
     }
 
     public Integer getOverallExp() {
