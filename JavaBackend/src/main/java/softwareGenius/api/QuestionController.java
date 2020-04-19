@@ -30,4 +30,9 @@ public class QuestionController {
     public void deleteQuestionById(@PathVariable Integer questionId){
         questionService.deleteQuestion(questionId);
     }
+    @PostMapping(path="addQuestion")
+    public Boolean addQuestion(@RequestBody Question question){
+        Boolean result= questionService.addNewQuestion(question);
+        return result;
+    }
 }

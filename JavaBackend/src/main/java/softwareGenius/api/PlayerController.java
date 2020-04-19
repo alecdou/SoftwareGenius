@@ -57,7 +57,7 @@ public class PlayerController {
     @PostMapping("/addUser")
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
-        return userId;
+        return user.getId();
     }
 
     /***
