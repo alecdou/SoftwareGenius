@@ -14,7 +14,7 @@ public class Question {
     private Integer userAnswered;
     private Integer userCorrect;
 
-    public Question(Integer id, String category, String problem, String choice1, String choice2, String choice3, String choice4, Integer answer, Integer difficultyLevel) {
+    public Question(Integer id, String category, String problem, String choice1, String choice2, String choice3, String choice4, Integer answer, Integer difficultyLevel,Integer userAnswered,  Integer userCorrect) {
         this.questionId = id;
         this.category = category;
         this.problem = problem;
@@ -24,8 +24,8 @@ public class Question {
         this.choice4 = choice4;
         this.answer = answer;
         this.difficultyLevel = difficultyLevel;
-        this.userAnswered=0;
-        this.userCorrect=0;
+        this.userAnswered=userAnswered;
+        this.userCorrect=userCorrect;
     }
     public Question(){}
 
