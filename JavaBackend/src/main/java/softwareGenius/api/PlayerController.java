@@ -124,8 +124,8 @@ public class PlayerController {
         Period totalGameDay = Period.ZERO;
         Duration totalGameTime = Duration.ZERO;
         for (Session s: userSessions) {
-            totalGameDay.plus(Period.between(s.getLogoutTime().toLocalDate(), s.getLoginTime().toLocalDate()));
-            totalGameTime.plus(Duration.between(s.getLogoutTime(), s.getLoginTime()));
+            totalGameDay.plus(Period.between(s.getLogoutTime().toLocalDateTime().toLocalDate(), s.getLoginTime().toLocalDateTime().toLocalDate()));
+            totalGameTime.plus(Duration.between(s.getLogoutTime().toInstant(), s.getLoginTime().toInstant()));
         }
         result.put("duration", totalGameDay.toString() + ' ' + totalGameTime.toString());
         return result;
