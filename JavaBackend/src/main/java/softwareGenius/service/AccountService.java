@@ -42,14 +42,14 @@ public class AccountService {
      * @param userId id of the user
      * @return status of the request (ex. True if succeed)
      */
+
     public Boolean updateUserInfo(String newPassword, String oldPassword, Integer userId) {
 
         //try validate the old password before update to new one
         try{
             validatePassword(oldPassword, userId);
         } catch (Exception e){
-            System.err.println("Unmatched password");
-            e.printStackTrace();
+            System.err.println(e.toString());
             return false;
         }
 
@@ -70,12 +70,14 @@ public class AccountService {
      */
 
     // do we need token to do so??
-    private Boolean validatePassword(String inputPassword, Integer userId) {
+    public void validatePassword(String inputPassword, Integer userId) throws Exception {
         // get the original user password by userId
         String origPassword = getUserById(userId).getPassword();
 
         // validate the pw
-        return origPassword.equals(inputPassword);
+        if(!origPassword.equals(inputPassword)){
+            throw new Exception("Unmatched password");
+        }
     }
 
     /**

@@ -23,7 +23,7 @@ public class LandService {
      */
     public Boolean initNewLand(Integer worldId) {
         for (int i=0;i<24;i++) {
-            Land land=new Land(worldId,0,0);
+            Land land=new Land(worldId,i,0,0);
             landDao.addLand(land);
         }
         return Boolean.TRUE;

@@ -14,11 +14,10 @@ import org.apache.ibatis.annotations.Param;
 public interface SessionDao {
     /**
      * Add session to the database
-     * @param sessionId the id of the session to be added
      * @param userId the id of the user
      * @param loginTime the time user logged in
      */
-    Boolean addSession(@Param("sessionId") Integer sessionId, @Param("userId") Integer userId, @Param("loginTime") LocalDateTime loginTime);
+    Boolean addSession(@Param("userId") Integer userId, @Param("loginTime") LocalDateTime loginTime);
     /**
      * Update session to the database
      * @param sessionId the id of the session to be added
@@ -27,7 +26,7 @@ public interface SessionDao {
     Boolean updateSessionEndTime(@Param("sessionId") Integer sessionId, @Param("logoutTime") LocalDateTime logoutTime);
     /**
      * Get the session according to Id
-     * @param sessionId the id of the session to be added
+     * @param userId the id of the user
      */
-    List<Session> getSessionByUserID(@Param("sessionId") Integer sessionId);
+    List<Session> getSessionByUserID(@Param("userId") Integer userId);
 }
