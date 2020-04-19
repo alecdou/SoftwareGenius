@@ -29,8 +29,7 @@
             #{accountType},
             #{isAdmin},
             #{overallExp}
-        );
-        select last_insert_rowid()
+        )
     </insert>
 
     <update id="updateUser" parameterType="softwareGenius.model.User">

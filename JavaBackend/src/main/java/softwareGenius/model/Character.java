@@ -104,11 +104,11 @@ public class Character {
         this.totalQuesNo = totalQuesNo;
     }
 
-    public Boolean getUnlocked() {
+    public Boolean getIsUnlocked() {
         return isUnlocked;
     }
 
-    public void setUnlocked(Boolean unlocked) {
+    public void setIsUnlocked(Boolean unlocked) {
         isUnlocked = unlocked;
     }
 }
