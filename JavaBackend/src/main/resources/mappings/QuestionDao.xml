@@ -63,7 +63,7 @@
         WHERE questionId = #{questionId}
     </delete>
     <select id="getQuestion" parameterType="java.lang.Integer" resultMap="questionMap">
-        SELECT questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
+        SELECT *
         FROM question
         WHERE questionId = #{questionId}
     </select>
@@ -79,7 +79,7 @@
 <!--        from question-->
 <!--    </select>-->
     <select id="getQuestionsByCategory" parameterType="map" resultMap="questionMap">
-        select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
+        select *
         from main.question
         WHERE difficultyLevel=#{difficultyLevel} AND category=#{category}
         ORDER BY random()

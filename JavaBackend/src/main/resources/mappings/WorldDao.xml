@@ -14,14 +14,12 @@
         insert into world (
             ownerId,
             charId,
-            category,
-            unlock
+            category
         )
         VALUES (
                    #{ownerId},
                    #{charId},
-                   #{category},
-                   #{unlock}
+                   #{category}
                )
     </insert>
 
@@ -64,11 +62,5 @@
         from world
         where worldId = #{worldId}
     </select>
-
-    <update id="unlockWorld" parameterType="java.lang.Integer">
-        update world
-        set unlock = 1
-        where worldId=#{worldId}
-    </update>
 
 </mapper>
