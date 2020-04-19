@@ -1,17 +1,18 @@
 package softwareGenius.model;
 
 public class User {
-    private final Integer userId;
+    private Integer userId;
     private String username;
     private String userAvatar;
     private String password;
     private String email;
     /** social account type: FB, Twitter, ... **/
-    private final String accountType;
+    private String accountType;
     /** user type **/
-    private final Boolean isAdmin;
+    private Boolean isAdmin;
     private Integer overallExp;
 
+    public User() {}
     public User(Integer userId, String username, String userAvatar, String password, String email, String accountType, Boolean isAdmin,
                 Integer overallExp) {
         this.userId = userId;
@@ -56,8 +57,16 @@ public class User {
         return accountType;
     }
 
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
     public Boolean getIsAdmin() {
         return isAdmin;
+    }
+
+    public void setIsAdmin(String isAdmin) {
+         this.isAdmin = new Boolean(isAdmin);
     }
 
     public Integer getOverallExp() {

@@ -2,12 +2,20 @@ package softwareGenius.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
+
+import java.sql.Timestamp;
+import java.time.Duration;
+
+import softwareGenius.model.Character;
 import softwareGenius.model.Session;
 import softwareGenius.model.User;
 import softwareGenius.service.*;
 
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("api/player")
 @RestController
@@ -17,14 +25,16 @@ public class PlayerController {
     private final AccountService accountService;
     private final LandService landService;
     private final SessionService sessionService;
+    private final LeaderboardService leaderboardService;
 
     @Autowired
-    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService, SessionService sessionService) {
+    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService, SessionService sessionService, LeaderboardService leaderboardService) {
         this.charService = charService;
         this.worldService = worldService;
         this.accountService = accountService;
         this.landService = landService;
         this.sessionService = sessionService;
+        this.leaderboardService = leaderboardService;
     }
 
     /***
@@ -33,7 +43,8 @@ public class PlayerController {
      * @return user object with the given userId
      */
     @GetMapping("/getUser/{userId}")
-    public User get(@PathVariable Integer userId) {
+
+    public User getUserById(@PathVariable Integer userId){
         return accountService.getUserById(userId);
     }
 
@@ -54,7 +65,7 @@ public class PlayerController {
     @PostMapping("/addUser")
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
-        return userId;
+        return user.getId();
     }
 
     /***
@@ -62,11 +73,11 @@ public class PlayerController {
      * @param user user object
      * @return true if login successfully; false otherwise
      */
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Boolean login(@RequestBody User user) {
         try{
             accountService.validatePassword(user.getPassword(), user.getId());
-            sessionService.addSession(user.getId(), LocalDateTime.now());
+            sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
         } catch (Exception e){
             System.err.println(e.toString());
             return false;
@@ -76,13 +87,13 @@ public class PlayerController {
 
     /***
      * logout with current session ending time updated
-     * @param user user object
+     * @param userId id of the user object
      * @return true if login successfully; false otherwise
      */
-    @GetMapping("/logout")
-    public Boolean logout(@RequestBody User user) {
+    @GetMapping("/logout/{userId}")
+    public Boolean logout(@PathVariable Integer userId){
         // get the session list of the user
-        List<Session> sessionList = sessionService.getSessionByUserID(user.getId());
+        List<Session> sessionList = sessionService.getSessionByUserID(userId);
 
         // get the latest session
         Session session = sessionList.get(sessionList.size() - 1);
@@ -92,6 +103,32 @@ public class PlayerController {
             return true;
         }
         return false;
+    }
+
+    @GetMapping ("/getReport/{userId}")
+    public Map<String, String> gerReport(@PathVariable("userId") Integer userID){
+        Map<String, String> result = new HashMap<>();
+        result.put("userId", userID.toString());
+        result.put("email", accountService.getUserById(userID).getEmail());
+        List<Character> userChar = charService.getCharacterByUserId(userID);
+        int totalQ = 0;
+        int totalC = 0;
+        for (Character c: userChar) {
+            totalQ += c.getTotalQuesNo();
+            totalC += c.getCorrectQuesNo();
+            result.put(c.getCharName() + "_accuracy", String.valueOf(Float.valueOf(c.getCorrectQuesNo())/c.getTotalQuesNo()));
+        }
+        result.put("overall_accuracy", String.valueOf(Float.valueOf(totalC)/totalQ));
+        result.put("ranking", String.valueOf(leaderboardService.getOverallRankingByUserId(userID)));
+        List<Session> userSessions = sessionService.getSessionByUserID(userID);
+        Period totalGameDay = Period.ZERO;
+        Duration totalGameTime = Duration.ZERO;
+        for (Session s: userSessions) {
+            totalGameDay.plus(Period.between(s.getLogoutTime().toLocalDate(), s.getLoginTime().toLocalDate()));
+            totalGameTime.plus(Duration.between(s.getLogoutTime(), s.getLoginTime()));
+        }
+        result.put("duration", totalGameDay.toString() + ' ' + totalGameTime.toString());
+        return result;
     }
 
 }

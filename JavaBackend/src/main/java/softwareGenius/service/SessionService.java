@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import softwareGenius.mapper.SessionDao;
 import softwareGenius.model.Session;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 @Service
@@ -23,7 +24,7 @@ public class SessionService {
      * @param loginTime time that the user logged in
      * @return boolean of whether successful
      */
-    public Boolean addSession(Integer userId, LocalDateTime loginTime){
+    public Boolean addSession(Integer userId, Timestamp loginTime){
         return sessionDao.addSession(userId, loginTime);
     }
     /**

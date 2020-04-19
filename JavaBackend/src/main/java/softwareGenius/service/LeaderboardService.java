@@ -43,6 +43,10 @@ public class LeaderboardService {
         return all;
     }
 
+    public int getOverallRankingByUserId(int userId){
+        return leaderboardDao.getGeneralLeaderBoardViaCache().indexOf(userId) + 1;
+    }
+
     @Scheduled(cron="* */30 * * * *")
     // Update evey 30 minutes
     public void cronUpdate(){
@@ -56,7 +60,5 @@ public class LeaderboardService {
         } catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 }

@@ -26,7 +26,9 @@
              choice3,
              choice4,
              answer,
-             difficultyLevel
+             difficultyLevel,
+             userAnswered,
+             userCorrect
               )
         VALUES (
              #{category},
@@ -36,7 +38,9 @@
              #{choice3},
              #{choice4},
              #{answer},
-             #{difficultyLevel}
+             #{difficultyLevel},
+             #{userAnswered},
+             #{userCorrect}
           )
     </insert>
     <update id="updateQuestion" parameterType="softwareGenius.model.Question">

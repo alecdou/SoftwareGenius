@@ -7,7 +7,7 @@ public class ErrorQuestion extends Question{
     private String wrongAnswer;
 
     public ErrorQuestion(Integer id, String category, String problem, String choice1, String choice2, String choice3, String choice4, Integer answer, Integer difficultyLevel, String wrongAnswer) {
-        super(id, category, problem, choice1, choice2, choice3, choice4, answer, difficultyLevel);
+        super(id, category, problem, choice1, choice2, choice3, choice4, answer, difficultyLevel,0,0);
         this.wrongAnswer = wrongAnswer;
     }
 

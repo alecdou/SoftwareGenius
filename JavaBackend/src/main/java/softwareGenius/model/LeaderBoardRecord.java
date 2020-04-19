@@ -11,6 +11,9 @@ public class LeaderBoardRecord {
         this.charScore = charScore;
     }
 
+    public LeaderBoardRecord() {
+    }
+
     public String getUserName() {
         return userName;
     }

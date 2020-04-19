@@ -59,6 +59,10 @@ public interface LeaderboardDao {
         return topUserForGeneral.subList(offset, offset+limit);
     };
 
+    default List<LeaderBoardRecord>  getGeneralLeaderBoardViaCache(){
+        return topUserForGeneral;
+    };
+
     default void setTopUserForWorld1(List<LeaderBoardRecord> topUsers){
         topUserForWorld1.clear();
         topUserForWorld1.addAll(topUsers);
