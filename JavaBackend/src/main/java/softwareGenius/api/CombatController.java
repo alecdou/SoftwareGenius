@@ -1,15 +1,10 @@
 package softwareGenius.api;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.*;
 import softwareGenius.model.Character;
 import softwareGenius.service.*;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
