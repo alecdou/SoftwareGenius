@@ -9,34 +9,30 @@ public class Character {
     private Integer exp;
     private Integer level;
     private Integer attackPt;
-    /** whether the character is unlocked**/
-    private Boolean isUnlocked;
     /** number of correctly answered question **/
     private Integer correctQuesNo;
     /** number of answered question **/
     private Integer totalQuesNo;
 
     public Character(Integer charId, Integer userId, Category charName, Integer exp, Integer level, Integer attackPt,
-                     Boolean isUnlocked, Integer correctQuesNo, Integer totalQuesNo) {
+                     Integer correctQuesNo, Integer totalQuesNo) {
         this.charId = charId;
         this.userId = userId;
         this.charName = charName;
         this.exp = exp;
         this.level = level;
         this.attackPt = attackPt;
-        this.isUnlocked = isUnlocked;
         this.correctQuesNo = correctQuesNo;
         this.totalQuesNo = totalQuesNo;
     }
 
     public Character(Integer userId, Category charName, Integer exp, Integer level, Integer attackPt,
-                     Boolean isUnlocked, Integer correctQuesNo, Integer totalQuesNo) {
+                     Integer correctQuesNo, Integer totalQuesNo) {
         this.userId = userId;
         this.charName = charName;
         this.exp = exp;
         this.level = level;
         this.attackPt = attackPt;
-        this.isUnlocked = isUnlocked;
         this.correctQuesNo = correctQuesNo;
         this.totalQuesNo = totalQuesNo;
     }
@@ -93,11 +89,4 @@ public class Character {
         this.totalQuesNo = totalQuesNo;
     }
 
-    public Boolean getIsUnlocked() {
-        return isUnlocked;
-    }
-
-    public void setIsUnlocked(Boolean unlocked) {
-        isUnlocked = unlocked;
-    }
 }

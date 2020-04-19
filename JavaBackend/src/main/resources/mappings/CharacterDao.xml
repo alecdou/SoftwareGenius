@@ -14,7 +14,7 @@
         <result property="totalQuesNo" column="totalQuesNo"/>
     </resultMap>
 
-    <insert id="addCharacter" parameterType="softwareGenius.model.Character">
+    <insert id="addCharacter" parameterType="softwareGenius.model.Character" useGeneratedKeys="true" keyProperty="charId" keyColumn="charId">
         insert into character (
             userId,
             charName,

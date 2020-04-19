@@ -3,6 +3,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 import softwareGenius.model.Session;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -17,7 +18,7 @@ public interface SessionDao {
      * @param userId the id of the user
      * @param loginTime the time user logged in
      */
-    Boolean addSession(@Param("userId") Integer userId, @Param("loginTime") LocalDateTime loginTime);
+    Boolean addSession(@Param("userId") Integer userId, @Param("loginTime") Timestamp loginTime);
     /**
      * Update session to the database
      * @param sessionId the id of the session to be added
