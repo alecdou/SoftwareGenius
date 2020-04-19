@@ -31,18 +31,18 @@ public class PlayerController {
     }
 
     /***
-     *
+     * Get the user with given userId
      * @param userId id of the user
      * @return user object with the given userId
      */
-    @GetMapping("/get/{userId}")
+    @GetMapping("/getUser/{userId}")
     public User get(@PathVariable Integer userId){
         return accountService.getUserById(userId);
     }
 
     /***
-     *
-     * @return get all users
+     * Get all users
+     * @return list of user obejcts
      */
     @GetMapping("/getAll")
     public List<User> getAll(){
@@ -50,25 +50,20 @@ public class PlayerController {
         }
 
     /***
-     *
+     * create a new user
       * @param user user object
-     * @return initialize a new user
+     * @return userId Id of the created user
      */
-    @PostMapping("/add")
+    @PostMapping("/addUser")
     public Integer initUser(@RequestBody User user){
         Integer userId = accountService.addNewUser(user);
-//        for (Category category: Category.values()) {
-//            landService.initNewLand(
-//                    worldService.initNewWorld(userId,
-//                            charService.initNewCharacter(userId, category), category));
-//        }
         return userId;
     }
 
     /***
-     *
+     * login with current session recorded
      * @param user user object
-     * @return login with current session recorded
+     * @return true if login successfully; false otherwise
      */
     @GetMapping("/login")
     public Boolean login(@RequestBody User user) {
@@ -83,9 +78,9 @@ public class PlayerController {
     }
 
     /***
-     *
+     * logout with current session ending time updated
      * @param user user object
-     * @return logout with current session ending time updated
+     * @return true if login successfully; false otherwise
      */
     @GetMapping("/logout")
     public Boolean logout(@RequestBody User user) {
