@@ -57,6 +57,9 @@ public class QuestionService {
     public Float getAccuracy(Integer qid){
         Question q=questionDao.getQuestion(qid);
         Integer answered=q.getUserAnswered();
+        if (answered==0){
+            return (float) 0;
+        }
         Integer correct=q.getUserCorrect();
         return (float) correct/answered;
     }
