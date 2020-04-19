@@ -27,6 +27,7 @@ public class Question {
         this.userAnswered=0;
         this.userCorrect=0;
     }
+    public Question(){}
 
     public void setId(Integer id) {
         this.questionId = id;
