@@ -36,8 +36,8 @@ public class WorldController {
      * @param worldId
      * @return list of 24 land objects
      */
-    @GetMapping("/getLandByWorldId/{worldId}")
-    public List<Land> getLandByWorldId(@PathVariable Integer worldId) {
+    @GetMapping("/getLandsByWorldId/{worldId}")
+    public List<Land> getLandsByWorldId(@PathVariable Integer worldId) {
         return landService.getLandByWorld(worldId);
     }
 
