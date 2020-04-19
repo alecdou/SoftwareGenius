@@ -5,6 +5,7 @@
 <mapper namespace="softwareGenius.mapper.LandDao">
     <resultMap id="landMap" type="softwareGenius.model.Land">
         <result property="landId" column="landId"/>
+        <result property="index" column="index"/>
         <result property="worldId" column="worldId"/>
         <result property="ownerId" column="ownerId"/>
         <result property="ownerDifficultyLevel" column="ownerDifficultyLevel"/>
@@ -12,11 +13,13 @@
 
     <insert id="addLand" parameterType="softwareGenius.model.Land">
         insert into land (
+            index,
 			worldId,
 			ownerId,
 			ownerDifficultyLevel
               )
         VALUES (
+            #{index},
 			#{worldId},
             #{ownerId},
             #{ownerDifficultyLevel}
@@ -29,13 +32,13 @@
     </delete>
 
     <select id="getLandByWorldId" parameterType="java.lang.Integer" resultMap="landMap">
-		select landId, worldId, ownerId,ownerDifficultyLevel
+		select *
 		from land
 		where worldId = #{worldId}
     </select>
 
     <select id="getLandByLandId" parameterType="java.lang.Integer" resultMap="landMap">
-		select landId, worldId, ownerId,ownerDifficultyLevel
+		select *
 		from land
 		where landId = #{landId}
     </select>

@@ -58,8 +58,9 @@
         DELETE FROM question
         WHERE questionId = #{questionId}
     </delete>
-    <select id="getQuestion" parameterType="java.lang.Integer">
-        SELECT FROM question
+    <select id="getQuestion" parameterType="java.lang.Integer" resultMap="questionMap">
+        SELECT questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel
+        FROM question
         WHERE questionId = #{questionId}
     </select>
 
