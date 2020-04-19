@@ -23,7 +23,10 @@ public class QuestionController {
         return questionService.getQuestion(questionId);
     }
 
-
+    @GetMapping(path = "score/{qid}")
+    public Float qnsScore(@PathVariable Integer qid) {
+        return questionService.getAccuracy(qid);
+    }
 
     @GetMapping(path = "{category}/{difficultyLevel}/{limit}")
     public List<Question> getQuestionByCategory(@PathVariable String category, @PathVariable Integer difficultyLevel, @PathVariable Integer limit) {
@@ -39,10 +42,7 @@ public class QuestionController {
         questionService.addQnsAnswered(questionIds);
     }
 
-    @PostMapping(path = "Score")
-    public Float qnsScore(@RequestBody Integer qid) {
-        return questionService.getAccuracy(qid);
-    }
+
     @PostMapping(path = "correctAnswered")
     public void qnsCorrectlyAnswered(@RequestBody Integer[] questionIds) {
         questionService.addQnsCorrectlyAnswered(questionIds);
