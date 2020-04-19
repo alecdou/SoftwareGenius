@@ -85,13 +85,13 @@ public class PlayerController {
 
     /***
      * logout with current session ending time updated
-     * @param user user object
+     * @param userId id of the user object
      * @return true if login successfully; false otherwise
      */
-    @PostMapping("/logout")
-    public Boolean logout(@RequestBody User user) {
+    @GetMapping("/logout/{userId}")
+    public Boolean logout(@PathVariable Integer userId){
         // get the session list of the user
-        List<Session> sessionList = sessionService.getSessionByUserID(user.getId());
+        List<Session> sessionList = sessionService.getSessionByUserID(userId);
 
         // get the latest session
         Session session = sessionList.get(sessionList.size() - 1);
