@@ -10,11 +10,10 @@ public class User {
     private final String accountType;
     /** user type **/
     private final Boolean isAdmin;
-    private Float accuracy;
     private Integer overallExp;
 
     public User(Integer userId, String username, String userAvatar, String password, String email, String accountType, Boolean isAdmin,
-                Float accuracy, Integer overallExp) {
+                Integer overallExp) {
         this.userId = userId;
         this.username = username;
         this.userAvatar = userAvatar;
@@ -22,7 +21,6 @@ public class User {
         this.email = email;
         this.accountType = accountType;
         this.isAdmin = isAdmin;
-        this.accuracy = accuracy;
         this.overallExp = overallExp;
     }
 
@@ -60,14 +58,6 @@ public class User {
 
     public Boolean getAdmin() {
         return isAdmin;
-    }
-
-    public Float getAccuracy() {
-        return accuracy;
-    }
-
-    public void setAccuracy(float accuracy) {
-        this.accuracy = accuracy;
     }
 
     public Integer getOverallExp() {

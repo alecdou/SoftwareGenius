@@ -10,7 +10,6 @@
         <result property="email" column="email"/>
         <result property="accountType" column="accountType"/>
         <result property="isAdmin" column="isAdmin"/>
-        <result property="accuracy" column="accuracy"/>
         <result property="overallExp" column="overallExp"/>
     </resultMap>
 
@@ -21,7 +20,6 @@
             email,
             accountType,
             isAdmin,
-            accuracy,
             overallExp
         )
         VALUES (
@@ -30,7 +28,6 @@
             #{email},
             #{accountType},
             #{isAdmin},
-            #{accuracy},
             #{overallExp}
         )
     </insert>
@@ -40,27 +37,19 @@
         set username = #{username},
             password = #{password},
             email = #{email},
-            accuracy = #{accuracy},
             overallExp = #{overallExp}
         where userId=#{userId}
     </update>
 
     <select id="getUserById" parameterType="java.lang.Integer" resultMap="userMap">
-        select userId, username, password, email, accountType, isAdmin, accuracy, overallExp
-        from user join
-            (select u.userId,SUM(c.correctQuesNo)/SUM(c.totalQuesNo) as accuracy
-            from user u, character c
-            where u.userId = #{userId} and u.userId = c.userId
-            group by u.userId) on userId
+        select userId, username, password, email, accountType, isAdmin, overallExp
+        from user
+        where userId = #{userId}
     </select>
 
     <select id="getAll" resultMap="userMap">
-        select userId, username, password, email, accountType, isAdmin, accuracy, overallExp
-        from user join
-             (select u.userId,SUM(c.correctQuesNo)/SUM(c.totalQuesNo) as accuracy
-              from user u, character c
-              where u.userId = c.userId
-              group by u.userId) on userId
+        select userId, username, password, email, accountType, isAdmin, overallExp
+        from user
     </select>
 
     <delete id="deleteUser">
