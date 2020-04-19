@@ -1,6 +1,7 @@
 package softwareGenius.api;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,8 @@ import softwareGenius.model.*;
 import softwareGenius.model.Character;
 import softwareGenius.service.*;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +25,7 @@ public class CombatController {
     private QuestionService questionService;
     private WorldService worldService;
     private CharacterService characterService;
+    private AccountService accountService;
 
     @Autowired
     public CombatController(CombatService combatService, LandService landService, NPCService npcService,
@@ -42,8 +46,10 @@ public class CombatController {
     @GetMapping(path = "start")
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
         // initialize a combat: worldId, landId, difficultyLevel, mode, playerId, status
-        Integer combatId = combatService.startNewCombat(combat);
+        combatService.startNewCombat(combat);
+        Integer combatId = combat.getCombatId();
         System.out.println(combat.getCombatId());
+        System.out.println(combatId);
 
         // get NPC
         NPC npc = npcService.getNPCByDifficultyLevel(combat.getDifficultyLevel());
@@ -70,16 +76,32 @@ public class CombatController {
 
 
     @PostMapping(path = "{combatId}/end")
-    public void endBattle(@PathVariable("combatId") Integer combatId,
-                          @Value("characterId") Integer characterId,
-                          @Value("status") String status,
-                          @Value("numOfQnsAnswered") Integer numOfQnsAnswered,
-                          @Value("idOfAnsweredQns") Integer[] idOfAnsweredQns,
-                          @Value("idOfCorrectlyAnsweredQns") Integer[] idOfCorrectlyAnsweredQns
-                          )
+    public void endBattle(@PathVariable("combatId") Integer combatId, @RequestBody Map<String, String> json)
     {
+        // process the json data
+        Integer characterId = Integer.parseInt(json.get("characterId"));
+        String status = json.get("status");
+        Integer numOfQnsAnswered = Integer.parseInt(json.get("numOfQnsAnswered"));
+
+        String[] idOfAnsweredQnsStr = json.get("idOfAnsweredQns").replace("[","").replace("]","").split(",");
+        Integer[] idOfAnsweredQns = new Integer[idOfAnsweredQnsStr.length];
+        System.out.println(Arrays.toString(idOfAnsweredQnsStr));
+        for (int i = 0; i < idOfAnsweredQns.length; i++) {
+            idOfAnsweredQns[i] = Integer.parseInt(idOfAnsweredQnsStr[i].trim());
+        }
+
+        String[] idOfCorrectlyAnsweredQnsStr = json.get("idOfCorrectlyAnsweredQns").replace("[","").replace("]","").split(",");;
+        Integer[] idOfCorrectlyAnsweredQns = new Integer[idOfCorrectlyAnsweredQnsStr.length];
+        System.out.println(Arrays.toString(idOfCorrectlyAnsweredQnsStr));
+        for (int i = 0; i < idOfCorrectlyAnsweredQns.length; i++) {
+            idOfCorrectlyAnsweredQns[i] = Integer.parseInt(idOfCorrectlyAnsweredQnsStr[i].trim());
+        }
+
         // update combat record
         combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.length);
+
+        // get the combat data
+        Combat combat = combatService.getCombatById(combatId);
 
         // get the character used in the battle
         Character character = characterService.getCharacterByCharId(characterId);
@@ -95,21 +117,21 @@ public class CombatController {
         character.setLevel(characterLevel);
         character.setTotalQuesNo(character.getTotalQuesNo() + numOfQnsAnswered);
         character.setCorrectQuesNo(character.getCorrectQuesNo() + idOfCorrectlyAnsweredQns.length);
+
         // TODO: update other attributes such as attackPoint and hitPoint
-        character.setAttackPt(1);
-        character.setDefencePt(1);
+//        character.setAttackPt(1);
+//        character.setDefencePt(1);
         characterService.updateCharacter(character);
 
-        // TODO: do we need to update user's overall experience point?
         // update user overall exp
+        Integer userId = combat.getPlayerId();
+        User user = accountService.getUserById(userId);
+        user.setOverallExp(user.getOverallExp() + addedExp);
 
         // update question record
         questionService.addQnsAnswered(idOfAnsweredQns);
         questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
-
-
         // TODO: update land
-
 
     }
 

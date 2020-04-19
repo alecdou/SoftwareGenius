@@ -1,6 +1,6 @@
 package softwareGenius.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class Combat {
 
@@ -23,7 +23,10 @@ public class Combat {
     private String status;
 
     /** The time when the combat begins. */
-    private LocalDateTime combatTime;
+    private Timestamp combatTime;
+
+    /** The time when the combat ends. */
+    private Timestamp endTime;
 
     /** The total number of question showed in a combat. */
     private Integer totalNumOfQuestions;
@@ -31,8 +34,13 @@ public class Combat {
     /** The number of correctly answered questions in a combat. */
     private Integer numOfCorrectAns;
 
+
+    public Combat() {
+
+    }
+
     public Combat(Integer worldId, Integer landId, Integer combatId, Integer difficultyLevel,
-                  String mode, Integer playerId, Integer npcId, String status, LocalDateTime combatTime,
+                  String mode, Integer playerId, Integer npcId, String status, Timestamp combatTime, Timestamp endTime,
                   Integer totalNumOfQuestions, Integer numOfCorrectAns) {
         this.worldId = worldId;
         this.landId = landId;
@@ -43,8 +51,17 @@ public class Combat {
         this.npcId = npcId;
         this.status = status;
         this.combatTime = combatTime;
+        this.endTime = endTime;
         this.totalNumOfQuestions = totalNumOfQuestions;
         this.numOfCorrectAns = numOfCorrectAns;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
     public Integer getWorldId() {
@@ -111,11 +128,11 @@ public class Combat {
         this.status = status;
     }
 
-    public LocalDateTime getCombatTime() {
+    public Timestamp getCombatTime() {
         return combatTime;
     }
 
-    public void setCombatTime(LocalDateTime combatTime) {
+    public void setCombatTime(Timestamp combatTime) {
         this.combatTime = combatTime;
     }
 

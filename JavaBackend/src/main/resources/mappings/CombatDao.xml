@@ -9,10 +9,13 @@
         <result property="mode" column="mode"/>
         <result property="playerId" column="playerId"/>
         <result property="npcId" column="npcId"/>
-        <result property="combatTime" column="combatTime"/>
         <result property="status" column="status"/>
+        <result property="combatTime" column="combatTime"/>
         <result property="totalNumOfQuestions" column="totalNumOfQuestions"/>
         <result property="numOfCorrectAns" column="numOfCorrectAns"/>
+        <result property="endTime" column="endTime"/>
+        <result property="worldId" column="worldId"/>
+        <result property="landId" column="landId"/>
     </resultMap>
 
 <!--    <insert id="createEmpty" parameterType="Project" useGeneratedKeys="true" keyProperty="project.projectId" keyColumn="PROJECT_ID">-->
@@ -24,16 +27,24 @@
              npcId,
              status,
              totalNumOfQuestions,
-             numOfCorrectAns
+             numOfCorrectAns,
+             combatTime,
+             endTime,
+             worldId,
+             landId
              )
         VALUES (
             #{difficultyLevel},
             #{mode},
             #{playerId},
-            #{npcId},
+            #{difficultyLevel},
             #{status},
             #{totalNumOfQuestions},
-            #{numOfCorrectAns}
+            #{numOfCorrectAns},
+            #{combatTime},
+            #{endTime},
+            #{worldId},
+            #{landId}
           )
     </insert>
 
@@ -41,12 +52,13 @@
         update combat
         set status = #{status},
             totalNumOfQuestions = #{totalNumOfQuestions},
-            numOfCorrectAns = #{numOfCorrectAns}
+            numOfCorrectAns = #{numOfCorrectAns},
+            endTime = #{endTime}
         where combatId=#{combatId}
     </update>
 
     <select id="getCombatById" parameterType="java.lang.Integer" resultMap="combatMap">
-        select combatId, difficultyLevel, mode, playerId, npcId, status, totalNumOfQuestions, numOfCorrectAns
+        select *
         from combat
         where combatId = #{combatId}
     </select>
