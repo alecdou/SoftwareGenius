@@ -2,13 +2,17 @@ package softwareGenius.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import softwareGenius.model.Category;
+
+import java.time.Duration;
 import java.time.LocalDateTime;
-import softwareGenius.model.Combat;
+
+import softwareGenius.model.Character;
 import softwareGenius.model.Session;
 import softwareGenius.model.User;
 import softwareGenius.service.*;
 
+import java.time.Period;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,14 +24,16 @@ public class PlayerController {
     private final AccountService accountService;
     private final LandService landService;
     private final SessionService sessionService;
+    private final LeaderboardService leaderboardService;
 
     @Autowired
-    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService, SessionService sessionService) {
+    public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService, SessionService sessionService, LeaderboardService leaderboardService) {
         this.charService = charService;
         this.worldService = worldService;
         this.accountService = accountService;
         this.landService = landService;
         this.sessionService = sessionService;
+        this.leaderboardService = leaderboardService;
     }
 
     /***
@@ -95,6 +101,32 @@ public class PlayerController {
             return true;
         }
         return false;
+    }
+
+    @GetMapping ("/getReport/{userId}")
+    public Map<String, String> gerReport(@PathVariable("userId") Integer userID){
+        Map<String, String> result = new HashMap<>();
+        result.put("userId", userID.toString());
+        result.put("email", accountService.getUserById(userID).getEmail());
+        List<Character> userChar = charService.getCharacterByUserId(userID);
+        int totalQ = 0;
+        int totalC = 0;
+        for (Character c: userChar) {
+            totalQ += c.getTotalQuesNo();
+            totalC += c.getCorrectQuesNo();
+            result.put(c.getCharName() + "_accuracy", String.valueOf(Float.valueOf(c.getCorrectQuesNo())/c.getTotalQuesNo()));
+        }
+        result.put("overall_accuracy", String.valueOf(Float.valueOf(totalC)/totalQ));
+        result.put("ranking", String.valueOf(leaderboardService.getOverallRankingByUserId(userID)));
+        List<Session> userSessions = sessionService.getSessionByUserID(userID);
+        Period totalGameDay = Period.ZERO;
+        Duration totalGameTime = Duration.ZERO;
+        for (Session s: userSessions) {
+            totalGameDay.plus(Period.between(s.getLogoutTime().toLocalDate(), s.getLoginTime().toLocalDate()));
+            totalGameTime.plus(Duration.between(s.getLogoutTime(), s.getLoginTime()));
+        }
+        result.put("duration", totalGameDay.toString() + ' ' + totalGameTime.toString());
+        return result;
     }
 
 }
