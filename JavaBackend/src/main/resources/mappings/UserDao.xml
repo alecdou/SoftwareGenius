@@ -6,6 +6,7 @@
     <resultMap id="userMap" type="softwareGenius.model.User">
         <result property="userId" column="userId"/>
         <result property="username" column="username"/>
+        <result property="userAvatar" column="userAvatar"/>
         <result property="password" column="password"/>
         <result property="email" column="email"/>
         <result property="accountType" column="accountType"/>
@@ -16,6 +17,7 @@
     <insert id="addUser" parameterType="softwareGenius.model.User" useGeneratedKeys="true" keyProperty="userId" keyColumn="userId">
         insert into user (
             username,
+            userAvatar,
             password,
             email,
             accountType,
@@ -24,6 +26,7 @@
         )
         VALUES (
             #{username},
+            #{userAvatar},
             #{password},
             #{email},
             #{accountType},
@@ -35,6 +38,7 @@
     <update id="updateUser" parameterType="softwareGenius.model.User">
         update user
         set username = #{username},
+            userAvatar = #{userAvatar},
             password = #{password},
             email = #{email},
             overallExp = #{overallExp}
@@ -42,13 +46,13 @@
     </update>
 
     <select id="getUserById" parameterType="java.lang.Integer" resultMap="userMap">
-        select userId, username, password, email, accountType, isAdmin, overallExp
+        select userId, username, userAvatar, password, email, accountType, isAdmin, overallExp
         from user
         where userId = #{userId}
     </select>
 
     <select id="getAll" resultMap="userMap">
-        select userId, username, password, email, accountType, isAdmin, overallExp
+        select userId, username, userAvatar,  password, email, accountType, isAdmin, overallExp
         from user
     </select>
 
