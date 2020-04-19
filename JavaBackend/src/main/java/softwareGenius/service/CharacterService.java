@@ -14,13 +14,11 @@ import java.util.List;
 public class CharacterService {
 
     private final CharacterDao characterDao;
-    private final WorldService worldService;
     private final UserDao userDao;
 
     @Autowired
-    public CharacterService(CharacterDao characterDao, WorldService worldService, UserDao userDao) {
+    public CharacterService(CharacterDao characterDao, UserDao userDao) {
         this.characterDao = characterDao;
-        this.worldService = worldService;
         this.userDao = userDao;
     }
 
@@ -91,9 +89,7 @@ public class CharacterService {
      * @param charId id of the character
      * @return a character object with matching charId
      */
-    public Character getCharacterByCharId(Integer charId) {
-        return characterDao.getCharacterByCharId(charId);
-    }
+    public Character getCharacterByCharId(Integer charId) { System.out.println(charId);return characterDao.getCharacterByCharId(charId); }
 
     /**
      * Get all characters

@@ -46,7 +46,7 @@
     </update>
 
     <select id="getCharacterByCharId" parameterType="java.lang.Integer" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, correctQuesNo, totalQuesNo
+        select *
         from character
         where charId = #{charId}
     </select>

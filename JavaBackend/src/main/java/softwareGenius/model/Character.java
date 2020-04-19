@@ -4,8 +4,8 @@ import softwareGenius.service.AccountService;
 
 public class Character {
     private Integer charId;
-    private final Integer userId;
-    private final Category charName;
+    private Integer userId;
+    private Category charName;
     private Integer exp;
     private Integer level;
     private Integer attackPt;
@@ -14,6 +14,7 @@ public class Character {
     /** number of answered question **/
     private Integer totalQuesNo;
 
+    public Character(){}
     public Character(Integer charId, Integer userId, Category charName, Integer exp, Integer level, Integer attackPt,
                      Integer correctQuesNo, Integer totalQuesNo) {
         this.charId = charId;
@@ -43,6 +44,38 @@ public class Character {
 
     public Integer getUserId() {
         return userId;
+    }
+
+    public void setCharId(Integer charId) {
+        this.charId = charId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public void setCharName(Category charName) {
+        this.charName = charName;
+    }
+
+    public void setExp(Integer exp) {
+        this.exp = exp;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public void setAttackPt(Integer attackPt) {
+        this.attackPt = attackPt;
+    }
+
+    public void setCorrectQuesNo(Integer correctQuesNo) {
+        this.correctQuesNo = correctQuesNo;
+    }
+
+    public void setTotalQuesNo(Integer totalQuesNo) {
+        this.totalQuesNo = totalQuesNo;
     }
 
     public Category getCharName() {

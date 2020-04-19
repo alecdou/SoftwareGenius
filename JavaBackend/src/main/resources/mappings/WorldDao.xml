@@ -10,7 +10,7 @@
         <result property="category" column="category"/>
     </resultMap>
 
-    <insert id="addWorld" parameterType="softwareGenius.model.World" useGeneratedKeys="true" keyProperty="world.worldId">
+    <insert id="addWorld" parameterType="softwareGenius.model.World" useGeneratedKeys="true" keyProperty="worldId" keyColumn="worldId">
         insert into world (
             ownerId,
             charId,

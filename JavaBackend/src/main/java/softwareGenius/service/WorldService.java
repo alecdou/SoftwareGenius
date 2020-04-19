@@ -23,7 +23,10 @@ public class WorldService {
     }
 
     public Integer initNewWorld(Integer ownerId,Integer charId, Category category){
-        return worldDao.addWorld(new World(ownerId,charId,category));
+        World world = new World(ownerId,charId,category);
+        worldDao.addWorld(world);
+        System.out.println(world.getWorldId());
+        return world.getWorldId();
     }
 
     public void unlockWorld(Integer worldId) {
@@ -40,5 +43,8 @@ public class WorldService {
         return worldDao.getWorldByOwnerId(ownerId);
     }
 
-    public Integer getCharIdByWorldId(Integer worldId) { return worldDao.getCharIdByWorldId(worldId); }
+    public Integer getCharIdByWorldId(Integer worldId) {
+        System.out.println(worldId);
+        return worldId;
+    }
 }
