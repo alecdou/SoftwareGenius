@@ -27,13 +27,14 @@ public class CombatController {
     @Autowired
     public CombatController(CombatService combatService, LandService landService, NPCService npcService,
                             QuestionService questionService, WorldService worldService,
-                            CharacterService characterService) {
+                            CharacterService characterService, AccountService accountService) {
         this.combatService = combatService;
         this.landService = landService;
         this.npcService = npcService;
         this.questionService = questionService;
         this.worldService = worldService;
         this.characterService = characterService;
+        this.accountService = accountService;
     }
 
     /**
@@ -125,10 +126,10 @@ public class CombatController {
         User user = accountService.getUserById(userId);
         user.setOverallExp(user.getOverallExp() + addedExp);
 
-        // update question record
-        questionService.addQnsAnswered(idOfAnsweredQns);
-        questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
-        // TODO: update land
+//        // update question record
+//        questionService.addQnsAnswered(idOfAnsweredQns);
+//        questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
+//        // TODO: update land
 
     }
 

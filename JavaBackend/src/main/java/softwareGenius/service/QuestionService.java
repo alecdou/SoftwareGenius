@@ -67,8 +67,8 @@ public class QuestionService {
     public Integer calculateScore(Integer[] questionIds){
         int score=0;
         for (int i = 0; i < questionIds.length; i++){
-            Question questionI=questionDao.getQuestion(questionIds[i]);
-            score+=questionI.getDifficultyLevel();
+            Question questionI = questionDao.getQuestion(questionIds[i]);
+            score += questionI.getDifficultyLevel();
         }
         return score;
     }

@@ -34,27 +34,7 @@ public class Combat {
     /** The number of correctly answered questions in a combat. */
     private Integer numOfCorrectAns;
 
-
-    public Combat() {
-
-    }
-
-    public Combat(Integer worldId, Integer landId, Integer combatId, Integer difficultyLevel,
-                  String mode, Integer playerId, Integer npcId, String status, Timestamp combatTime, Timestamp endTime,
-                  Integer totalNumOfQuestions, Integer numOfCorrectAns) {
-        this.worldId = worldId;
-        this.landId = landId;
-        this.combatId = combatId;
-        this.difficultyLevel = difficultyLevel;
-        this.mode = mode;
-        this.playerId = playerId;
-        this.npcId = npcId;
-        this.status = status;
-        this.combatTime = combatTime;
-        this.endTime = endTime;
-        this.totalNumOfQuestions = totalNumOfQuestions;
-        this.numOfCorrectAns = numOfCorrectAns;
-    }
+    public Combat() {}
 
     public Timestamp getEndTime() {
         return endTime;
