@@ -1,7 +1,7 @@
 package softwareGenius.model;
 
 public class User {
-    private final Integer userId;
+    private Integer userId;
     private String username;
     private String userAvatar;
     private String password;
@@ -12,6 +12,7 @@ public class User {
     private Boolean isAdmin;
     private Integer overallExp;
 
+    public User() {}
     public User(Integer userId, String username, String userAvatar, String password, String email, String accountType, Boolean isAdmin,
                 Integer overallExp) {
         this.userId = userId;
