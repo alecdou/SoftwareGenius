@@ -7,6 +7,8 @@ import softwareGenius.mapper.CombatDao;
 import softwareGenius.model.Combat;
 import softwareGenius.model.Question;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,6 +24,12 @@ public class CombatService {
     private QuestionService questionService;
 
     public Integer startNewCombat(Combat combat) {
+        combat.setStatus("pending");
+        LocalDateTime now = LocalDateTime.now();
+        combat.setCombatTime(Timestamp.valueOf(now));
+        combat.setTotalNumOfQuestions(0);
+        combat.setNumOfCorrectAns(0);
+        combat.setEndTime(Timestamp.valueOf(now));
         return combatDao.addCombat(combat);
     }
 
@@ -38,7 +46,9 @@ public class CombatService {
     }
 
     public Boolean updateCombatResult(Integer combatId, String status, Integer totalNumOfQns, Integer numOfCorrectAns) {
-        return combatDao.updateCombatResult(combatId, status, totalNumOfQns, numOfCorrectAns);
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp endTime = Timestamp.valueOf(now);
+        return combatDao.updateCombatResult(combatId, status, totalNumOfQns, numOfCorrectAns, endTime);
     }
 
 

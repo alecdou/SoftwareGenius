@@ -10,7 +10,6 @@
         <result property="exp" column="exp"/>
         <result property="level" column="level"/>
         <result property="attackPt" column="attackPt"/>
-        <result property="defencePt" column="defencePt"/>
         <result property="correctQuesNo" column="correctQuesNo"/>
         <result property="totalQuesNo" column="totalQuesNo"/>
     </resultMap>
@@ -22,7 +21,6 @@
             exp,
             level,
             attackPt,
-            defencePt,
             correctQuesNo,
             totalQuesNo
         )
@@ -32,7 +30,6 @@
             #{exp},
             #{level},
             #{attackPt},
-            #{defencePt},
             #{correctQuesNo},
             #{totalQuesNo}
         )
@@ -43,26 +40,25 @@
         set exp = #{exp},
             level = #{level},
             attackPt = #{attackPt},
-            defencePt = #{defencePt},
             correctQuesNo = #{correctQuesNo},
             totalQuesNo = #{totalQuesNo}
         where charId=#{charId}
     </update>
 
     <select id="getCharacterByCharId" parameterType="java.lang.Integer" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, totalQuesNo
+        select charId, userId, charName, exp, level, attackPt, correctQuesNo, totalQuesNo
         from character
         where charId = #{charId}
     </select>
 
     <select id="getCharacterByUserId" parameterType="java.lang.Integer" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, totalQuesNo
+        select charId, userId, charName, exp, level, attackPt, correctQuesNo, totalQuesNo
         from character
         where userId = #{playerId}
     </select>
 
     <select id="getAll" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, defencePt, correctQuesNo, totalQuesNo
+        select charId, userId, charName, exp, level, attackPt, correctQuesNo, totalQuesNo
         from character
     </select>
 

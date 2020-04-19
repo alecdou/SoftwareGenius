@@ -22,6 +22,9 @@ public class QuestionController {
     public Question getQuestionById(@PathVariable Integer questionId) {
         return questionService.getQuestion(questionId);
     }
+
+
+
     @GetMapping(path = "{category}/{difficultyLevel}/{limit}")
     public List<Question> getQuestionByCategory(@PathVariable String category, @PathVariable Integer difficultyLevel, @PathVariable Integer limit) {
         return questionService.getQuestionsByCategory(category,difficultyLevel,limit);
@@ -30,9 +33,25 @@ public class QuestionController {
     public void deleteQuestionById(@PathVariable Integer questionId){
         questionService.deleteQuestion(questionId);
     }
+
+    @PostMapping(path = "Answered")
+    public void qnsAnswered(@RequestBody Integer[] questionIds) {
+        questionService.addQnsAnswered(questionIds);
+    }
+
+    @PostMapping(path = "Score")
+    public Float qnsScore(@RequestBody Integer qid) {
+        return questionService.getAccuracy(qid);
+    }
+    @PostMapping(path = "correctAnswered")
+    public void qnsCorrectlyAnswered(@RequestBody Integer[] questionIds) {
+        questionService.addQnsCorrectlyAnswered(questionIds);
+    }
+
     @PostMapping(path="addQuestion")
     public Boolean addQuestion(@RequestBody Question question){
         Boolean result= questionService.addNewQuestion(question);
         return result;
     }
+
 }

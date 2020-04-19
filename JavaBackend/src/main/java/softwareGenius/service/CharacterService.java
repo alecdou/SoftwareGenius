@@ -39,15 +39,17 @@ public class CharacterService {
      * @param charName name of the character
      * @return id of the character
      */
+
     public Integer initNewCharacter(Integer userId, Category charName) {
-        Integer exp = 0, level = 0, attackPt = 10, defencePt = 10, correctQueNo = 0, totalQuesNo = 0;
+        Integer exp = 0, level = 0, attackPt = 10, correctQueNo = 0, totalQuesNo = 0;
         Boolean isUnlocked = false;
-        Character character = new Character(userId, charName, exp, level, attackPt, defencePt, isUnlocked, correctQueNo, totalQuesNo);
-        return characterDao.addCharacter(character);
+        Character character = new Character(userId, charName, exp, level, attackPt, isUnlocked, correctQueNo, totalQuesNo);
+        characterDao.addCharacter(character);
+        return character.getCharId();
     }
 
     /**
-     * update the exp, attack points, defense points, level, and other fields of the character object and
+     * update the exp, attack points, level, and other fields of the character object and
      * the overall experience points of the user object with given userId and updatedCharacter object
      * @param updatedCharacter updated character object
      * @return status of the request (ex. True if succeed)

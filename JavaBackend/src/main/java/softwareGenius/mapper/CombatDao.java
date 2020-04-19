@@ -4,6 +4,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 import softwareGenius.model.Combat;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -27,7 +30,7 @@ public interface CombatDao {
      * @param numOfCorrectAns the number of correctly answered questions
      * @return whether the update is successful
      */
-    Boolean updateCombatResult(Integer combatId, String status, Integer totalNumOfQuestions, Integer numOfCorrectAns);
+    Boolean updateCombatResult(Integer combatId, String status, Integer totalNumOfQuestions, Integer numOfCorrectAns, Timestamp endTime);
 
     /**
      * Gets all combats in which a player involved in descending chronological order.

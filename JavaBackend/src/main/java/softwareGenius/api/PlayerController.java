@@ -3,14 +3,15 @@ package softwareGenius.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.time.Duration;
-import java.time.LocalDateTime;
 
 import softwareGenius.model.Character;
 import softwareGenius.model.Session;
 import softwareGenius.model.User;
 import softwareGenius.service.*;
 
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ public class PlayerController {
      * @return user object with the given userId
      */
     @GetMapping("/getUser/{userId}")
+
     public User getUserById(@PathVariable Integer userId){
         return accountService.getUserById(userId);
     }
@@ -51,9 +53,9 @@ public class PlayerController {
      * @return list of user obejcts
      */
     @GetMapping("/getAll")
-    public List<User> getAll(){
-            return accountService.getAll();
-        }
+    public List<User> getAll() {
+        return accountService.getAll();
+    }
 
     /***
      * create a new user
@@ -75,7 +77,7 @@ public class PlayerController {
     public Boolean login(@RequestBody User user) {
         try{
             accountService.validatePassword(user.getPassword(), user.getId());
-            sessionService.addSession(user.getId(), LocalDateTime.now());
+            sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
         } catch (Exception e){
             System.err.println(e.toString());
             return false;
@@ -85,13 +87,13 @@ public class PlayerController {
 
     /***
      * logout with current session ending time updated
-     * @param user user object
+     * @param userId id of the user object
      * @return true if login successfully; false otherwise
      */
-    @PostMapping("/logout")
-    public Boolean logout(@RequestBody User user) {
+    @GetMapping("/logout/{userId}")
+    public Boolean logout(@PathVariable Integer userId){
         // get the session list of the user
-        List<Session> sessionList = sessionService.getSessionByUserID(user.getId());
+        List<Session> sessionList = sessionService.getSessionByUserID(userId);
 
         // get the latest session
         Session session = sessionList.get(sessionList.size() - 1);
@@ -104,7 +106,7 @@ public class PlayerController {
     }
 
     @GetMapping ("/getReport/{userId}")
-    public Map<String, String> gerReport(@PathVariable("userId") Integer userID){
+    public Map<String, String> getReport(@PathVariable("userId") Integer userID){
         Map<String, String> result = new HashMap<>();
         result.put("userId", userID.toString());
         result.put("email", accountService.getUserById(userID).getEmail());
