@@ -104,7 +104,7 @@ public class PlayerController {
     }
 
     @GetMapping ("/getReport/{userId}")
-    public Map<String, String> gerReport(@PathVariable("userId") Integer userID){
+    public Map<String, String> getReport(@PathVariable("userId") Integer userID){
         Map<String, String> result = new HashMap<>();
         result.put("userId", userID.toString());
         result.put("email", accountService.getUserById(userID).getEmail());
