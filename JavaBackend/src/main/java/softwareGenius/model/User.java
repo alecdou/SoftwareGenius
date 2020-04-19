@@ -56,7 +56,7 @@ public class User {
         return accountType;
     }
 
-    public Boolean getAdmin() {
+    public Boolean getIsAdmin() {
         return isAdmin;
     }
 
