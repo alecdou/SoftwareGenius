@@ -44,7 +44,7 @@ public class LeaderboardService {
     }
 
     public int getOverallRankingByUserId(int userId){
-        return leaderboardDao.getGeneralLeaderBoardViaCache().indexOf(userId);
+        return leaderboardDao.getGeneralLeaderBoardViaCache().indexOf(userId) + 1;
     }
 
     @Scheduled(cron="* */30 * * * *")
