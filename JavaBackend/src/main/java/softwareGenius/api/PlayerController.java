@@ -36,7 +36,7 @@ public class PlayerController {
      * @return user object with the given userId
      */
     @GetMapping("/getUser/{userId}")
-    public User get(@PathVariable Integer userId){
+    public User getUserById(@PathVariable Integer userId){
         return accountService.getUserById(userId);
     }
 
@@ -82,7 +82,7 @@ public class PlayerController {
      * @param user user object
      * @return true if login successfully; false otherwise
      */
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public Boolean logout(@RequestBody User user) {
         // get the session list of the user
         List<Session> sessionList = sessionService.getSessionByUserID(user.getId());
