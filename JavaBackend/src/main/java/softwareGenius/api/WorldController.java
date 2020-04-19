@@ -1,7 +1,10 @@
 package softwareGenius.api;
 
+<<<<<<< HEAD
+=======
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+>>>>>>> fb9684a7b9481b9038554ae039c84211245cdc73
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.*;
 import softwareGenius.model.Character;
