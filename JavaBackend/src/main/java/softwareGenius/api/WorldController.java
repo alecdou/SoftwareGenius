@@ -1,5 +1,6 @@
 package softwareGenius.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.*;
@@ -21,6 +22,14 @@ public class WorldController {
     private LandService landService;
     private CharacterService charService;
 
+    @Autowired
+    public WorldController(WorldService worldService, LeaderboardService leaderboardService, LandService landService, CharacterService charService) {
+        this.worldService = worldService;
+        this.leaderboardService = leaderboardService;
+        this.landService = landService;
+        this.charService = charService;
+    }
+
     /**
      * TO get the character object of a world
       * @param worldId id of the world
@@ -41,7 +50,7 @@ public class WorldController {
         List<Land> lands=landService.getLandByWorld(worldId);
         Map<String,Land> map=new HashMap<>();
         for (Land land:lands) {
-            map.put(land.getIndex().toString(),land);
+            map.put(land.getInd().toString(),land);
         }
         return map;
     }
@@ -58,14 +67,15 @@ public class WorldController {
      * @param userId id of the user
      * @return a map whose keys are four categories("SE","SA","PM","QA"), values are the worldId(if the world is locked, value is null)
      */
-    @GetMapping("/getWorldIdsByUser/{userId}")
+    @GetMapping("/getWorldIdsByUserId/{userId}")
     public Map<String,Integer> getWorldListByUserId(@PathVariable Integer userId) {
-        List<World> worlds=worldService.getWorldByOwnerId(userId);
         Map<String,Integer> map=new HashMap<>();
         map.put("SE",null);
         map.put("SA",null);
         map.put("PM",null);
         map.put("QA",null);
+        List<World> worlds=worldService.getWorldByOwnerId(userId);
+        if (worlds==null) return map;
         for (World world:worlds) {
             Category category=world.getCategory();
             Integer worldId=world.getWorldId();
@@ -75,6 +85,7 @@ public class WorldController {
             if (category==Category.QA) map.replace("QA",worldId);
         }
         return map;
+
     }
 
     /**

@@ -30,14 +30,15 @@ public class WorldService {
         worldDao.unlockWorld(worldId);
     }
 
-
     public World getWorldByWorldId(Integer worldId) {
         return worldDao.getWorldByWorldId(worldId);
     }
 
     public World getWorldByCharId(Integer charId) { return worldDao.getWorldByCharId(charId); }
 
-    public List<World> getWorldByOwnerId(Integer ownerId) { return worldDao.getWorldByOwnerId(ownerId); }
+    public List<World> getWorldByOwnerId(Integer ownerId) {
+        return worldDao.getWorldByOwnerId(ownerId);
+    }
 
     public Integer getCharIdByWorldId(Integer worldId) { return worldDao.getCharIdByWorldId(worldId); }
 }
