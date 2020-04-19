@@ -18,6 +18,7 @@ public class SessionService {
     public SessionService(SessionDao sessionDao) {
         this.sessionDao = sessionDao;
     }
+
     /**
      * Initiate a new session with given attributes
      * @param userId the id of the user
@@ -27,6 +28,7 @@ public class SessionService {
     public Boolean addSession(Integer userId, Timestamp loginTime){
         return sessionDao.addSession(userId, loginTime);
     }
+
     /**
      * Initiate a new session with given attributes
      * @param sessionId the id of the session
@@ -36,6 +38,7 @@ public class SessionService {
     public Boolean updateSessionEndTime(Integer sessionId, LocalDateTime logoutTime){
         return sessionDao.updateSessionEndTime(sessionId, logoutTime);
     }
+
     /**
      * Initiate a new session with given attributes
      * @param userId the id of the user

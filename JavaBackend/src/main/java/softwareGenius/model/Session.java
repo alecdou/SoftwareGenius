@@ -1,14 +1,14 @@
 package softwareGenius.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class Session {
     private Integer sessionId;
     private Integer userId;
-    private LocalDateTime loginTime;
-    private LocalDateTime logoutTime;
+    private Timestamp loginTime;
+    private Timestamp logoutTime;
 
-    public Session(Integer sessionId, Integer userId, LocalDateTime loginTime, LocalDateTime logoutTime) {
+    public Session(Integer sessionId, Integer userId, Timestamp loginTime, Timestamp logoutTime) {
         this.sessionId = sessionId;
         this.userId = userId;
         this.loginTime = loginTime;
@@ -23,11 +23,11 @@ public class Session {
         return userId;
     }
 
-    public LocalDateTime getLoginTime() {
+    public Timestamp getLoginTime() {
         return loginTime;
     }
 
-    public LocalDateTime getLogoutTime() {
+    public Timestamp getLogoutTime() {
         return logoutTime;
     }
 
@@ -39,11 +39,11 @@ public class Session {
         this.userId = userId;
     }
 
-    public void setLoginTime(LocalDateTime loginTime) {
+    public void setLoginTime(Timestamp loginTime) {
         this.loginTime = loginTime;
     }
 
-    public void setLogoutTime(LocalDateTime logoutTime) {
+    public void setLogoutTime(Timestamp logoutTime) {
         this.logoutTime = logoutTime;
     }
 }
