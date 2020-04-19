@@ -37,8 +37,13 @@ public class WorldController {
      * @return list of 24 land objects
      */
     @GetMapping("/getLandsByWorldId/{worldId}")
-    public List<Land> getLandsByWorldId(@PathVariable Integer worldId) {
-        return landService.getLandByWorld(worldId);
+    public Map<String,Land> getLandsByWorldId(@PathVariable Integer worldId) {
+        List<Land> lands=landService.getLandByWorld(worldId);
+        Map<String,Land> map=new HashMap<>();
+        for (Land land:lands) {
+            map.put(land.getIndex().toString(),land);
+        }
+        return map;
     }
 
     /*
@@ -53,7 +58,7 @@ public class WorldController {
      * @param userId id of the user
      * @return a map whose keys are four categories("SE","SA","PM","QA"), values are the worldId(if the world is locked, value is null)
      */
-    @GetMapping("/getWorldsByUser/{userId}")
+    @GetMapping("/getWorldIdsByUser/{userId}")
     public Map<String,Integer> getWorldListByUserId(@PathVariable Integer userId) {
         List<World> worlds=worldService.getWorldByOwnerId(userId);
         Map<String,Integer> map=new HashMap<>();
@@ -85,8 +90,6 @@ public class WorldController {
         landService.initNewLand(worldId);
         return worldId;
     }
-
-
 
     @GetMapping("/getLeaderBoard/all/{offset}/{limit}")
     public List<List<LeaderBoardRecord>> getAllLeaderBoard(@PathVariable Integer offset,@PathVariable Integer limit) {
