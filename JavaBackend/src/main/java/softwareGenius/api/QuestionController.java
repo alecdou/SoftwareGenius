@@ -1,14 +1,10 @@
 package softwareGenius.api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.*;
-import softwareGenius.model.Character;
 import softwareGenius.service.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequestMapping("api/question")
 @RestController
@@ -25,6 +21,13 @@ public class QuestionController {
         return questionService.getQuestion(questionId);
     }
 
+
+    @GetMapping(path = "score/{qid}")
+    public Float qnsScore(@PathVariable Integer qid) {
+        return questionService.getAccuracy(qid);
+    }
+
+
     @GetMapping(path = "{category}/{difficultyLevel}/{limit}")
     public List<Question> getQuestionByCategory(@PathVariable String category, @PathVariable Integer difficultyLevel, @PathVariable Integer limit) {
         return questionService.getQuestionsByCategory(category,difficultyLevel,limit);
@@ -40,10 +43,10 @@ public class QuestionController {
         questionService.addQnsAnswered(questionIds);
     }
 
-    @PostMapping(path = "Score")
-    public Float qnsScore(@RequestBody Integer qid) {
-        return questionService.getAccuracy(qid);
-    }
+//    @PostMapping(path = "Score")
+//    public Float qnsScore(@RequestBody Integer qid) {
+//        return questionService.getAccuracy(qid);
+//    }
 
     @PostMapping(path = "correctAnswered")
     public void qnsCorrectlyAnswered(@RequestBody Integer[] questionIds) {

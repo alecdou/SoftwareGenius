@@ -55,10 +55,10 @@ public class CombatController {
                 combat.getDifficultyLevel(), 10);
 
         // get world such that we can get characters
-        Integer worldId = worldService.getCharIdByWorldId(combat.getWorldId());
+        Integer characterId = worldService.getCharIdByWorldId(combat.getWorldId());
 
         // get character
-        Character character = characterService.getCharacterByCharId(worldId);
+        Character character = characterService.getCharacterByCharId(characterId);
 
         Map<String,Object> map = new HashMap<>();
         //put all the values in the map
