@@ -113,7 +113,6 @@ public class CombatController {
 
     }
 
-
     @GetMapping(path = "{combatId}")
     public Combat getCombatById(@PathVariable("combatId") Integer combatId) {
         return combatService.getCombatById(combatId);
