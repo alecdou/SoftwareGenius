@@ -10,6 +10,7 @@ import softwareGenius.mapper.LeaderboardDao;
 import softwareGenius.model.Category;
 import softwareGenius.model.LeaderBoardRecord;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,8 +55,8 @@ public class LeaderboardService {
         return 0;
     }
 
-    @Scheduled(cron="* */30 * * * *")
-    // Update evey 30 minutes
+    @PostConstruct
+    @Scheduled(cron="0 * * * * *")
     public void cronUpdate(){
         try{
             leaderboardDao.setTopUserForWorld1(leaderboardDao.getLeaderBoardByWorldName(Category.SE, 0, 1000));
@@ -63,7 +64,7 @@ public class LeaderboardService {
             leaderboardDao.setTopUserForWorld3(leaderboardDao.getLeaderBoardByWorldName(Category.PM, 0, 1000));
             leaderboardDao.setTopUserForWorld4(leaderboardDao.getLeaderBoardByWorldName(Category.QA, 0, 1000));
             leaderboardDao.setTopUserForGeneral(leaderboardDao.getGeneralLeaderBoard(0, 1000));
-            System.out.println("Leader Board Updated!");
+//            System.out.println("Leader Board Updated!");
         } catch (Exception e){
             e.printStackTrace();
         }

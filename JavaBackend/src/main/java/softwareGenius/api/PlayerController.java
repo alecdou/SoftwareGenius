@@ -109,7 +109,10 @@ public class PlayerController {
     public Map<String, String> getReport(@PathVariable("userId") Integer userID){
         Map<String, String> result = new HashMap<>();
         result.put("userId", userID.toString());
-        result.put("email", accountService.getUserById(userID).getEmail());
+        User u = accountService.getUserById(userID);
+        result.put("email", u.getEmail());
+        result.put("username", u.getUsername());
+        result.put("real_name", u.getRealName());
         List<Character> userChar = charService.getCharacterByUserId(userID);
         int totalQ = 0;
         int totalC = 0;

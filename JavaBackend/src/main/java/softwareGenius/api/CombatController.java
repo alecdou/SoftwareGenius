@@ -18,19 +18,17 @@ public class CombatController {
 
     private CombatService combatService;
     private LandService landService;
-    private NPCService npcService;
     private QuestionService questionService;
     private WorldService worldService;
     private CharacterService characterService;
     private AccountService accountService;
 
     @Autowired
-    public CombatController(CombatService combatService, LandService landService, NPCService npcService,
+    public CombatController(CombatService combatService, LandService landService,
                             QuestionService questionService, WorldService worldService,
                             CharacterService characterService, AccountService accountService) {
         this.combatService = combatService;
         this.landService = landService;
-        this.npcService = npcService;
         this.questionService = questionService;
         this.worldService = worldService;
         this.characterService = characterService;
@@ -43,30 +41,44 @@ public class CombatController {
      */
     @GetMapping(path = "start")
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
+        Map<String,Object> map = new HashMap<>();
+
         // initialize a combat
         combatService.startNewCombat(combat);
         Integer combatId = combat.getCombatId();
 
-        // get NPC
-        NPC npc = npcService.getNPCByDifficultyLevel(combat.getDifficultyLevel());
-
         // get question list (with 20 questions)
-        World world = worldService.getWorldByWorldId(combat.getWorldId());
-        Category category = world.getCategory();
-        List<Question> questions = questionService.getQuestionsByCategory(category.toString(),
-                combat.getDifficultyLevel(), 20);
+        World world;
+        try {
+            world = worldService.getWorldByWorldId(combat.getWorldId());
+        } catch (Exception e) {
+            map.put("error", "Error: World id is wrong or the world does not exist!");
+            return map;
+        }
 
-        // get world such that we can get characters
-        Integer characterId = worldService.getCharIdByWorldId(combat.getWorldId());
+        Category category = world.getCategory();
+        List<Question> questions;
+        try {
+            questions = questionService.getQuestionsByCategory(category.toString(),
+                    combat.getDifficultyLevel(), 20);
+        } catch (Exception e) {
+            map.put("error", "Error: Difficulty level should be 1, 2, or 3 (integer)!");
+            return map;
+        }
 
         // get character
-        Character character = characterService.getCharacterByCharId(characterId);
+        Character character;
+        try {
+            Integer characterId = worldService.getCharIdByWorldId(combat.getWorldId());
+            character = characterService.getCharacterByCharId(characterId);
+        } catch (Exception e) {
+            map.put("error", "Error: The system is not able to get the character required!");
+            return map;
+        }
 
-        Map<String,Object> map = new HashMap<>();
 
         //put all the values in the map
         map.put("combatId", combatId);
-        map.put("npc", npc);
         map.put("questions", questions);
         map.put("character", character);
 
@@ -76,10 +88,32 @@ public class CombatController {
 
     @PostMapping(path = "{combatId}/end")
     public Map<String, Object> endBattle(@PathVariable("combatId") Integer combatId, @RequestBody Map<String, String> json) {
+        Map<String, Object> map = new HashMap<>();
+
         // process the json data
-        Integer characterId = Integer.parseInt(json.get("characterId"));
-        String status = json.get("status");
-        Integer numOfQnsAnswered = Integer.parseInt(json.get("numOfQnsAnswered"));
+        Integer characterId;
+        try {
+            characterId = Integer.parseInt(json.get("characterId"));
+        } catch (Exception e) {
+            map.put("error: ", "Error: something went wrong with the character id");
+            return map;
+        }
+
+        String status;
+        try {
+            status = json.get("status");
+        } catch (Exception e) {
+            map.put("error: ", "Error: something went wrong with the status");
+            return map;
+        }
+
+        Integer numOfQnsAnswered;
+        try {
+            numOfQnsAnswered = Integer.parseInt(json.get("numOfQnsAnswered"));
+        } catch (Exception e) {
+            map.put("error: ", "Error: something went wrong with the numOfQnsAnswered");
+            return map;
+        }
 
         Integer[] idOfAnsweredQns;
         Integer[] idOfCorrectlyAnsweredQns;
@@ -125,10 +159,6 @@ public class CombatController {
         character.setLevel(characterLevel);
         character.setTotalQuesNo(character.getTotalQuesNo() + numOfQnsAnswered);
         character.setCorrectQuesNo(character.getCorrectQuesNo() + idOfCorrectlyAnsweredQns.length);
-
-        // TODO: update other attributes such as attackPoint and hitPoint
-
-        character.setAttackPt(1);
         characterService.updateCharacter(character);
 
         // update user overall exp
@@ -145,8 +175,6 @@ public class CombatController {
             landService.changeOwner(combat.getLandId(), combat.getPlayerId(), combat.getDifficultyLevel());
         }
 
-        Map<String, Object> map = new HashMap<>();
-        //put all the values in the map
         map.put("addedExp", addedExp);
         return map;
     }
