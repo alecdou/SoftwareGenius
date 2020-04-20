@@ -150,7 +150,7 @@ public class WorldController {
      * @param category the new world category in String ("SE","SA","PM","QA")
      * @return the id of the new world
      */
-    @PostMapping("/unlock/{userId}/{category}")
+    @GetMapping("/unlock/{userId}/{category}")
     public Integer initNewWorld(@PathVariable Integer userId,@PathVariable String category){
         int charId=charService.initNewCharacter(userId,Category.valueOf(category));
         int worldId=worldService.initNewWorld(userId,charId,Category.valueOf(category));
@@ -174,7 +174,7 @@ public class WorldController {
     }
 
     //after win a combat
-    @PostMapping("/changeOwner/{landId}/{ownerId}/{difficulty}")
+    @GetMapping("/changeOwner/{landId}/{ownerId}/{difficulty}")
     public void changeOwner(@PathVariable Integer landId,@PathVariable Integer ownerId,@PathVariable Integer difficulty) {
         landService.changeOwner(landId,ownerId,difficulty);
     }
