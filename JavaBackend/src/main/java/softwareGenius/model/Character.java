@@ -15,6 +15,7 @@ public class Character {
     private Integer totalQuesNo;
 
     public Character(){}
+
     public Character(Integer charId, Integer userId, Category charName, Integer exp, Integer level, Integer attackPt,
                      Integer correctQuesNo, Integer totalQuesNo) {
         this.charId = charId;
