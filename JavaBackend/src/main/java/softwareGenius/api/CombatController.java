@@ -141,8 +141,6 @@ public class CombatController {
         questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
         //
         landService.changeOwner(combat.getLandId(),combat.getPlayerId(),combat.getDifficultyLevel());
-//        // TODO: update land
-
 
         Map<String, Object> map = new HashMap<>();
         //put all the values in the map
