@@ -100,7 +100,7 @@ public class CharacterService {
     }
 
     /**
-     * Delete character with given userId
+     * Delete character with the given userId
      * @param userId id of the user
      * @return status of the request (ex. True if succeed)
      */
