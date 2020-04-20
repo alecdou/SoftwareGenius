@@ -18,19 +18,17 @@ public class CombatController {
 
     private CombatService combatService;
     private LandService landService;
-    private NPCService npcService;
     private QuestionService questionService;
     private WorldService worldService;
     private CharacterService characterService;
     private AccountService accountService;
 
     @Autowired
-    public CombatController(CombatService combatService, LandService landService, NPCService npcService,
+    public CombatController(CombatService combatService, LandService landService,
                             QuestionService questionService, WorldService worldService,
                             CharacterService characterService, AccountService accountService) {
         this.combatService = combatService;
         this.landService = landService;
-        this.npcService = npcService;
         this.questionService = questionService;
         this.worldService = worldService;
         this.characterService = characterService;
