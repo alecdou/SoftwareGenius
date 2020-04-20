@@ -118,7 +118,6 @@ public class WorldController {
         return leaderboardService.getLeaderBoardByWorldName(category,offset,limit);
     }
 
-
     //after win a combat
     @PostMapping("/changeOwner/{landId}/{ownerId}/{difficulty}")
     public void changeOwner(@PathVariable Integer landId,@PathVariable Integer ownerId,@PathVariable Integer difficulty) {
