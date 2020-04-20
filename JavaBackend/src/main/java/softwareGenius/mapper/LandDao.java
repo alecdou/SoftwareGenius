@@ -40,11 +40,9 @@ public interface LandDao {
     Land getLandByLandId(Integer landId);
 
     /**
-     * change the owner and ownerDifficultyLevel of a land
-     * @param landId the id of the land
-     * @param ownerId the id of the new owner
-     * @param difficultyLevel the new difficulty level
-     * @return success or not
+     * change owner
+     * @param tmp tmp land object
+     * @return true if succeed
      */
-    Boolean changeOwner(@Param("lid") Integer landId, @Param("nid") Integer ownerId, @Param("ndl") Integer difficultyLevel);
+    Boolean changeOwner(Land tmp);
 }

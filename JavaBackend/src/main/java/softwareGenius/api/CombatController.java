@@ -138,6 +138,8 @@ public class CombatController {
         // update question record
         questionService.addQnsAnswered(idOfAnsweredQns);
         questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
+        //
+        landService.changeOwner(combat.getLandId(),combat.getPlayerId(),combat.getDifficultyLevel());
 //        // TODO: update land
 
     }

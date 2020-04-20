@@ -43,9 +43,9 @@
 		where landId = #{landId}
     </select>
 
-    <update id="changeOwner" parameterType="map">
+    <update id="changeOwner" parameterType="softwareGenius.model.Land">
         update land
-        set ownerId=#{nid},ownerDifficultyLevel=#{ndl}
-        where landId=#{lid}
+        set ownerId=#{ownerId},ownerDifficultyLevel=#{ownerDifficultyLevel}
+        where landId=#{landId}
     </update>
 </mapper>
