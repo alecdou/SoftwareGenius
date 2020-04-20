@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="softwareGenius.mapper.LeaderboardDao">
     <resultMap id="leaderboardMap" type="softwareGenius.model.LeaderBoardRecord">
+        <result property="userId" column="userId"/>
         <result property="userName" column="userName"/>
         <result property="userAvatar" column="userAvatar"/>
         <result property="charScore" column="exp"/>
@@ -16,7 +17,7 @@
     </resultMap>
 
     <select id="getLeaderBoardByWorldName" parameterType="map" resultMap="leaderboardMap">
-        select username, userAvatar, exp
+        select u.userId, username, userAvatar, exp
         from user u, character c
         where u.userId = c.userId and c.charName = #{worldCategory}
         order by c.exp DESC
@@ -24,9 +25,9 @@
     </select>
 
     <select id="getGeneralLeaderBoard" parameterType="map" resultMap="generalLeaderboardMap">
-        select username, userAvatar, overallExp
+        select userId, username, userAvatar, overallExp
         from user
-        order by overallExp
+        order by overallExp DESC
         limit #{limit} offset #{offset}
     </select>
 
