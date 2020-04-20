@@ -46,8 +46,6 @@ public class CombatController {
         // initialize a combat: worldId, landId, difficultyLevel, mode, playerId, status
         combatService.startNewCombat(combat);
         Integer combatId = combat.getCombatId();
-        System.out.println(combat.getCombatId());
-        System.out.println(combatId);
 
         // get NPC
         NPC npc = npcService.getNPCByDifficultyLevel(combat.getDifficultyLevel());
@@ -65,6 +63,7 @@ public class CombatController {
 
         Map<String,Object> map = new HashMap<>();
         //put all the values in the map
+        map.put("combatId", combatId);
         map.put("npc", npc);
         map.put("questions", questions);
         map.put("character", character);
@@ -81,18 +80,28 @@ public class CombatController {
         String status = json.get("status");
         Integer numOfQnsAnswered = Integer.parseInt(json.get("numOfQnsAnswered"));
 
-        String[] idOfAnsweredQnsStr = json.get("idOfAnsweredQns").replace("[","").replace("]","").split(",");
-        Integer[] idOfAnsweredQns = new Integer[idOfAnsweredQnsStr.length];
-        System.out.println(Arrays.toString(idOfAnsweredQnsStr));
-        for (int i = 0; i < idOfAnsweredQns.length; i++) {
-            idOfAnsweredQns[i] = Integer.parseInt(idOfAnsweredQnsStr[i].trim());
+        Integer[] idOfAnsweredQns;
+        Integer[] idOfCorrectlyAnsweredQns;
+        try {
+            String[] idOfAnsweredQnsStr = json.get("idOfAnsweredQns").replace("[", "").replace("]", "").split(",");
+            idOfAnsweredQns = new Integer[idOfAnsweredQnsStr.length];
+            System.out.println(Arrays.toString(idOfAnsweredQnsStr));
+            for (int i = 0; i < idOfAnsweredQns.length; i++) {
+                idOfAnsweredQns[i] = Integer.parseInt(idOfAnsweredQnsStr[i].trim());
+            }
+        } catch (Exception e) {
+            idOfAnsweredQns = new Integer[0];
         }
 
-        String[] idOfCorrectlyAnsweredQnsStr = json.get("idOfCorrectlyAnsweredQns").replace("[","").replace("]","").split(",");;
-        Integer[] idOfCorrectlyAnsweredQns = new Integer[idOfCorrectlyAnsweredQnsStr.length];
-        System.out.println(Arrays.toString(idOfCorrectlyAnsweredQnsStr));
-        for (int i = 0; i < idOfCorrectlyAnsweredQns.length; i++) {
-            idOfCorrectlyAnsweredQns[i] = Integer.parseInt(idOfCorrectlyAnsweredQnsStr[i].trim());
+        try {
+            String[] idOfCorrectlyAnsweredQnsStr = json.get("idOfCorrectlyAnsweredQns").replace("[", "").replace("]", "").split(",");
+            idOfCorrectlyAnsweredQns = new Integer[idOfCorrectlyAnsweredQnsStr.length];
+            System.out.println(Arrays.toString(idOfCorrectlyAnsweredQnsStr));
+            for (int i = 0; i < idOfCorrectlyAnsweredQns.length; i++) {
+                idOfCorrectlyAnsweredQns[i] = Integer.parseInt(idOfCorrectlyAnsweredQnsStr[i].trim());
+            }
+        } catch (Exception e) {
+            idOfCorrectlyAnsweredQns = new Integer[0];
         }
 
         // update combat record
@@ -126,9 +135,9 @@ public class CombatController {
         User user = accountService.getUserById(userId);
         user.setOverallExp(user.getOverallExp() + addedExp);
 
-//        // update question record
-//        questionService.addQnsAnswered(idOfAnsweredQns);
-//        questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
+        // update question record
+        questionService.addQnsAnswered(idOfAnsweredQns);
+        questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
 //        // TODO: update land
 
     }
