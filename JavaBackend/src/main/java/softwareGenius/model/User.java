@@ -3,6 +3,7 @@ package softwareGenius.model;
 public class User {
     private Integer userId;
     private String username;
+    private String realName;
     private String userAvatar;
     private String password;
     private String email;
@@ -13,10 +14,11 @@ public class User {
     private Integer overallExp;
 
     public User() {}
-    public User(Integer userId, String username, String userAvatar, String password, String email, String accountType, Boolean isAdmin,
+    public User(Integer userId, String username, String realName, String userAvatar, String password, String email, String accountType, Boolean isAdmin,
                 Integer overallExp) {
         this.userId = userId;
         this.username = username;
+        this.realName = realName;
         this.userAvatar = userAvatar;
         this.password = password;
         this.email = email;
@@ -77,6 +79,13 @@ public class User {
         this.overallExp = overallExp;
     }
 
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
     public String getUserAvatar() {
         return userAvatar;
     }
@@ -84,5 +93,4 @@ public class User {
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
     }
-
 }

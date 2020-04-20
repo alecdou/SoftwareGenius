@@ -75,8 +75,7 @@ public class CombatController {
 
 
     @PostMapping(path = "{combatId}/end")
-    public void endBattle(@PathVariable("combatId") Integer combatId, @RequestBody Map<String, String> json)
-    {
+    public Map<String, Object> endBattle(@PathVariable("combatId") Integer combatId, @RequestBody Map<String, String> json) {
         // process the json data
         Integer characterId = Integer.parseInt(json.get("characterId"));
         String status = json.get("status");
@@ -142,6 +141,11 @@ public class CombatController {
         questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
 //        // TODO: update land
 
+
+        Map<String, Object> map = new HashMap<>();
+        //put all the values in the map
+        map.put("addedExp", addedExp);
+        return map;
     }
 
     @GetMapping(path = "{combatId}")
