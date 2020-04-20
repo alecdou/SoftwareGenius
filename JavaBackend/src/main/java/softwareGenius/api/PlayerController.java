@@ -118,7 +118,7 @@ public class PlayerController {
             totalC += c.getCorrectQuesNo();
             result.put(c.getCharName() + "_accuracy", String.valueOf(Float.valueOf(c.getCorrectQuesNo())/c.getTotalQuesNo()));
         }
-        result.put("overall_accuracy", String.valueOf(Float.valueOf(totalC)/totalQ));
+        result.put("overall_accuracy", String.valueOf((float) totalC /totalQ));
         result.put("ranking", String.valueOf(leaderboardService.getOverallRankingByUserId(userID)));
         List<Session> userSessions = sessionService.getSessionByUserID(userID);
         Period totalGameDay = Period.ZERO;
