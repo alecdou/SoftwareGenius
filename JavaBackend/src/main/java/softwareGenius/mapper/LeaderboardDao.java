@@ -43,20 +43,20 @@ public interface LeaderboardDao {
     default List<LeaderBoardRecord> getLeaderBoardByWorldNameViaCache(@Param("worldCategory") Category worldCategory, @Param("offset") int offset, @Param("limit") int limit){
         switch (worldCategory) {
             case SE:
-                return topUserForWorld1.subList(offset, offset+limit);
+                return topUserForWorld1.subList(Math.min(topUserForWorld1.size(), offset), Math.min(topUserForWorld1.size(), offset + limit));
             case SA:
-                return topUserForWorld2.subList(offset, offset+limit);
+                return topUserForWorld2.subList(Math.min(topUserForWorld2.size(), offset), Math.min(topUserForWorld2.size(), offset + limit));
             case PM:
-                return topUserForWorld3.subList(offset, offset+limit);
+                return topUserForWorld3.subList(Math.min(topUserForWorld3.size(), offset), Math.min(topUserForWorld3.size(), offset + limit));
             case QA:
-                return topUserForWorld4.subList(offset, offset+limit);
+                return topUserForWorld4.subList(Math.min(topUserForWorld4.size(), offset), Math.min(topUserForWorld4.size(), offset + limit));
             default:
-                return getGeneralLeaderBoardViaCache(offset, limit);
+                return getGeneralLeaderBoardViaCache(offset, offset + limit);
         }
     };
 
     default List<LeaderBoardRecord>  getGeneralLeaderBoardViaCache(@Param("offset") int offset, @Param("limit") int limit){
-        return topUserForGeneral.subList(offset, offset+limit);
+        return topUserForGeneral.subList(Math.min(topUserForGeneral.size(), offset), Math.min(topUserForGeneral.size(), offset + limit));
     };
 
     default List<LeaderBoardRecord>  getGeneralLeaderBoardViaCache(){

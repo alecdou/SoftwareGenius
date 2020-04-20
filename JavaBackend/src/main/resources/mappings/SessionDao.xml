@@ -31,7 +31,7 @@
     <select id="getSessionByUserID" parameterType="java.lang.Integer" resultMap="sessionMap">
         select sessionId,userId,loginTime,logoutTime
         from session
-        where sessionId = #{sessionId}
+        where sessionId = #{userId}
     </select>
 
 </mapper>
