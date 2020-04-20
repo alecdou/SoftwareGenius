@@ -1,11 +1,13 @@
 package softwareGenius.model;
 
 public class LeaderBoardRecord {
+    private Integer userId;
     private String userName;
     private String userAvatar;
     private Integer charScore;
 
-    public LeaderBoardRecord(String userName, String userAvatar, Integer charScore) {
+    public LeaderBoardRecord(Integer userId, String userName, String userAvatar, Integer charScore) {
+        this.userId = userId;
         this.userName = userName;
         this.userAvatar = userAvatar;
         this.charScore = charScore;
@@ -36,5 +38,13 @@ public class LeaderBoardRecord {
 
     public void setCharScore(Integer charScore) {
         this.charScore = charScore;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

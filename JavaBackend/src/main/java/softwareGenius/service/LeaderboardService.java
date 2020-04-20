@@ -44,7 +44,14 @@ public class LeaderboardService {
     }
 
     public int getOverallRankingByUserId(int userId){
-        return leaderboardDao.getGeneralLeaderBoardViaCache().indexOf(userId) + 1;
+        int i = 1;
+        for (LeaderBoardRecord l: leaderboardDao.getGeneralLeaderBoardViaCache()) {
+            if (l.getUserId() == userId) {
+                return i;
+            }
+            i ++;
+        }
+        return 0;
     }
 
     @Scheduled(cron="* */30 * * * *")
