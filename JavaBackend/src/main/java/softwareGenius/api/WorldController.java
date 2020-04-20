@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import softwareGenius.model.*;
 import softwareGenius.model.Character;
-import softwareGenius.service.CharacterService;
-import softwareGenius.service.LandService;
-import softwareGenius.service.LeaderboardService;
-import softwareGenius.service.WorldService;
+import softwareGenius.service.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,13 +19,15 @@ public class WorldController {
     private LeaderboardService leaderboardService;
     private LandService landService;
     private CharacterService charService;
+    private AccountService accountService;
 
     @Autowired
-    public WorldController(WorldService worldService, LeaderboardService leaderboardService, LandService landService, CharacterService charService) {
+    public WorldController(WorldService worldService, LeaderboardService leaderboardService, LandService landService, CharacterService charService,AccountService accountService) {
         this.worldService = worldService;
         this.leaderboardService = leaderboardService;
         this.landService = landService;
         this.charService = charService;
+        this.accountService = accountService;
     }
 
     /**
@@ -53,6 +53,22 @@ public class WorldController {
             map.put(land.getInd().toString(),land);
         }
         return map;
+    }
+
+    @GetMapping("/getLandsByUserIdAndCategory/{userId}/{category}")
+    public Map<String,Land> getLandsByUserIdAndCategory(@PathVariable Integer userId,@PathVariable String category) {
+        List<World> worlds=worldService.getWorldByOwnerId(userId);
+        Map<String,Land> map=new HashMap<>();
+        for (World world:worlds) {
+            if (world.getCategory()==Category.valueOf(category)) {
+                List<Land> lands=landService.getLandByWorld(world.getWorldId());
+                for (Land land:lands) {
+                    map.put(land.getInd().toString(),land);
+                }
+                return map;
+            }
+        }
+        return null;
     }
 
     /*
@@ -85,7 +101,23 @@ public class WorldController {
             if (category==Category.QA) map.replace("QA",worldId);
         }
         return map;
+    }
 
+    @GetMapping("/getUsersByCategory/{category}")
+    public List<User> getWorldListByUserId(@PathVariable String category) {
+        List<User> all=accountService.getAll();
+        List<User> list=new ArrayList<>();
+        for (User user:all) {
+            List<World> worlds=worldService.getWorldByOwnerId(user.getId());
+            if (worlds==null) continue;
+            for (World world:worlds) {
+                if (world.getCategory()==Category.valueOf(category)) {
+                    list.add(user);
+                    break;
+                }
+            }
+        }
+        return list;
     }
 
     /**
@@ -95,12 +127,20 @@ public class WorldController {
      */
     @GetMapping("/getCharsByUserId/{userId}")
     public Map<String,Character> getCharsByUserId(@PathVariable Integer userId) {
-        Map<String,Integer> tmp=getWorldListByUserId(userId);
         Map<String,Character> map=new HashMap<>();
-        map.put("SE",getCharByWorldId(tmp.get("SE")));
-        map.put("SA",getCharByWorldId(tmp.get("SA")));
-        map.put("PM",getCharByWorldId(tmp.get("PM")));
-        map.put("QA",getCharByWorldId(tmp.get("QA")));
+        map.put("SE",null);
+        map.put("SA",null);
+        map.put("PM",null);
+        map.put("QA",null);
+        List<Character> list=charService.getCharacterByUserId(userId);
+        if (list==null) return map;
+        for (Character character:list) {
+            Category category=character.getCharName();
+            if (category==Category.SE) map.replace("SE",character);
+            if (category==Category.SA) map.replace("SA",character);
+            if (category==Category.PM) map.replace("PM",character);
+            if (category==Category.QA) map.replace("QA",character);
+        }
         return map;
     }
 

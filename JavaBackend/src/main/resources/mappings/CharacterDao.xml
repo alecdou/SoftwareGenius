@@ -52,13 +52,13 @@
     </select>
 
     <select id="getCharacterByUserId" parameterType="java.lang.Integer" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, correctQuesNo, totalQuesNo
+        select *
         from character
         where userId = #{playerId}
     </select>
 
     <select id="getAll" resultMap="characterMap">
-        select charId, userId, charName, exp, level, attackPt, correctQuesNo, totalQuesNo
+        select *
         from character
     </select>
 
