@@ -7,6 +7,7 @@
         <result property="userId" column="userId"/>
         <result property="username" column="username"/>
         <result property="realName" column="realName"/>
+        <result property="userAvatar" column="userAvatar"/>
         <result property="password" column="password"/>
         <result property="email" column="email"/>
         <result property="accountType" column="accountType"/>
@@ -18,6 +19,7 @@
         insert into user (
             username,
             realName,
+            userAvatar,
             password,
             email,
             accountType,
@@ -27,6 +29,7 @@
         VALUES (
             #{username},
             #{realName},
+            #{userAvatar},
             #{password},
             #{email},
             #{accountType},
@@ -39,6 +42,7 @@
         update user
         set username = #{username},
             realName = #{realName},
+            userAvatar = #{userAvatar},
             password = #{password},
             email = #{email},
             overallExp = #{overallExp}
@@ -46,13 +50,13 @@
     </update>
 
     <select id="getUserById" parameterType="java.lang.Integer" resultMap="userMap">
-        select userId, username, realName, password, email, accountType, isAdmin, overallExp
+        select userId, username, realName, userAvatar, password, email, accountType, isAdmin, overallExp
         from user
         where userId = #{userId}
     </select>
 
     <select id="getAll" resultMap="userMap">
-        select userId, username, realName,  password, email, accountType, isAdmin, overallExp
+        select userId, username, realName, userAvatar, password, email, accountType, isAdmin, overallExp
         from user
     </select>
 
