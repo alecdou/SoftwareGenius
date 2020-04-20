@@ -37,8 +37,7 @@ public class WorldController {
      */
     @GetMapping("/getCharByWorldId/{worldId}")
     public Character getCharByWorldId(@PathVariable Integer worldId) {
-        //return charService.getCharacterByCharId(worldService.getCharIdByWorldId(worldId));
-        return charService.getCharacterByCharId(9);
+        return charService.getCharacterByCharId(worldService.getCharIdByWorldId(worldId));
     }
 
     /**
@@ -87,6 +86,22 @@ public class WorldController {
         }
         return map;
 
+    }
+
+    /**
+     * get all characters of a user
+     * @param userId id of the user
+     * @return a map of four character objects
+     */
+    @GetMapping("/getCharsByUserId/{userId}")
+    public Map<String,Character> getCharsByUserId(@PathVariable Integer userId) {
+        Map<String,Integer> tmp=getWorldListByUserId(userId);
+        Map<String,Character> map=new HashMap<>();
+        map.put("SE",getCharByWorldId(tmp.get("SE")));
+        map.put("SA",getCharByWorldId(tmp.get("SA")));
+        map.put("PM",getCharByWorldId(tmp.get("PM")));
+        map.put("QA",getCharByWorldId(tmp.get("QA")));
+        return map;
     }
 
     /**

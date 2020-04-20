@@ -44,7 +44,6 @@ public class WorldService {
     }
 
     public Integer getCharIdByWorldId(Integer worldId) {
-        System.out.println(worldId);
         return worldId;
     }
 }
