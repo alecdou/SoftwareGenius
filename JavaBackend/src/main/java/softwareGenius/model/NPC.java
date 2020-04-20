@@ -6,6 +6,10 @@ public class NPC {
     private Integer hitPoint;
     private Integer attackPoint;
 
+    public NPC() {
+
+    }
+
     public NPC(Integer npcId, Integer difficultyLevel, Integer hitPoint, Integer attackPoint) {
         this.npcId = npcId;
         this.difficultyLevel = difficultyLevel;

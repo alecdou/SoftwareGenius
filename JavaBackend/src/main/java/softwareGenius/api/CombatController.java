@@ -43,17 +43,18 @@ public class CombatController {
      */
     @GetMapping(path = "start")
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
-        // initialize a combat: worldId, landId, difficultyLevel, mode, playerId, status
+        // initialize a combat
         combatService.startNewCombat(combat);
         Integer combatId = combat.getCombatId();
 
         // get NPC
         NPC npc = npcService.getNPCByDifficultyLevel(combat.getDifficultyLevel());
 
-        // get question list (with 10 questions)
-        // TODO: add category
-        List<Question> questions = questionService.getQuestionsByCategory("1",
-                combat.getDifficultyLevel(), 10);
+        // get question list (with 20 questions)
+        World world = worldService.getWorldByWorldId(combat.getWorldId());
+        Category category = world.getCategory();
+        List<Question> questions = questionService.getQuestionsByCategory(category.toString(),
+                combat.getDifficultyLevel(), 20);
 
         // get world such that we can get characters
         Integer characterId = worldService.getCharIdByWorldId(combat.getWorldId());
@@ -62,6 +63,7 @@ public class CombatController {
         Character character = characterService.getCharacterByCharId(characterId);
 
         Map<String,Object> map = new HashMap<>();
+
         //put all the values in the map
         map.put("combatId", combatId);
         map.put("npc", npc);
@@ -73,8 +75,7 @@ public class CombatController {
 
 
     @PostMapping(path = "{combatId}/end")
-    public void endBattle(@PathVariable("combatId") Integer combatId, @RequestBody Map<String, String> json)
-    {
+    public Map<String, Object> endBattle(@PathVariable("combatId") Integer combatId, @RequestBody Map<String, String> json) {
         // process the json data
         Integer characterId = Integer.parseInt(json.get("characterId"));
         String status = json.get("status");
@@ -138,8 +139,16 @@ public class CombatController {
         // update question record
         questionService.addQnsAnswered(idOfAnsweredQns);
         questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
-//        // TODO: update land
+        // update the land if combat succeeded
 
+        if (!status.equals("failed")) {
+            landService.changeOwner(combat.getLandId(), combat.getPlayerId(), combat.getDifficultyLevel());
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        //put all the values in the map
+        map.put("addedExp", addedExp);
+        return map;
     }
 
     @GetMapping(path = "{combatId}")
