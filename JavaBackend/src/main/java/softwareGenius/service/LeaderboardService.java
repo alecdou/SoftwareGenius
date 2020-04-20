@@ -10,6 +10,7 @@ import softwareGenius.mapper.LeaderboardDao;
 import softwareGenius.model.Category;
 import softwareGenius.model.LeaderBoardRecord;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class LeaderboardService {
         return 0;
     }
 
+    @PostConstruct
     @Scheduled(cron="0 * * * * *")
     public void cronUpdate(){
         try{
