@@ -139,8 +139,11 @@ public class CombatController {
         // update question record
         questionService.addQnsAnswered(idOfAnsweredQns);
         questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
-        //
-        landService.changeOwner(combat.getLandId(),combat.getPlayerId(),combat.getDifficultyLevel());
+        // update the land if combat succeeded
+
+        if (!status.equals("failed")) {
+            landService.changeOwner(combat.getLandId(), combat.getPlayerId(), combat.getDifficultyLevel());
+        }
 
         Map<String, Object> map = new HashMap<>();
         //put all the values in the map
