@@ -114,4 +114,20 @@ public class WorldControllerTest extends AbstractTest {
             }
         }
     }
+
+    @Test
+    public void getAllLeaderBoard() throws Exception{
+        int offset = 0;
+        int limit = 10;
+        String url = "/api/world/getLeaderBoard/all/" + offset + "/" + limit;
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(url)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        assertEquals(200, mvcResult.getResponse().getStatus());
+
+        LeaderBoardRecord[][] leaderBoard= super.mapFromJson(mvcResult.getResponse().getContentAsString(), LeaderBoardRecord[][].class);
+
+        assertEquals(5, leaderBoard.length);
+        // the rest should alr be tested.
+    }
 }
