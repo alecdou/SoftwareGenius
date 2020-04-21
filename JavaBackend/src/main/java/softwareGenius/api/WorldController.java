@@ -46,26 +46,16 @@ public class WorldController {
      * @return list of 24 land objects
      */
     @GetMapping("/getLandsByWorldId/{worldId}")
-    public Map<String,Land> getLandsByWorldId(@PathVariable Integer worldId) {
-        List<Land> lands=landService.getLandByWorld(worldId);
-        Map<String,Land> map=new HashMap<>();
-        for (Land land:lands) {
-            map.put(land.getInd().toString(),land);
-        }
-        return map;
+    public List<Land> getLandsByWorldId(@PathVariable Integer worldId) {
+        return landService.getLandByWorld(worldId);
     }
 
     @GetMapping("/getLandsByUserIdAndCategory/{userId}/{category}")
-    public Map<String,Land> getLandsByUserIdAndCategory(@PathVariable Integer userId,@PathVariable String category) {
+    public List<Land> getLandsByUserIdAndCategory(@PathVariable Integer userId,@PathVariable String category) {
         List<World> worlds=worldService.getWorldByOwnerId(userId);
-        Map<String,Land> map=new HashMap<>();
         for (World world:worlds) {
             if (world.getCategory()==Category.valueOf(category)) {
-                List<Land> lands=landService.getLandByWorld(world.getWorldId());
-                for (Land land:lands) {
-                    map.put(land.getInd().toString(),land);
-                }
-                return map;
+                return landService.getLandByWorld(world.getWorldId());
             }
         }
         return null;
