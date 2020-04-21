@@ -1,25 +1,22 @@
 package softwareGenius.api;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import softwareGenius.AbstractTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import softwareGenius.model.Land;
-import softwareGenius.model.User;
-import softwareGenius.model.Character;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class WorldControllerTest extends AbstractTest {
+public class WorldControllerTest extends AbstractTest {
     @Autowired
     private Environment env;
 
@@ -51,7 +48,7 @@ class WorldControllerTest extends AbstractTest {
      *
      * @return true if the closing was successful, false otherwise
      */
-    public boolean disconnectDB(Connection connection) {
+    private boolean disconnectDB(Connection connection) {
         try{
             connection.close();
         }
@@ -62,11 +59,11 @@ class WorldControllerTest extends AbstractTest {
     }
 
     @Test
-    void getCharByWorldId() throws Exception {
+    public void getCharByWorldId() throws Exception {
     }
 
     @Test
-    void getLandsByWorldId() throws Exception {
+    public void getLandsByWorldId() throws Exception {
         int inputWorldId = 1;
         String url = "/api/world/getLandsByWorldId/" + inputWorldId;
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(url)
@@ -82,38 +79,38 @@ class WorldControllerTest extends AbstractTest {
     }
 
     @Test
-    void getLandsByUserIdAndCategory() {
+    public void getLandsByUserIdAndCategory() {
     }
 
     @Test
-    void getWorldListByUserId() {
+    public void getWorldListByUserId() {
     }
 
     @Test
-    void testGetWorldListByUserId() {
+    public void testGetWorldListByUserId() {
     }
 
     @Test
-    void getCharsByUserId() {
+    public void getCharsByUserId() {
     }
 
     @Test
-    void initNewWorld() {
+    public void initNewWorld() {
     }
 
     @Test
-    void getAllLeaderBoard() {
+    public void getAllLeaderBoard() {
     }
 
     @Test
-    void getGeneralLeaderBoard() {
+    public void getGeneralLeaderBoard() {
     }
 
     @Test
-    void getLeaderBoardByWorldName() {
+    public void getLeaderBoardByWorldName() {
     }
 
     @Test
-    void changeOwner() {
+    public void changeOwner() {
     }
 }

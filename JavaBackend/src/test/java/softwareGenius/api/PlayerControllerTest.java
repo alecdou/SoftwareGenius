@@ -48,7 +48,7 @@ public class PlayerControllerTest extends AbstractTest {
      *
      * @return true if the closing was successful, false otherwise
      */
-    public boolean disconnectDB(Connection connection) {
+    private boolean disconnectDB(Connection connection) {
         try{
             connection.close();
         }
