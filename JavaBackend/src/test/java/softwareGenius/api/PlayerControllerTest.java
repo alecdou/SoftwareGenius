@@ -1,4 +1,4 @@
-package softwareGenius;
+package softwareGenius.api;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import softwareGenius.AbstractTest;
 import softwareGenius.api.PlayerController;
 import softwareGenius.model.User;
 import softwareGenius.service.AccountService;
@@ -27,7 +28,7 @@ import java.sql.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class PlayerControllerTest extends AbstractTest{
+public class PlayerControllerTest extends AbstractTest {
 
 
     @Autowired
