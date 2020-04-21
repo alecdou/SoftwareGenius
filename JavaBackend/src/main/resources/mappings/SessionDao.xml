@@ -31,13 +31,13 @@
 
 
     <select id="getSessionByUserID" parameterType="java.lang.Integer" resultMap="sessionMap">
-        select sessionId,userId,loginTime,logoutTime
+        select *
         from session
-        where sessionId = #{userId}
+        where userId = #{userId}
     </select>
 
     <select id="getAllSession" resultMap="sessionMap">
-        select sessionId,userId,loginTime,logoutTime
+        select *
         from session
     </select>
 
