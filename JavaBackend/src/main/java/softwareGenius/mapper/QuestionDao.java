@@ -31,6 +31,10 @@ public interface QuestionDao {
      */
     Question getQuestion(@Param("questionId") Integer questionId);
     /**
+     * Get the questions
+     */
+    List<Question> getAllQuestion();
+    /**
     /**
      * Get a number of qustions according to category and difficulty
      * @param category the categor that the question belongs to
