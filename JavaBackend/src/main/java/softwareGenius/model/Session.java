@@ -8,6 +8,8 @@ public class Session {
     private Timestamp loginTime;
     private Timestamp logoutTime;
 
+    public Session(){}
+
     public Session(Integer sessionId, Integer userId, Timestamp loginTime, Timestamp logoutTime) {
         this.sessionId = sessionId;
         this.userId = userId;
