@@ -47,12 +47,12 @@ public class PlayerControllerTest extends AbstractTest{
      */
     private Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:C://sqlite/db/test.db";
+        String dbUrl = env.getProperty("spring.datasource.url");
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(url);
+            conn = DriverManager.getConnection(dbUrl);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
         return conn;
     }
@@ -74,7 +74,7 @@ public class PlayerControllerTest extends AbstractTest{
 
     @Test
     public void testAddUser() throws Exception{
-        String postUri = "/getUser";
+        String postUri = "/api/player/getUser";
 
         // construct a new user object
         User user = new User();
@@ -103,33 +103,69 @@ public class PlayerControllerTest extends AbstractTest{
 
         String actualUser = mvcGetResult.getResponse().getContentAsString();
 
-        assertEquals(actualUser, inputJson);
+        assertEquals(inputJson, actualUser);
 
         // method 2: directly get data through sqlite db driver
-        String dbUrl = env.getProperty("spring.datasource.url");
-
-        //
-        String sql = "select userId, username, realName, userAvatar, password, email, accountType, isAdmin, overallExp " +
+        String sql = "select * " +
                         "from user " +
                         "where userId = ?";
 
-
+        // connect to db and query
         try (Connection conn = this.connect()){
-
              PreparedStatement pstmt = conn.prepareStatement(sql);
              pstmt.setInt(1, Integer.parseInt(returnedUserId));
              ResultSet result = pstmt.executeQuery();
-            assertEquals(result, inputJson);
+             assertEquals(result, inputJson);
+             this.disconnectDB();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
-
-
-
     }
 
     @Test
     public void testGetUser() throws Exception{
+        Integer inputUserId = 1;
+        String uri = "api/player/getUser/" + inputUserId;
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        // check status
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        // convert json type to class object
+        User actualUser = super.mapFromJson(content, User.class);
+        assertEquals("testing1@test.com", actualUser.getEmail());
+    }
+
+    @Test
+    public void testLogin() throws Exception{
+
+        // positive test
+        String uri = "api/player/login/testing1@test.com/testing1";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        // check status
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String actualUserId = mvcResult.getResponse().getContentAsString();
+        assertEquals("1", actualUserId);
+
+        // negative test
+        String uri2 = "api/player/login/testing1@test.com/testing1";
+        MvcResult mvcResult2 = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        // check status
+//        int status = mvcResult.getResponse().getStatus();
+//        assertEquals(200, status);
+//
+//        String actualUserId = mvcResult.getResponse().getContentAsString();
+//        assertEquals("1", actualUserId);
+
 
     }
 }

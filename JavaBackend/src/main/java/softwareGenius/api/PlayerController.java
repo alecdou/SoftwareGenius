@@ -51,6 +51,7 @@ public class PlayerController {
         return accountService.getUserById(userId);
     }
 
+
     /***
      * Get all users
      * @return list of user obejcts
@@ -88,7 +89,6 @@ public class PlayerController {
         }
         try{
             accountService.validatePassword(user.getPassword(), user.getId());
-
         } catch (Exception e){
             throw new ResponseStatusException(
                     HttpStatus.UNPROCESSABLE_ENTITY, "validation failed"
