@@ -39,7 +39,7 @@ public class CombatController {
      * To start a new combat.
      * @return a collection of required objects, including questionList, NPC and character
      */
-    @GetMapping(path = "start")
+    @PostMapping(path = "start")
     public Map<String, Object> startNewCombat(@RequestBody Combat combat) {
         Map<String,Object> map = new HashMap<>();
 
