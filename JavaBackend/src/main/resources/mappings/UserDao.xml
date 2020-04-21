@@ -55,6 +55,12 @@
         where userId = #{userId}
     </select>
 
+    <select id="getUserByEmail" parameterType="java.lang.String" resultMap="userMap">
+        select userId, username, realName, userAvatar, password, email, accountType, isAdmin, overallExp
+        from user
+        where email = #{email}
+    </select>
+
     <select id="getAll" resultMap="userMap">
         select userId, username, realName, userAvatar, password, email, accountType, isAdmin, overallExp
         from user

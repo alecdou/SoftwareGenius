@@ -24,6 +24,13 @@ public interface UserDao {
     User getUserById(Integer userId);
 
     /**
+     * Fetch the user object with matching email address
+     * @param email unique email of the user
+     * @return User object
+     */
+    User getUserByEmail(String email);
+
+    /**
      * Get all users
      * @return List of User objects
      */

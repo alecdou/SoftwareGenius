@@ -70,19 +70,22 @@ public class PlayerController {
 
     /***
      * login with current session recorded
-     * @param user user object
-     * @return true if login successfully; false otherwise
+     * @param email user's unique email
+     * @param password user's password
+     * @return the user id of the given email owner
      */
-    @PostMapping("/login")
-    public Boolean login(@RequestBody User user) {
+    @PostMapping("/login/{email}/{password}")
+    public Integer login(@PathVariable String email, @PathVariable String password) {
         try{
+            User user = accountService.getUserByEmail(email);
             accountService.validatePassword(user.getPassword(), user.getId());
             sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
+            return user.getId();
         } catch (Exception e){
             System.err.println(e.toString());
-            return false;
+            return null;
         }
-        return true;
+
     }
 
     /***

@@ -105,7 +105,7 @@ public class PlayerControllerTest extends AbstractTest{
 
         assertEquals(actualUser, inputJson);
 
-        // method 2:
+        // method 2: directly get data through sqlite db driver
         String dbUrl = env.getProperty("spring.datasource.url");
 
         //

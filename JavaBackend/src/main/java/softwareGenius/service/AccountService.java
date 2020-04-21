@@ -91,6 +91,15 @@ public class AccountService {
     }
 
     /**
+     * Get User by the given email
+     * @param email email of the user
+     * @return the matching user object
+     */
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
+    }
+
+    /**
      * Get all users
      * @return a list of all user objects
      */
