@@ -76,7 +76,7 @@ public class PlayerController {
      * @param password user's password
      * @return the user id of the given email owner
      */
-    @PostMapping("/login/{email}/{password}")
+    @GetMapping("/login/{email}/{password}")
     public Integer login(@PathVariable String email, @PathVariable String password) {
         User user = accountService.getUserByEmail(email);
         if (user == null) {
@@ -89,8 +89,9 @@ public class PlayerController {
             sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
             return user.getId();
         } catch (Exception e){
-            System.err.println(e.toString());
-            return null;
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY, "validation failed"
+            );
         }
 
     }
