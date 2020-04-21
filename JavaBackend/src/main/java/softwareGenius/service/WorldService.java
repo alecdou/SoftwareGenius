@@ -14,12 +14,10 @@ import java.util.UUID;
 @Service
 public class WorldService {
     private WorldDao worldDao;
-    private LandService landService;
 
     @Autowired
-    public WorldService(WorldDao worldDao, LandService landservice) {
+    public WorldService(WorldDao worldDao) {
         this.worldDao = worldDao;
-        this.landService = landservice;
     }
 
     public Integer initNewWorld(Integer ownerId,Integer charId, Category category){

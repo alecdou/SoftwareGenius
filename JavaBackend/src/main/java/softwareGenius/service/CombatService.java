@@ -16,12 +16,12 @@ public class CombatService {
 
     @Autowired
     private CombatDao combatDao;
-    @Autowired
-    private LandService landService;
-    @Autowired
-    private NPCService npcService;
-    @Autowired
-    private QuestionService questionService;
+    //@Autowired
+    //private LandService landService;
+    //@Autowired
+    //private NPCService npcService;
+    //@Autowired
+    //private QuestionService questionService;
 
     public Integer startNewCombat(Combat combat) {
         combat.setStatus("pending");
