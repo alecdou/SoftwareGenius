@@ -11,10 +11,12 @@ import softwareGenius.AbstractTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import softwareGenius.model.Land;
+import softwareGenius.model.LeaderBoardRecord;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class WorldControllerTest extends AbstractTest {
     @Autowired
@@ -59,10 +61,6 @@ public class WorldControllerTest extends AbstractTest {
     }
 
     @Test
-    public void getCharByWorldId() throws Exception {
-    }
-
-    @Test
     public void getLandsByWorldId() throws Exception {
         int inputWorldId = 1;
         String url = "/api/world/getLandsByWorldId/" + inputWorldId;
@@ -79,38 +77,19 @@ public class WorldControllerTest extends AbstractTest {
     }
 
     @Test
-    public void getLandsByUserIdAndCategory() {
-    }
+    public void getGeneralLeaderBoard() throws Exception{
+        int offset = 0;
+        int limit = 10;
+        String url = "/api/world/getLeaderBoard/general/" + offset + "/" + limit;
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(url)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
-    @Test
-    public void getWorldListByUserId() {
-    }
+        assertEquals(200, mvcResult.getResponse().getStatus());
 
-    @Test
-    public void testGetWorldListByUserId() {
-    }
+        LeaderBoardRecord[] leaderBoard= super.mapFromJson(mvcResult.getResponse().getContentAsString(), LeaderBoardRecord[].class);
 
-    @Test
-    public void getCharsByUserId() {
-    }
-
-    @Test
-    public void initNewWorld() {
-    }
-
-    @Test
-    public void getAllLeaderBoard() {
-    }
-
-    @Test
-    public void getGeneralLeaderBoard() {
-    }
-
-    @Test
-    public void getLeaderBoardByWorldName() {
-    }
-
-    @Test
-    public void changeOwner() {
+        for (int i = 1; i < leaderBoard.length; i++){
+            assertTrue(leaderBoard[i-1].getCharScore() >= leaderBoard[i].getCharScore());
+        }
     }
 }
