@@ -125,7 +125,7 @@ public class PlayerControllerTest extends AbstractTest{
     @Test
     public void testGetUser() throws Exception{
         int inputUserId = 1;
-        String uri = "api/player/getUser/" + inputUserId;
+        String uri = "/api/player/getUser/" + inputUserId;
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -142,7 +142,7 @@ public class PlayerControllerTest extends AbstractTest{
     @Test
     public void testLogin() throws Exception{
         // positive test
-        String uri = "api/player/login/testing1@test.com/testing1";
+        String uri = "/api/player/login/testing1@test.com/testing1";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -154,7 +154,7 @@ public class PlayerControllerTest extends AbstractTest{
         assertEquals("1", actualUserId);
 
         // negative test
-        String uri2 = "api/player/login/testing1@test.com/testing2";
+        String uri2 = "/api/player/login/testing1@test.com/testing2";
         MvcResult mvcResult2 = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -165,7 +165,7 @@ public class PlayerControllerTest extends AbstractTest{
 
     @Test
     public void testLogout() throws Exception{
-        String uri = "api/player/logout";
+        String uri = "/api/player/logout";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
