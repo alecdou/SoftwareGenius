@@ -24,18 +24,18 @@ import java.util.Map;
 @RestController
 public class PlayerController {
     private final CharacterService charService;
-    private final WorldService worldService;
+    //private final WorldService worldService;
     private final AccountService accountService;
-    private final LandService landService;
+    //private final LandService landService;
     private final SessionService sessionService;
     private final LeaderboardService leaderboardService;
 
     @Autowired
     public PlayerController(CharacterService charService, WorldService worldService, AccountService accountService, LandService landService, SessionService sessionService, LeaderboardService leaderboardService) {
         this.charService = charService;
-        this.worldService = worldService;
+        //this.worldService = worldService;
         this.accountService = accountService;
-        this.landService = landService;
+        //this.landService = landService;
         this.sessionService = sessionService;
         this.leaderboardService = leaderboardService;
     }
