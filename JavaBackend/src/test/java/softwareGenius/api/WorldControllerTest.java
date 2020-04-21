@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import softwareGenius.AbstractTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import softwareGenius.model.Category;
 import softwareGenius.model.Land;
 import softwareGenius.model.LeaderBoardRecord;
 
@@ -90,6 +92,26 @@ public class WorldControllerTest extends AbstractTest {
 
         for (int i = 1; i < leaderBoard.length; i++){
             assertTrue(leaderBoard[i-1].getCharScore() >= leaderBoard[i].getCharScore());
+        }
+    }
+
+    @Test
+    public void getLeaderBoardByWorldName() throws Exception{
+        int offset = 0;
+        int limit = 10;
+        Category[] categories = {Category.PM, Category.SE,Category.SA,Category.QA};
+        for (Category c: categories) {
+            String url = "/api/world/getLeaderBoard/category/"+ c.toString() + '/' + offset + "/" + limit;
+            MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(url)
+                    .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+            assertEquals(200, mvcResult.getResponse().getStatus());
+
+            LeaderBoardRecord[] leaderBoard= super.mapFromJson(mvcResult.getResponse().getContentAsString(), LeaderBoardRecord[].class);
+
+            for (int i = 1; i < leaderBoard.length; i++){
+                assertTrue(leaderBoard[i-1].getCharScore() >= leaderBoard[i].getCharScore());
+            }
         }
     }
 }
