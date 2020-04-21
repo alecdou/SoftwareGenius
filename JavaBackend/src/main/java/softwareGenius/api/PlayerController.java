@@ -47,7 +47,7 @@ public class PlayerController {
      */
     @GetMapping("/getUser/{userId}")
 
-    public User getUserById(@PathVariable Integer userId){
+    public User getUserById(@PathVariable Integer userId) {
         return accountService.getUserById(userId);
     }
 
@@ -63,11 +63,11 @@ public class PlayerController {
 
     /***
      * create a new user
-      * @param user user object
+     * @param user user object
      * @return userId Id of the created user
      */
     @PostMapping("/addUser")
-    public Integer initUser(@RequestBody User user){
+    public Integer initUser(@RequestBody User user) {
         Integer userId = accountService.addNewUser(user);
         return user.getId();
     }
@@ -86,9 +86,9 @@ public class PlayerController {
                     HttpStatus.NOT_FOUND, "user not found"
             );
         }
-        try{
+        try {
             accountService.validatePassword(password, user.getId());
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ResponseStatusException(
                     HttpStatus.UNPROCESSABLE_ENTITY, "validation failed"
             );
@@ -104,7 +104,7 @@ public class PlayerController {
      * @return true if login successfully; false otherwise
      */
     @GetMapping("/logout/{userId}")
-    public Boolean logout(@PathVariable Integer userId){
+    public Boolean logout(@PathVariable Integer userId) {
         // get the session list of the user
         List<Session> sessionList = sessionService.getSessionByUserID(userId);
 
@@ -112,35 +112,40 @@ public class PlayerController {
         Session session = sessionList.get(sessionList.size() - 1);
 
         // return true if update session time successfully
-       if (sessionService.updateSessionEndTime(session.getSessionId(),LocalDateTime.now())){
+        if (sessionService.updateSessionEndTime(session.getSessionId(), LocalDateTime.now())) {
             return true;
         }
         return false;
     }
 
-    @GetMapping ("/getReport/{userId}")
-    public Map<String, String> getReport(@PathVariable("userId") Integer userID){
+    @GetMapping("/getReport/{userId}")
+    public Map<String, String> getReport(@PathVariable("userId") Integer userID) {
         Map<String, String> result = new HashMap<>();
         result.put("userId", userID.toString());
         User u = accountService.getUserById(userID);
+        if (u == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid User ID"
+            );
+        }
         result.put("email", u.getEmail());
         result.put("username", u.getUsername());
         result.put("real_name", u.getRealName());
         List<Character> userChar = charService.getCharacterByUserId(userID);
         int totalQ = 0;
         int totalC = 0;
-        for (Character c: userChar) {
+        for (Character c : userChar) {
             totalQ += c.getTotalQuesNo();
             totalC += c.getCorrectQuesNo();
-            result.put(c.getCharName() + "_accuracy", String.valueOf(Float.valueOf(c.getCorrectQuesNo())/c.getTotalQuesNo()));
+            result.put(c.getCharName() + "_accuracy", String.valueOf(Float.valueOf(c.getCorrectQuesNo()) / c.getTotalQuesNo()));
         }
-        result.put("overall_accuracy", String.valueOf((float) totalC /totalQ));
-        result.put("ranking", String.valueOf(leaderboardService.getOverallRankingByUserId(userID)));
+        result.put("overall_accuracy", String.valueOf((float) totalC / totalQ));
+        result.put("ranking", String.valueOf(leaderboardService.getOverallRankingByUserId(userID) == 0 ? leaderboardService.getOverallRankingByUserId(userID) : "Not Listed"));
         result.put("duration", sessionService.getGameTimeByUserId(userID));
         return result;
     }
 
-    @GetMapping ("/getOverallReport")
+    @GetMapping("/getOverallReport")
     public Map<String, String> getOverallReport() {
         Map<String, String> result = new HashMap<>();
         Map<Category, Integer> totalQ = new HashMap<>();
