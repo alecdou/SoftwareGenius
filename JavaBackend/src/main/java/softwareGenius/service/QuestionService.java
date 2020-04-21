@@ -36,6 +36,8 @@ public class QuestionService {
         return questionDao.getQuestion(qid);
     }
 
+    public List<Question> getAllQuestion(){return questionDao.getAllQuestion();}
+
     public List<Question> getQuestionsByCategory(String category, Integer difficultyLevel, Integer limit) {
         return questionDao.getQuestionsByCategory(category, difficultyLevel, limit);
     }
