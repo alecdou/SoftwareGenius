@@ -83,7 +83,7 @@ public class PlayerController {
         System.out.println(user);
         if (user == null) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "user not found"+user
+                    HttpStatus.NOT_FOUND, "user not found"
             );
         }
         try{
@@ -94,7 +94,7 @@ public class PlayerController {
                     HttpStatus.UNPROCESSABLE_ENTITY, "validation failed"
             );
         }
-        sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
+        sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()));
         return user.getId();
 
     }

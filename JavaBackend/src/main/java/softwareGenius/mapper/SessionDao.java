@@ -17,8 +17,9 @@ public interface SessionDao {
      * Add session to the database
      * @param userId the id of the user
      * @param loginTime the time user logged in
+     * @param logoutTime the time user logged out
      */
-    Boolean addSession(@Param("userId") Integer userId, @Param("loginTime") Timestamp loginTime);
+    Boolean addSession(@Param("userId") Integer userId, @Param("loginTime") Timestamp loginTime, @Param("logoutTime") Timestamp logoutTime);
     /**
      * Update session to the database
      * @param sessionId the id of the session to be added

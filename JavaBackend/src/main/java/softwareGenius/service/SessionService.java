@@ -27,8 +27,8 @@ public class SessionService {
      * @param loginTime time that the user logged in
      * @return boolean of whether successful
      */
-    public Boolean addSession(Integer userId, Timestamp loginTime){
-        return sessionDao.addSession(userId, loginTime);
+    public Boolean addSession(Integer userId, Timestamp loginTime, Timestamp logoutTime){
+        return sessionDao.addSession(userId, loginTime, logoutTime);
     }
 
     /**
