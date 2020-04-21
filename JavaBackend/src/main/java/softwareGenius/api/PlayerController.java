@@ -1,11 +1,13 @@
 package softwareGenius.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.Duration;
 
+import org.springframework.web.server.ResponseStatusException;
 import softwareGenius.model.Character;
 import softwareGenius.model.Session;
 import softwareGenius.model.User;
@@ -76,8 +78,13 @@ public class PlayerController {
      */
     @PostMapping("/login/{email}/{password}")
     public Integer login(@PathVariable String email, @PathVariable String password) {
+        User user = accountService.getUserByEmail(email);
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user not found"
+            );
+        }
         try{
-            User user = accountService.getUserByEmail(email);
             accountService.validatePassword(user.getPassword(), user.getId());
             sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
             return user.getId();
