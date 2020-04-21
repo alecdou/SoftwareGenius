@@ -68,6 +68,11 @@
         WHERE questionId = #{questionId}
     </select>
 
+    <select id="getAllQuestion" resultMap="questionMap">
+        SELECT *
+        FROM question
+    </select>
+
 <!--    <select id="select" parameterType="map" resultMap="questionMap">-->
 <!--        select questionId,category,problem,choice1,choice2,choice3,choice4,answer,difficultyLevel-->
 <!--        from question-->
