@@ -1,4 +1,4 @@
-package softwareGenius;
+package softwareGenius.api;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import softwareGenius.AbstractTest;
 import softwareGenius.model.User;
 
 import java.sql.*;
@@ -14,7 +15,7 @@ import java.sql.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class PlayerControllerTest extends AbstractTest{
+public class PlayerControllerTest extends AbstractTest {
 
 
     @Autowired
@@ -69,7 +70,7 @@ public class PlayerControllerTest extends AbstractTest{
         user.setRealName("Rebecca Chen");
         user.setPassword("password");
         user.setIsAdmin("false");
-        user.setEmail("rebecca5@gmail.com");
+        user.setEmail("rebecca6@gmail.com");
 
         // map the object to json in string
         String inputJson = super.mapToJson(user);
