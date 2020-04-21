@@ -47,7 +47,14 @@ public class WorldController {
      */
     @GetMapping("/getLandsByWorldId/{worldId}")
     public List<Land> getLandsByWorldId(@PathVariable Integer worldId) {
-        return landService.getLandByWorld(worldId);
+        List<Land> lands=landService.getLandByWorld(worldId);
+        for (Land land:lands) {
+            int id=land.getOwnerId();
+            if (id==0) continue;
+            User user=accountService.getUserById(id);
+            land.setOwnerName(user.getUsername());
+        }
+        return lands;
     }
 
     @GetMapping("/getLandsByUserIdAndCategory/{userId}/{category}")
@@ -55,7 +62,14 @@ public class WorldController {
         List<World> worlds=worldService.getWorldByOwnerId(userId);
         for (World world:worlds) {
             if (world.getCategory()==Category.valueOf(category)) {
-                return landService.getLandByWorld(world.getWorldId());
+                List<Land> lands=landService.getLandByWorld(world.getWorldId());
+                for (Land land:lands) {
+                    int id=land.getOwnerId();
+                    if (id==0) continue;
+                    User user=accountService.getUserById(id);
+                    land.setOwnerName(user.getUsername());
+                }
+                return lands;
             }
         }
         return null;
