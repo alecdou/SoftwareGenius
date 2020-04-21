@@ -69,7 +69,7 @@ public class PlayerController {
     @PostMapping("/addUser")
     public Integer initUser(@RequestBody User user) {
         Integer userId = accountService.addNewUser(user);
-        return user.getId();
+        return user.getUserId();
     }
 
     /***
@@ -87,14 +87,14 @@ public class PlayerController {
             );
         }
         try {
-            accountService.validatePassword(password, user.getId());
+            accountService.validatePassword(password, user.getUserId());
         } catch (Exception e) {
             throw new ResponseStatusException(
                     HttpStatus.UNPROCESSABLE_ENTITY, "validation failed"
             );
         }
-        sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()));
-        return user.getId();
+        sessionService.addSession(user.getUserId(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()));
+        return user.getUserId();
 
     }
 

@@ -23,7 +23,7 @@ public class AccountService {
 
     public Integer addNewUser(User user) {
         userDao.addUser(user);
-        return user.getId();
+        return user.getUserId();
     }
 
 

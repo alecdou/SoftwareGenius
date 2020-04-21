@@ -112,7 +112,7 @@ public class WorldController {
         List<User> all=accountService.getAll();
         List<User> list=new ArrayList<>();
         for (User user:all) {
-            List<World> worlds=worldService.getWorldByOwnerId(user.getId());
+            List<World> worlds=worldService.getWorldByOwnerId(user.getUserId());
             if (worlds==null) continue;
             for (World world:worlds) {
                 if (world.getCategory()==Category.valueOf(category)) {
