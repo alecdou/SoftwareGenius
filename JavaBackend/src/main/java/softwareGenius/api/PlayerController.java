@@ -95,7 +95,6 @@ public class PlayerController {
         }
         sessionService.addSession(user.getUserId(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()));
         return user.getUserId();
-
     }
 
     /***
@@ -125,7 +124,7 @@ public class PlayerController {
         User u = accountService.getUserById(userID);
         if (u == null) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid User ID"
+                    HttpStatus.NOT_FOUND, "user not found"
             );
         }
         result.put("email", u.getEmail());

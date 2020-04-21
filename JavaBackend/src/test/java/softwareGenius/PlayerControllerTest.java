@@ -2,25 +2,12 @@ package softwareGenius;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import softwareGenius.api.PlayerController;
 import softwareGenius.model.User;
-import softwareGenius.service.AccountService;
 
 import java.sql.*;
 
@@ -159,18 +146,43 @@ public class PlayerControllerTest extends AbstractTest{
         assertEquals("1", actualUserId);
 
         // negative test
-        String uri2 = "/api/player/login/testing1@test.com/testing2";
-        MvcResult mvcResult2 = mvc.perform(MockMvcRequestBuilders.get(uri)
+        String uri2 = "/api/player/login/testing1@test.com/testingytf87";
+        MvcResult mvcResult2 = mvc.perform(MockMvcRequestBuilders.get(uri2)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
         // check status
-        int status2 = mvcResult.getResponse().getStatus();
-        assertEquals(422, status);
+        int status2 = mvcResult2.getResponse().getStatus();
+        assertEquals(422, status2);
     }
 
     @Test
     public void testLogout() throws Exception{
-        String uri = "/api/player/logout";
+        String uri = "/api/player/logout/1";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        // check status
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals("true", content);
+    }
+
+    @Test
+    public void testGetReport() throws Exception{
+        String uri = "/api/getOverallReport";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        // check status
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
+
+    @Test
+    public void testGetOverallReport() throws Exception{
+        String uri = "/api/player/logout/1";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
