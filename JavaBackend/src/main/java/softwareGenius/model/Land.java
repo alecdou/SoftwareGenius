@@ -5,6 +5,7 @@ public class Land {
     private Integer ind;
     private Integer worldId;
     private Integer ownerId;
+    private String ownerName;
     private Integer ownerDifficultyLevel;
 
     public Land() {}
@@ -33,11 +34,27 @@ public class Land {
 
     public Integer getWorldId() { return worldId; }
 
+    public void setWorldId(Integer worldId) {
+        this.worldId = worldId;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public Integer getOwnerDifficultyLevel() {
+        return ownerDifficultyLevel;
+    }
+
+    public void setOwnerDifficultyLevel(Integer ownerDifficultyLevel) {
+        this.ownerDifficultyLevel = ownerDifficultyLevel;
+    }
+
     public Integer getOwnerId() { return ownerId; }
 
     public void setOwnerId(Integer ownerId) { this.ownerId=ownerId; }
-
-    public Integer getOwnerDifficulty() { return ownerDifficultyLevel; }
-
-    public void setOwnerDifficulty(Integer ownerDifficultyLevel) { this.ownerDifficultyLevel = ownerDifficultyLevel; }
 }
