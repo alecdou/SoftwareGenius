@@ -57,8 +57,4 @@ public class Land {
     public Integer getOwnerId() { return ownerId; }
 
     public void setOwnerId(Integer ownerId) { this.ownerId=ownerId; }
-
-    public Integer getOwnerDifficulty() { return ownerDifficultyLevel; }
-
-    public void setOwnerDifficulty(Integer ownerDifficultyLevel) { this.ownerDifficultyLevel = ownerDifficultyLevel; }
 }
