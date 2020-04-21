@@ -21,6 +21,11 @@ public class QuestionController {
         return questionService.getQuestion(questionId);
     }
 
+    @GetMapping(path = "AllQuestions")
+    public List<Question> getQuestionById() {
+        return questionService.getAllQuestion();
+    }
+
 
     @GetMapping(path = "score/{qid}")
     public Float qnsScore(@PathVariable Integer qid) {
