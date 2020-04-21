@@ -79,20 +79,22 @@ public class PlayerController {
     @GetMapping("/login/{email}/{password}")
     public Integer login(@PathVariable String email, @PathVariable String password) {
         User user = accountService.getUserByEmail(email);
+        System.out.println(user);
         if (user == null) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "user not found"
+                    HttpStatus.NOT_FOUND, "user not found"+user
             );
         }
         try{
             accountService.validatePassword(user.getPassword(), user.getId());
-            sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
-            return user.getId();
+
         } catch (Exception e){
             throw new ResponseStatusException(
                     HttpStatus.UNPROCESSABLE_ENTITY, "validation failed"
             );
         }
+        sessionService.addSession(user.getId(), Timestamp.valueOf(LocalDateTime.now()));
+        return user.getId();
 
     }
 
