@@ -34,4 +34,9 @@
         where sessionId = #{userId}
     </select>
 
+    <select id="getAllSession" resultMap="sessionMap">
+        select sessionId,userId,loginTime,logoutTime
+        from session
+    </select>
+
 </mapper>

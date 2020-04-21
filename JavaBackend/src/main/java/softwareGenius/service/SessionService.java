@@ -7,7 +7,9 @@ import softwareGenius.mapper.SessionDao;
 import softwareGenius.model.Session;
 
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 @Service
 public class SessionService {
@@ -48,4 +50,32 @@ public class SessionService {
         return sessionDao.getSessionByUserID(userId);
     }
 
+    /**
+     * Get total game time of all users
+     * @return string of flattened total game time
+     */
+    public String getTotalGameTime(){
+        List<Session> allSession = sessionDao.getAllSession();
+        return getTimeInterval(allSession);
+    }
+
+    /**
+     * Get total game time of a particular user
+     * @param userId id of the user
+     * @return string of flattened total game time
+     */
+    public String getGameTimeByUserId(Integer userId){
+        List<Session> userSessions = sessionDao.getSessionByUserID(userId);
+        return getTimeInterval(userSessions);
+    }
+
+    private String getTimeInterval(List<Session> userSessions){
+        Period totalGameDay = Period.ZERO;
+        Duration totalGameTime = Duration.ZERO;
+        for (Session s: userSessions) {
+            totalGameDay.plus(Period.between(s.getLogoutTime().toLocalDateTime().toLocalDate(), s.getLoginTime().toLocalDateTime().toLocalDate()));
+            totalGameTime.plus(Duration.between(s.getLogoutTime().toInstant(), s.getLoginTime().toInstant()));
+        }
+        return totalGameDay.toString() + ' ' + totalGameTime.toString();
+    }
 }
