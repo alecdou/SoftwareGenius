@@ -30,4 +30,9 @@ public interface SessionDao {
      * @param userId the id of the user
      */
     List<Session> getSessionByUserID(@Param("userId") Integer userId);
+
+    /**
+     * Get all session records in the database
+     */
+    List<Session> getAllSession();
 }

@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 
 import org.springframework.web.server.ResponseStatusException;
+import softwareGenius.model.Category;
 import softwareGenius.model.Character;
 import softwareGenius.model.Session;
 import softwareGenius.model.User;
@@ -134,17 +135,44 @@ public class PlayerController {
         }
         result.put("overall_accuracy", String.valueOf((float) totalC /totalQ));
         result.put("ranking", String.valueOf(leaderboardService.getOverallRankingByUserId(userID)));
-        List<Session> userSessions = sessionService.getSessionByUserID(userID);
-        Period totalGameDay = Period.ZERO;
-        Duration totalGameTime = Duration.ZERO;
-        for (Session s: userSessions) {
-            totalGameDay.plus(Period.between(s.getLogoutTime().toLocalDateTime().toLocalDate(), s.getLoginTime().toLocalDateTime().toLocalDate()));
-            totalGameTime.plus(Duration.between(s.getLogoutTime().toInstant(), s.getLoginTime().toInstant()));
-        }
-        result.put("duration", totalGameDay.toString() + ' ' + totalGameTime.toString());
+        result.put("duration", sessionService.getGameTimeByUserId(userID));
         return result;
     }
 
+    @GetMapping ("/getOverallReport")
+    public Map<String, String> getOverallReport() {
+        Map<String, String> result = new HashMap<>();
+        Map<Category, Integer> totalQ = new HashMap<>();
+        Map<Category, Integer> totalC = new HashMap<>();
+        List<Character> allChar = charService.getAll();
+        for (Character c : allChar) {
+            Category ca = c.getCharName();
+            totalQ.put(ca, totalQ.getOrDefault(ca, 0) + c.getTotalQuesNo());
+            totalC.put(ca, totalC.getOrDefault(ca, 0) + c.getCorrectQuesNo());
+        }
+        int overallQ = 0;
+        for (int value : totalQ.values()) {
+            overallQ += value;
+        }
+        int overallC = 0;
+        for (int value : totalC.values()) {
+            overallC += value;
+        }
+        int totalStudent = 0;
+        for (User u : accountService.getAll()) {
+            if (!u.getIsAdmin()) {
+                totalStudent += 1;
+            }
+        }
+        result.put("student_num", String.valueOf(totalStudent));
+        result.put("overall_accuracy", String.valueOf((float) overallC / overallQ));
+        result.put("overall_SE_accuracy", String.valueOf((float) totalC.get(Category.SE) / totalQ.get(Category.SE)));
+        result.put("overall_SA_accuracy", String.valueOf((float) totalC.get(Category.SA) / totalQ.get(Category.SA)));
+        result.put("overall_PM_accuracy", String.valueOf((float) totalC.get(Category.PM) / totalQ.get(Category.PM)));
+        result.put("overall_QA_accuracy", String.valueOf((float) totalC.get(Category.QA) / totalQ.get(Category.QA)));
+        result.put("total_game_time", sessionService.getTotalGameTime());
+        return result;
+    }
 }
 
 
