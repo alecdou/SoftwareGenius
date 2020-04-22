@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 import softwareGenius.model.*;
 import softwareGenius.model.Character;
@@ -170,6 +171,22 @@ public class WorldController {
      */
     @GetMapping("/unlock/{userId}/{category}")
     public Integer initNewWorld(@PathVariable Integer userId,@PathVariable String category){
+        Category c;
+        try {
+            c=Category.valueOf(category);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid Category!"
+            );
+        }
+        List<World> worlds=worldService.getWorldByOwnerId(userId);
+        if (worlds!=null) {
+            for (World world:worlds) if (world.getCategory()==c) {
+                throw new ResponseStatusException(
+                        HttpStatus.CONFLICT, "Category Already Unlocked!"
+                );
+            }
+        }
         int charId=charService.initNewCharacter(userId,Category.valueOf(category));
         int worldId=worldService.initNewWorld(userId,charId,Category.valueOf(category));
         landService.initNewLand(worldId);
