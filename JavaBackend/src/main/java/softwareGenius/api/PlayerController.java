@@ -90,7 +90,7 @@ public class PlayerController {
             accountService.validatePassword(password, user.getUserId());
         } catch (Exception e) {
             throw new ResponseStatusException(
-                    HttpStatus.UNPROCESSABLE_ENTITY, "validation failed"
+                    HttpStatus.UNAUTHORIZED, "validation failed"
             );
         }
         sessionService.addSession(user.getUserId(), Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()));
