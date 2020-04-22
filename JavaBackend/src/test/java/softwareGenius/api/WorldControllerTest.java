@@ -21,8 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class WorldControllerTest extends AbstractTest {
-    @Autowired
-    private Environment env;
 
     @Override
     @Before
@@ -30,37 +28,6 @@ public class WorldControllerTest extends AbstractTest {
         super.setUp();
     }
 
-    /**
-     * Connect to the test.db database
-     * @return the Connection object
-     */
-    private Connection connect() {
-        // SQLite connection string
-        String dbUrl = env.getProperty("spring.datasource.url");
-        Connection conn = null;
-        try {
-            assert dbUrl != null;
-            conn = DriverManager.getConnection(dbUrl);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return conn;
-    }
-
-    /**
-     * Closes the database connection.
-     *
-     * @return true if the closing was successful, false otherwise
-     */
-    private boolean disconnectDB(Connection connection) {
-        try{
-            connection.close();
-        }
-        catch (SQLException e) {
-            return false;
-        }
-        return true;
-    }
 
     @Test
     public void getLandsByWorldId() throws Exception {
