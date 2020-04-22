@@ -140,16 +140,55 @@ public class CombatController {
         }
 
         // update combat record
-        combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.length);
+        try {
+            combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.length);
+        } catch (Exception e) {
+            map.put("error: ", "Error: the combat does not exit");
+            return map;
+        }
 
         // get the combat data
-        Combat combat = combatService.getCombatById(combatId);
+        Combat combat;
+        try {
+            combat = combatService.getCombatById(combatId);
+        } catch (Exception e) {
+            map.put("error: ", "Error: the combat does not exit");
+            return map;
+        }
 
         // get the character used in the battle
-        Character character = characterService.getCharacterByCharId(characterId);
+        Character character;
+        try {
+            character = characterService.getCharacterByCharId(characterId);
+        } catch (Exception e) {
+            map.put("error: ", "Error: the character does not exit");
+            return map;
+        }
 
         // get the total experience point earned in the battle
-        Integer addedExp = questionService.calculateScore(idOfCorrectlyAnsweredQns);
+        Integer addedExp;
+        try {
+             addedExp = questionService.calculateScore(idOfCorrectlyAnsweredQns);
+        } catch (Exception e) {
+            map.put("error: ", "Error: some question ids are wrong");
+            return map;
+        }
+
+        Integer userId;
+        try {
+            userId = combat.getPlayerId();
+        } catch (Exception e) {
+            map.put("error: ", "Error: provided user id is wrong");
+            return map;
+        }
+
+        User user;
+        try {
+            user = accountService.getUserById(userId);
+        } catch (Exception e) {
+            map.put("error: ", "Error: the user does not exist");
+            return map;
+        }
 
         // get the new level of the character
         Integer characterLevel = (int) Math.ceil((character.getExp() + addedExp) / 10.0);
@@ -162,8 +201,6 @@ public class CombatController {
         characterService.updateCharacter(character);
 
         // update user overall exp
-        Integer userId = combat.getPlayerId();
-        User user = accountService.getUserById(userId);
         user.setOverallExp(user.getOverallExp() + addedExp);
 
         // update question record
