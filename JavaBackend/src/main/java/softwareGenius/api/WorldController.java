@@ -2,7 +2,9 @@ package softwareGenius.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import softwareGenius.model.*;
 import softwareGenius.model.Character;
 import softwareGenius.service.*;
@@ -60,17 +62,23 @@ public class WorldController {
     @GetMapping("/getLandsByUserIdAndCategory/{userId}/{category}")
     public List<Land> getLandsByUserIdAndCategory(@PathVariable Integer userId,@PathVariable String category) {
         List<World> worlds=worldService.getWorldByOwnerId(userId);
-        for (World world:worlds) {
-            if (world.getCategory()==Category.valueOf(category)) {
-                List<Land> lands=landService.getLandByWorld(world.getWorldId());
-                for (Land land:lands) {
-                    int id=land.getOwnerId();
-                    if (id==0) continue;
-                    User user=accountService.getUserById(id);
-                    land.setOwnerName(user.getUsername());
+        try {
+            for (World world:worlds) {
+                if (world.getCategory()==Category.valueOf(category)) {
+                    List<Land> lands=landService.getLandByWorld(world.getWorldId());
+                    for (Land land:lands) {
+                        int id=land.getOwnerId();
+                        if (id==0) continue;
+                        User user=accountService.getUserById(id);
+                        land.setOwnerName(user.getUsername());
+                    }
+                    return lands;
                 }
-                return lands;
             }
+        } catch (IllegalArgumentException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid Category!"
+            );
         }
         return null;
     }
@@ -180,6 +188,11 @@ public class WorldController {
     //after win a combat
     @GetMapping("/changeOwner/{landId}/{ownerId}/{difficulty}")
     public void changeOwner(@PathVariable Integer landId,@PathVariable Integer ownerId,@PathVariable Integer difficulty) {
+        if (difficulty > 3 || difficulty < 1) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid Difficulty Level!"
+            );
+        }
         landService.changeOwner(landId,ownerId,difficulty);
     }
     /*
