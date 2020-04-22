@@ -191,7 +191,10 @@ public class WorldControllerTest extends AbstractTest {
         if (landList != null) {
             assertEquals(24, landList.length);
             for (Land l : landList) {
-                assertEquals(userId, l.getOwnerId());
+                int ownerId = l.getOwnerId();
+                if (ownerId != 0) {
+                    assertEquals(userId, ownerId);
+                }
             }
         }
 
