@@ -72,7 +72,7 @@ public class QuestionControllerTest extends AbstractTest {
     }
 
     @Test
-    public void testGetUser() throws Exception{
+    public void testGetQuestion() throws Exception{
         int inputQuesId = 1;
         String uri = "/api/question/" + inputQuesId;
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -84,7 +84,7 @@ public class QuestionControllerTest extends AbstractTest {
     }
 
     @Test
-    public void testGetAllUser() throws Exception{
+    public void testGetAllQuestions() throws Exception{
         String uri = "/api/question/AllQuestions";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
