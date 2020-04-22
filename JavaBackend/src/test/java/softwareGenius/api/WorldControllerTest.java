@@ -176,4 +176,30 @@ public class WorldControllerTest extends AbstractTest {
 
         assertEquals(400, mvcResult.getResponse().getStatus());
     }
+
+    @Test
+    public void getLandsByUserIdAndCategory() throws Exception{
+        int userId = 1;
+        String category = "SE";
+        String url = "/api/world/getLandsByUserIdAndCategory/" + userId + "/" + category;
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(url)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        assertEquals(200, mvcResult.getResponse().getStatus());
+
+        Land[] landList = super.mapFromJson(mvcResult.getResponse().getContentAsString(), Land[].class);
+        if (landList != null) {
+            assertEquals(24, landList.length);
+            for (Land l : landList) {
+                assertEquals(userId, l.getOwnerId());
+            }
+        }
+
+        category = "None";
+        url = "/api/world/getLandsByUserIdAndCategory/" + userId + "/" + category;
+        MvcResult failedMvcResult = mvc.perform(MockMvcRequestBuilders.get(url)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        assertEquals(400, failedMvcResult.getResponse().getStatus());
+    }
 }
