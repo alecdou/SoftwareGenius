@@ -81,6 +81,6 @@ public class SessionService {
                 totalGameDay.getDays() + "D " + totalGameTime.toString()
                 .substring(2)
                 .replaceAll("(\\d[HMS])(?!$)", "$1 ")
-                .toUpperCase();
+                .toLowerCase();
     }
 }
