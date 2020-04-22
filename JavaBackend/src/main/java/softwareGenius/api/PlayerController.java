@@ -48,7 +48,13 @@ public class PlayerController {
     @GetMapping("/getUser/{userId}")
 
     public User getUserById(@PathVariable Integer userId) {
-        return accountService.getUserById(userId);
+        User user = accountService.getUserById(userId);
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user not found"
+            );
+        }
+        return user;
     }
 
 
@@ -68,7 +74,15 @@ public class PlayerController {
      */
     @PostMapping("/addUser")
     public Integer initUser(@RequestBody User user) {
-        Integer userId = accountService.addNewUser(user);
+
+        try {
+            Integer userId = accountService.addNewUser(user);
+        } catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "fail DB constraints"
+            );
+        }
+
         return user.getUserId();
     }
 
@@ -106,6 +120,12 @@ public class PlayerController {
     public Boolean logout(@PathVariable Integer userId) {
         // get the session list of the user
         List<Session> sessionList = sessionService.getSessionByUserID(userId);
+
+        if (sessionList == null || sessionList.size() == 0){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user session not found"
+            );
+        }
 
         // get the latest session
         Session session = sessionList.get(sessionList.size() - 1);

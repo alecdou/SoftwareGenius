@@ -59,10 +59,10 @@ public class QuestionController {
         questionService.addQnsAnswered(questionIds);
     }
 
-//    @PostMapping(path = "Score")
-//    public Float qnsScore(@RequestBody Integer qid) {
-//        return questionService.getAccuracy(qid);
-//    }
+    @PostMapping(path = "Score")
+    public Float qnsScore(@RequestBody Integer qid) {
+        return questionService.getAccuracy(qid);
+    }
 
     @PostMapping(path = "correctAnswered")
     public void qnsCorrectlyAnswered(@RequestBody Integer[] questionIds) {
