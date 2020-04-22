@@ -7,12 +7,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -22,7 +26,41 @@ public class AbstractTest {
     protected MockMvc mvc;
 
     @Autowired
+    protected Environment env;
+
+    @Autowired
     WebApplicationContext webApplicationContext;
+
+    /**
+     * Connect to the test.db database
+     * @return the Connection object
+     */
+    protected Connection connect() {
+        // SQLite connection string
+        String dbUrl = env.getProperty("spring.datasource.url");
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(dbUrl);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return conn;
+    }
+
+    /**
+     * Closes the database connection.
+     *
+     * @return true if the closing was successful, false otherwise
+     */
+    protected boolean disconnectDB(Connection connection) {
+        try{
+            connection.close();
+        }
+        catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Set up Mock mvc
