@@ -85,7 +85,12 @@ public class CombatController {
         return map;
     }
 
-
+    /**
+     * Updates the combat status, user info and character info.
+     * @param combatId the id of the combat
+     * @param json the json file
+     * @return the combat result
+     */
     @PostMapping(path = "{combatId}/end")
     public Map<String, Object> endBattle(@PathVariable("combatId") Integer combatId, @RequestBody Map<String, String> json) {
         Map<String, Object> map = new HashMap<>();
@@ -215,21 +220,4 @@ public class CombatController {
         map.put("addedExp", addedExp);
         return map;
     }
-
-    @GetMapping(path = "{combatId}")
-    public Combat getCombatById(@PathVariable("combatId") Integer combatId) {
-        return combatService.getCombatById(combatId);
-    }
-
-    @GetMapping(path = "/player{playerId}")
-    public List<Combat> getCombatByPlayerId(@PathVariable("playerId") Integer playerId) {
-        return combatService.getCombatByPlayerId(playerId);
-    }
-
-    @GetMapping(path = "player{playerId}/{mode}")
-    public List<Combat> getCombatByPlayerIdAndMode(@PathVariable("playerId") Integer playerId,
-                                                   @PathVariable("mode") String mode) {
-        return combatService.getCombatByPlayerIdAndMode(playerId, mode);
-    }
-
 }
