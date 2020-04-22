@@ -29,15 +29,17 @@ public class PlayerControllerTest extends AbstractTest {
     public void testAddUser() throws Exception{
         String postUri = "/api/player/addUser";
 
+        // positive test
+
         // construct a new user object
         User user = new User();
-        user.setUserName("Rebecca");
-        user.setOverallExp(10000000);
-        user.setAccountType("fairy");
-        user.setRealName("Rebecca Chen");
+        user.setUserName("Matthew");
+        user.setOverallExp(100);
+        user.setAccountType("FB");
+        user.setRealName("Matthew Deng");
         user.setPassword("password");
         user.setIsAdmin("false");
-        user.setEmail("rebecca6@gmail.com");
+        user.setEmail("Matthew@gmail.com");
 
         // map the object to json in string
         String inputJson = super.mapToJson(user);
@@ -80,10 +82,51 @@ public class PlayerControllerTest extends AbstractTest {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+
+        // negative test 1
+
+        // construct a new user object
+        User user2 = new User();
+        user.setUserName("Matthew");
+        user.setOverallExp(10);
+
+        // map the object to json in string
+        String inputJson2 = super.mapToJson(user2);
+
+        // mock post
+        MvcResult mvcPostResult2 = mvc.perform(MockMvcRequestBuilders.post(postUri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson2)).andReturn();
+
+        // assert response status
+        int status2 = mvcPostResult2.getResponse().getStatus();
+        assertEquals(400, status2);
+
+        // negative test 2
+
+        // construct a new user object
+        User user3 = new User();
+        user.setUserName("Matthew");
+        user.setOverallExp(10);
+        user.setEmail("testing1@test.com");
+
+        // map the object to json in string
+        String inputJson3 = super.mapToJson(user3);
+
+        // mock post
+        MvcResult mvcPostResult3 = mvc.perform(MockMvcRequestBuilders.post(postUri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson3)).andReturn();
+
+        // assert response status
+        int status3 = mvcPostResult3.getResponse().getStatus();
+        assertEquals(400, status3);
+
     }
 
     @Test
     public void testGetUser() throws Exception{
+        //positive test
         int inputUserId = 1;
         String uri = "/api/player/getUser/" + inputUserId;
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -97,6 +140,16 @@ public class PlayerControllerTest extends AbstractTest {
         // convert json type to class object
         User actualUser = super.mapFromJson(content, User.class);
         assertEquals("testing1@test.com", actualUser.getEmail());
+
+        //negative test
+        int inputUserId2 = -1;
+        String uri2 = "/api/player/getUser/" + inputUserId2;
+        MvcResult mvcResult2 = mvc.perform(MockMvcRequestBuilders.get(uri2)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        // check status
+        int status2 = mvcResult2.getResponse().getStatus();
+        assertEquals(404, status2);
     }
 
     @Test
@@ -120,12 +173,14 @@ public class PlayerControllerTest extends AbstractTest {
 
         // check status
         int status2 = mvcResult2.getResponse().getStatus();
-        assertEquals(422, status2);
+        assertEquals(401, status2);
     }
 
     @Test
     public void testLogout() throws Exception{
-        String uri = "/api/player/logout/1";
+        // positive test
+        Integer inputUserId = 1;
+        String uri = "/api/player/logout/" + inputUserId;
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -135,10 +190,21 @@ public class PlayerControllerTest extends AbstractTest {
 
         String content = mvcResult.getResponse().getContentAsString();
         assertEquals("true", content);
+
+        // negative test
+        inputUserId = -1;
+        String uri2 = "/api/player/logout/" + inputUserId;
+
+        MvcResult mvcResult2 = mvc.perform(MockMvcRequestBuilders.get(uri2)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        status = mvcResult2.getResponse().getStatus();
+        assertEquals(404, status);
+
     }
 
     @Test
-    public void testGetReport() throws Exception{
+    public void testGetOverallReport() throws Exception{
         String uri = "/api/getOverallReport";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -149,7 +215,7 @@ public class PlayerControllerTest extends AbstractTest {
     }
 
     @Test
-    public void testGetOverallReport() throws Exception{
+    public void testGetReport() throws Exception{
         String uri = "/api/player/logout/1";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -157,8 +223,5 @@ public class PlayerControllerTest extends AbstractTest {
         // check status
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
-
-        String content = mvcResult.getResponse().getContentAsString();
-        assertEquals("true", content);
     }
 }
