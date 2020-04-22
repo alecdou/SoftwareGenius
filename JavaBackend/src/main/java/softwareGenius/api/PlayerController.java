@@ -139,7 +139,7 @@ public class PlayerController {
             result.put(c.getCharName() + "_accuracy", String.valueOf(Float.valueOf(c.getCorrectQuesNo()) / c.getTotalQuesNo()));
         }
         result.put("overall_accuracy", String.valueOf((float) totalC / totalQ));
-        result.put("ranking", String.valueOf(leaderboardService.getOverallRankingByUserId(userID) == 0 ? leaderboardService.getOverallRankingByUserId(userID) : "Not Listed"));
+        result.put("ranking", String.valueOf(leaderboardService.getOverallRankingByUserId(userID) == 0 ?  "Not Listed": leaderboardService.getOverallRankingByUserId(userID)));
         result.put("duration", sessionService.getGameTimeByUserId(userID));
         return result;
     }
