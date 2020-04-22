@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 import softwareGenius.model.*;
 import softwareGenius.model.Character;
@@ -39,7 +40,11 @@ public class WorldController {
      */
     @GetMapping("/getCharByWorldId/{worldId}")
     public Character getCharByWorldId(@PathVariable Integer worldId) {
-        return charService.getCharacterByCharId(worldService.getCharIdByWorldId(worldId));
+        Character character = charService.getCharacterByCharId(worldService.getCharIdByWorldId(worldId));
+        if (character==null) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Character Not Found!"
+        );
+        return character;
     }
 
     /**
@@ -56,9 +61,18 @@ public class WorldController {
             User user=accountService.getUserById(id);
             land.setOwnerName(user.getUsername());
         }
+        if (lands==null || lands.size()==0) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "World Not Found!"
+        );
         return lands;
     }
 
+    /**
+     * To get lands by user Id and an provided category
+     * @param userId id of user
+     * @param category the category
+     * @return list of 24 land objects
+     */
     @GetMapping("/getLandsByUserIdAndCategory/{userId}/{category}")
     public List<Land> getLandsByUserIdAndCategory(@PathVariable Integer userId,@PathVariable String category) {
         List<World> worlds=worldService.getWorldByOwnerId(userId);
@@ -75,20 +89,16 @@ public class WorldController {
                     return lands;
                 }
             }
+            throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "World is Locked!"
+            );
         } catch (IllegalArgumentException e){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Invalid Category!"
             );
         }
-        return null;
     }
 
-    /*
-    @GetMapping("/getWorldByWorldId/{worldId}")
-    public World getWorldByWorldId(@PathVariable Integer worldId) {
-        return worldService.getWorldByWorldId(worldId);
-    }
-     */
 
     /**
      * To get all world id and its corresponding category of a user
@@ -97,6 +107,10 @@ public class WorldController {
      */
     @GetMapping("/getWorldIdsByUserId/{userId}")
     public Map<String,Integer> getWorldListByUserId(@PathVariable Integer userId) {
+        User user=accountService.getUserById(userId);
+        if (user==null) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "User Not Found!"
+        );
         Map<String,Integer> map=new HashMap<>();
         map.put("SE",null);
         map.put("SA",null);
@@ -116,20 +130,26 @@ public class WorldController {
     }
 
     @GetMapping("/getUsersByCategory/{category}")
-    public List<User> getWorldListByUserId(@PathVariable String category) {
+    public List<User> getUsersByCategory(@PathVariable String category) {
         List<User> all=accountService.getAll();
         List<User> list=new ArrayList<>();
-        for (User user:all) {
-            List<World> worlds=worldService.getWorldByOwnerId(user.getUserId());
-            if (worlds==null) continue;
-            for (World world:worlds) {
-                if (world.getCategory()==Category.valueOf(category)) {
-                    list.add(user);
-                    break;
+        try {
+            for (User user : all) {
+                List<World> worlds = worldService.getWorldByOwnerId(user.getUserId());
+                if (worlds == null) continue;
+                for (World world : worlds) {
+                    if (world.getCategory() == Category.valueOf(category)) {
+                        list.add(user);
+                        break;
+                    }
                 }
             }
+            return list;
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid Category!"
+            );
         }
-        return list;
     }
 
     /**
@@ -139,6 +159,10 @@ public class WorldController {
      */
     @GetMapping("/getCharsByUserId/{userId}")
     public Map<String,Character> getCharsByUserId(@PathVariable Integer userId) {
+        User user=accountService.getUserById(userId);
+        if (user==null) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "User Not Found!"
+        );
         Map<String,Character> map=new HashMap<>();
         map.put("SE",null);
         map.put("SA",null);
@@ -164,6 +188,26 @@ public class WorldController {
      */
     @GetMapping("/unlock/{userId}/{category}")
     public Integer initNewWorld(@PathVariable Integer userId,@PathVariable String category){
+        User user=accountService.getUserById(userId);
+        if (user==null) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "User Not Found!"
+        );
+        Category c;
+        try {
+            c=Category.valueOf(category);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid Category!"
+            );
+        }
+        List<World> worlds=worldService.getWorldByOwnerId(userId);
+        if (worlds!=null) {
+            for (World world:worlds) if (world.getCategory()==c) {
+                throw new ResponseStatusException(
+                        HttpStatus.CONFLICT, "Category Already Unlocked!"
+                );
+            }
+        }
         int charId=charService.initNewCharacter(userId,Category.valueOf(category));
         int worldId=worldService.initNewWorld(userId,charId,Category.valueOf(category));
         landService.initNewLand(worldId);
@@ -195,11 +239,4 @@ public class WorldController {
         }
         landService.changeOwner(landId,ownerId,difficulty);
     }
-    /*
-    @PostMapping("/unlock/{worldId}")
-    public void unlockWorld(@PathVariable Integer worldId) {
-        worldService.unlockWorld(worldId);
-    }
-     */
-
 }
