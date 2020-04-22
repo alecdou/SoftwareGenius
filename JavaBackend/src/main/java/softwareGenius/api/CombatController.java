@@ -85,7 +85,12 @@ public class CombatController {
         return map;
     }
 
-
+    /**
+     * Updates the combat status, user info and character info.
+     * @param combatId the id of the combat
+     * @param json the json file
+     * @return the combat result
+     */
     @PostMapping(path = "{combatId}/end")
     public Map<String, Object> endBattle(@PathVariable("combatId") Integer combatId, @RequestBody Map<String, String> json) {
         Map<String, Object> map = new HashMap<>();
@@ -140,16 +145,55 @@ public class CombatController {
         }
 
         // update combat record
-        combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.length);
+        try {
+            combatService.updateCombatResult(combatId, status, numOfQnsAnswered, idOfCorrectlyAnsweredQns.length);
+        } catch (Exception e) {
+            map.put("error: ", "Error: the combat does not exit");
+            return map;
+        }
 
         // get the combat data
-        Combat combat = combatService.getCombatById(combatId);
+        Combat combat;
+        try {
+            combat = combatService.getCombatById(combatId);
+        } catch (Exception e) {
+            map.put("error: ", "Error: the combat does not exit");
+            return map;
+        }
 
         // get the character used in the battle
-        Character character = characterService.getCharacterByCharId(characterId);
+        Character character;
+        try {
+            character = characterService.getCharacterByCharId(characterId);
+        } catch (Exception e) {
+            map.put("error: ", "Error: the character does not exit");
+            return map;
+        }
 
         // get the total experience point earned in the battle
-        Integer addedExp = questionService.calculateScore(idOfCorrectlyAnsweredQns);
+        Integer addedExp;
+        try {
+             addedExp = questionService.calculateScore(idOfCorrectlyAnsweredQns);
+        } catch (Exception e) {
+            map.put("error: ", "Error: some question ids are wrong");
+            return map;
+        }
+
+        Integer userId;
+        try {
+            userId = combat.getPlayerId();
+        } catch (Exception e) {
+            map.put("error: ", "Error: provided user id is wrong");
+            return map;
+        }
+
+        User user;
+        try {
+            user = accountService.getUserById(userId);
+        } catch (Exception e) {
+            map.put("error: ", "Error: the user does not exist");
+            return map;
+        }
 
         // get the new level of the character
         Integer characterLevel = (int) Math.ceil((character.getExp() + addedExp) / 10.0);
@@ -162,8 +206,6 @@ public class CombatController {
         characterService.updateCharacter(character);
 
         // update user overall exp
-        Integer userId = combat.getPlayerId();
-        User user = accountService.getUserById(userId);
         user.setOverallExp(user.getOverallExp() + addedExp);
 
         // update question record
@@ -178,21 +220,4 @@ public class CombatController {
         map.put("addedExp", addedExp);
         return map;
     }
-
-    @GetMapping(path = "{combatId}")
-    public Combat getCombatById(@PathVariable("combatId") Integer combatId) {
-        return combatService.getCombatById(combatId);
-    }
-
-    @GetMapping(path = "/player{playerId}")
-    public List<Combat> getCombatByPlayerId(@PathVariable("playerId") Integer playerId) {
-        return combatService.getCombatByPlayerId(playerId);
-    }
-
-    @GetMapping(path = "player{playerId}/{mode}")
-    public List<Combat> getCombatByPlayerIdAndMode(@PathVariable("playerId") Integer playerId,
-                                                   @PathVariable("mode") String mode) {
-        return combatService.getCombatByPlayerIdAndMode(playerId, mode);
-    }
-
 }

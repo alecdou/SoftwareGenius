@@ -55,7 +55,7 @@ public class CombatControllerTest extends AbstractTest {
         // assert response status
         int status = mvcPostResult.getResponse().getStatus();
         assertEquals(200, status);
-
-
     }
+
+
 }

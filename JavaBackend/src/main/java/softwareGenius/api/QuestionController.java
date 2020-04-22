@@ -1,6 +1,8 @@
 package softwareGenius.api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import softwareGenius.model.*;
 import softwareGenius.service.*;
 
@@ -40,8 +42,17 @@ public class QuestionController {
 
     @DeleteMapping(path="{questionId}")
     public void deleteQuestionById(@PathVariable Integer questionId){
-        questionService.deleteQuestion(questionId);
+        try{
+            questionService.deleteQuestion(questionId);
+        } catch(Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY, "No such question"
+            );
+        }
     }
+
+
+
 
     @PostMapping(path = "Answered")
     public void qnsAnswered(@RequestBody Integer[] questionIds) {
