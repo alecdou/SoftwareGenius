@@ -116,20 +116,26 @@ public class WorldController {
     }
 
     @GetMapping("/getUsersByCategory/{category}")
-    public List<User> getWorldListByUserId(@PathVariable String category) {
+    public List<User> getUsersByCategory(@PathVariable String category) {
         List<User> all=accountService.getAll();
         List<User> list=new ArrayList<>();
-        for (User user:all) {
-            List<World> worlds=worldService.getWorldByOwnerId(user.getUserId());
-            if (worlds==null) continue;
-            for (World world:worlds) {
-                if (world.getCategory()==Category.valueOf(category)) {
-                    list.add(user);
-                    break;
+        try {
+            for (User user : all) {
+                List<World> worlds = worldService.getWorldByOwnerId(user.getUserId());
+                if (worlds == null) continue;
+                for (World world : worlds) {
+                    if (world.getCategory() == Category.valueOf(category)) {
+                        list.add(user);
+                        break;
+                    }
                 }
             }
+            return list;
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid Category!"
+            );
         }
-        return list;
     }
 
     /**
