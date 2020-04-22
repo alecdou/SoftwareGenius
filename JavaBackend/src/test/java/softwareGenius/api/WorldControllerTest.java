@@ -157,4 +157,23 @@ public class WorldControllerTest extends AbstractTest {
 
         assertEquals(400, failedMvcResult.getResponse().getStatus());
     }
+
+    @Test
+    public void changeOwner() throws Exception{
+        int ownerId = 1;
+        int landId = 1;
+        int difficulty = 3;
+        String url = "/api/world/changeOwner/" + landId + "/" + ownerId + "/" + difficulty;
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(url)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        assertEquals(200, mvcResult.getResponse().getStatus());
+
+        difficulty = 4;
+        url = "/api/world/changeOwner/" + landId + "/" + ownerId + "/" + difficulty;
+        mvcResult = mvc.perform(MockMvcRequestBuilders.get(url)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        assertEquals(400, mvcResult.getResponse().getStatus());
+    }
 }

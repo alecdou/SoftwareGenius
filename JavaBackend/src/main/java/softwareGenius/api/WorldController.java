@@ -2,7 +2,9 @@ package softwareGenius.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import softwareGenius.model.*;
 import softwareGenius.model.Character;
 import softwareGenius.service.*;
@@ -180,6 +182,11 @@ public class WorldController {
     //after win a combat
     @GetMapping("/changeOwner/{landId}/{ownerId}/{difficulty}")
     public void changeOwner(@PathVariable Integer landId,@PathVariable Integer ownerId,@PathVariable Integer difficulty) {
+        if (difficulty > 3 || difficulty < 1) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Invalid Difficulty Level!"
+            );
+        }
         landService.changeOwner(landId,ownerId,difficulty);
     }
     /*
