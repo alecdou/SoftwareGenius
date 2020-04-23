@@ -180,7 +180,7 @@ public class QuestionControllerTest extends AbstractTest {
         int status = mvcPostResult.getResponse().getStatus();
         assertEquals(200, status);
 
-        String sql = "SELECT last_insert_rowid()";
+        String sql = "SELECT last_insert_rowid() from question";
 
         String getUri;
 
@@ -242,7 +242,7 @@ public class QuestionControllerTest extends AbstractTest {
         int status = mvcPostResult.getResponse().getStatus();
         assertEquals(200, status);
 
-        String sql = "SELECT last_insert_rowid()";
+        String sql = "SELECT last_insert_rowid() from question";
 
         String getUri;
 
