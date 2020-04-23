@@ -66,6 +66,12 @@
         from user
     </select>
 
+    <select id="getAllNonAdmin" resultMap="userMap">
+        select *
+        from user
+        WHERE isAdmin=0
+    </select>
+
     <delete id="deleteUser">
         DELETE FROM user
         WHERE userId = #{userId}
