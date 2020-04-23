@@ -40,8 +40,8 @@ public class QuestionControllerTest extends AbstractTest {
         ques.setChoice3("choice 3");
         ques.setChoice4("choice 4");
         ques.setProblem("problem 1");
-        ques.setuserAnswered(0);
-        ques.setuserCorrect(0);
+        ques.setUserAnswered(0);
+        ques.setUserCorrect(0);
         // map the object to json in string
         String inputJson = super.mapToJson(ques);
 
@@ -54,7 +54,7 @@ public class QuestionControllerTest extends AbstractTest {
         int status = mvcPostResult.getResponse().getStatus();
         assertEquals(200, status);
 
-        String sql = "SELECT last_insert_rowid()";
+        String sql = "SELECT last_insert_rowid() from question";
 
         // connect to db and query
         try (Connection conn = this.connect()){
@@ -134,13 +134,13 @@ public class QuestionControllerTest extends AbstractTest {
     @Test
     public void testDeleteQuestion() throws Exception {
         // positive test
-        String sql = "SELECT last_insert_rowid()";
+        String sql = "SELECT last_insert_rowid() from question";
         try (Connection conn = this.connect()){
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet result = pstmt.executeQuery();
             Integer question_id = result.next() ? result.getInt("question_id") : null;
 
-            String uri = "/api/question/" + inputQuesId;
+            String uri = "/api/question/" + question_id;
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
             int status = mvcResult.getResponse().getStatus();
             assertEquals(200, status);
@@ -167,8 +167,8 @@ public class QuestionControllerTest extends AbstractTest {
         ques1.setChoice3("choice 3");
         ques1.setChoice4("choice 4");
         ques1.setProblem("problem 1");
-        ques1.setuserAnswered(0);
-        ques1.setuserCorrect(0);
+        ques1.setUserAnswered(0);
+        ques1.setUserCorrect(0);
         Question ques2 = new Question();
         ques2.setCategory("SE");
         ques2.setDifficultyLevel(3);
@@ -178,8 +178,8 @@ public class QuestionControllerTest extends AbstractTest {
         ques2.setChoice3("choice 3");
         ques2.setChoice4("choice 4");
         ques2.setProblem("problem 2");
-        ques2.setuserAnswered(0)
-        ques2.setuserCorrect(0)
+        ques2.setUserAnswered(0);
+        ques2.setUserCorrect(0);
 
         Integer quesLength = 2;
 
@@ -238,8 +238,8 @@ public class QuestionControllerTest extends AbstractTest {
         ques1.setChoice4("choice 4");
         ques1.setProblem("problem 1");
 
-        ques1.setuserAnswered(0)
-        ques1.setuserCorrect(0)
+        ques1.setUserAnswered(0);
+        ques1.setUserCorrect(0);
         Question ques2 = new Question();
         ques2.setCategory("SE");
         ques2.setDifficultyLevel(3);
@@ -249,8 +249,8 @@ public class QuestionControllerTest extends AbstractTest {
         ques2.setChoice3("choice 3");
         ques2.setChoice4("choice 4");
         ques2.setProblem("problem 2");
-        ques2.setuserAnswered(0)
-        ques2.setuserCorrect(0)
+        ques2.setUserAnswered(0);
+        ques2.setUserCorrect(0);
         Integer quesLength = 2;
 
         Question [] quesList = new Question[quesLength];
