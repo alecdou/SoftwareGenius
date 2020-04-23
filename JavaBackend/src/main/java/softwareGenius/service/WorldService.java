@@ -42,6 +42,6 @@ public class WorldService {
     }
 
     public Integer getCharIdByWorldId(Integer worldId) {
-        return worldId;
+        return worldDao.getCharIdByWorldId(worldId);
     }
 }

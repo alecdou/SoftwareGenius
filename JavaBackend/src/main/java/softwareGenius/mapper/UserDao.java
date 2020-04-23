@@ -35,6 +35,11 @@ public interface UserDao {
      * @return List of User objects
      */
     List<User> getAll();
+    /**
+     * Get all non admin users
+     * @return List of non Admin User objects
+     */
+    List<User> getAllNonAdmin();
 
     /**
      * Delete the user with matching userId

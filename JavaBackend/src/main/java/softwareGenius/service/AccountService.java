@@ -105,7 +105,11 @@ public class AccountService {
     public List<User> getAll() {
         return userDao.getAll();
     }
-
+    /**
+     * Get all non Admin users
+     * @return a list of all user objects
+     */
+    public List<User> getAllNonAdmin(){ return userDao.getAllNonAdmin(); }
     /**
      * Delete user with given userId
      * @param userId id of the user

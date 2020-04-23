@@ -66,6 +66,14 @@ public class PlayerController {
     public List<User> getAll() {
         return accountService.getAll();
     }
+    /***
+     * Get all non admin users
+     * @return list of non admin user obejcts
+     */
+    @GetMapping("/getAllNonAdmin")
+    public List<User> getAllNonAdmin() {
+        return accountService.getAllNonAdmin();
+    }
 
     /***
      * create a new user
