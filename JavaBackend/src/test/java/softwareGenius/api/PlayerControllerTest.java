@@ -38,7 +38,7 @@ public class PlayerControllerTest extends AbstractTest {
         user.setAccountType("FB");
         user.setRealName("Matthew Deng");
         user.setPassword("password");
-        user.setIsAdmin("false");
+        user.setIsAdmin(false);
         user.setEmail("Matthew@gmail.com");
 
         // map the object to json in string

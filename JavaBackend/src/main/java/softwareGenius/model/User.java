@@ -14,7 +14,8 @@ public class User {
     private Integer overallExp;
 
     public User() {}
-    public User(Integer userId, String username, String realName, String userAvatar, String password, String email, String accountType, Boolean isAdmin,
+
+    public User(Integer userId, String username, String realName, String userAvatar, String password, String email, String accountType, boolean isAdmin,
                 Integer overallExp) {
         this.userId = userId;
         this.username = username;
@@ -71,8 +72,8 @@ public class User {
         return isAdmin;
     }
 
-    public void setIsAdmin(String isAdmin) {
-         this.isAdmin = new Boolean(isAdmin);
+    public void setIsAdmin(boolean isAdmin) {
+         this.isAdmin = isAdmin;
     }
 
     public Integer getOverallExp() {
