@@ -76,6 +76,11 @@ public class SessionService {
             totalGameDay.plus(Period.between(s.getLogoutTime().toLocalDateTime().toLocalDate(), s.getLoginTime().toLocalDateTime().toLocalDate()));
             totalGameTime.plus(Duration.between(s.getLogoutTime().toInstant(), s.getLoginTime().toInstant()));
         }
-        return totalGameDay.toString() + ' ' + totalGameTime.toString();
+
+        return totalGameDay.getYears() + "Y " + totalGameDay.getMonths() + "M " +
+                totalGameDay.getDays() + "D " + totalGameTime.toString()
+                .substring(2)
+                .replaceAll("(\\d[HMS])(?!$)", "$1 ")
+                .toLowerCase();
     }
 }
