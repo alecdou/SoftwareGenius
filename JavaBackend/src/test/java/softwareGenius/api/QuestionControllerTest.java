@@ -40,8 +40,8 @@ public class QuestionControllerTest extends AbstractTest {
         ques.setChoice3("choice 3");
         ques.setChoice4("choice 4");
         ques.setProblem("problem 1");
-        ques.setuserAnswered(0)
-        ques.setuserCorrect(0)
+        ques.setuserAnswered(0);
+        ques.setuserCorrect(0);
         // map the object to json in string
         String inputJson = super.mapToJson(ques);
 
@@ -167,8 +167,8 @@ public class QuestionControllerTest extends AbstractTest {
         ques1.setChoice3("choice 3");
         ques1.setChoice4("choice 4");
         ques1.setProblem("problem 1");
-        ques1.setuserAnswered(0)
-        ques1.setuserCorrect(0)
+        ques1.setuserAnswered(0);
+        ques1.setuserCorrect(0);
         Question ques2 = new Question();
         ques2.setCategory("SE");
         ques2.setDifficultyLevel(3);
