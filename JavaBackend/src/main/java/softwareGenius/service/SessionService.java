@@ -2,14 +2,12 @@ package softwareGenius.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import softwareGenius.mapper.SessionDao;
 import softwareGenius.model.Session;
 
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.List;
 @Service
 public class SessionService {
@@ -70,15 +68,11 @@ public class SessionService {
     }
 
     private String getTimeInterval(List<Session> userSessions){
-        Period totalGameDay = Period.ZERO;
         Duration totalGameTime = Duration.ZERO;
         for (Session s: userSessions) {
-            totalGameDay.plus(Period.between(s.getLogoutTime().toLocalDateTime().toLocalDate(), s.getLoginTime().toLocalDateTime().toLocalDate()));
-            totalGameTime.plus(Duration.between(s.getLogoutTime().toInstant(), s.getLoginTime().toInstant()));
+            totalGameTime = totalGameTime.plus(Duration.between(s.getLoginTime().toInstant(), s.getLogoutTime().toInstant()));
         }
-
-        return totalGameDay.getYears() + "Y " + totalGameDay.getMonths() + "M " +
-                totalGameDay.getDays() + "D " + totalGameTime.toString()
+        return totalGameTime.toString()
                 .substring(2)
                 .replaceAll("(\\d[HMS])(?!$)", "$1 ")
                 .toLowerCase();
