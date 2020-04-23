@@ -194,7 +194,7 @@ public class WorldController {
         for (String s: worldList.keySet()) {
             Integer worldId = worldList.get(s);
             if (worldId == null) {
-                result.put(s, -1);
+                result.put(s, null);
             } else {
                 List<Land> landList = getLandsByUserIdAndCategory(userId, s);
                 int count = 0;
