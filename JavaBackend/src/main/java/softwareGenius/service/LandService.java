@@ -38,7 +38,6 @@ public class LandService {
      */
     //after receive combat result
     public void changeOwner(Integer landId,Integer newOwnerId,Integer newDifficultyLevel) {
-        System.out.println(landId);
         Land tmp=new Land(landId,-1,-1,newOwnerId,newDifficultyLevel);
         landDao.changeOwner(tmp);
     }

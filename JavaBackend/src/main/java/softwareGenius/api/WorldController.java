@@ -87,7 +87,8 @@ public class WorldController {
                     for (Land land:lands) {
                         int id=land.getOwnerId();
                         if (id==0) continue;
-                        land.setOwnerName(user.getUsername());
+                        User user2=accountService.getUserById(id);
+                        land.setOwnerName(user2.getUsername());
                     }
                     return lands;
                 }
@@ -194,7 +195,7 @@ public class WorldController {
         for (String s: worldList.keySet()) {
             Integer worldId = worldList.get(s);
             if (worldId == null) {
-                result.put(s, null);
+                result.put(s, -1);
             } else {
                 List<Land> landList = getLandsByUserIdAndCategory(userId, s);
                 int count = 0;
