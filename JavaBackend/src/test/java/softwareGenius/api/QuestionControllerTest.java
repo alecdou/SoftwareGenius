@@ -54,7 +54,7 @@ public class QuestionControllerTest extends AbstractTest {
         int status = mvcPostResult.getResponse().getStatus();
         assertEquals(200, status);
 
-        String sql = "SELECT last_insert_rowid()";
+        String sql = "SELECT last_insert_rowid() from question";
 
         // connect to db and query
         try (Connection conn = this.connect()){
@@ -134,13 +134,13 @@ public class QuestionControllerTest extends AbstractTest {
     @Test
     public void testDeleteQuestion() throws Exception {
         // positive test
-        String sql = "SELECT last_insert_rowid()";
+        String sql = "SELECT last_insert_rowid() from question";
         try (Connection conn = this.connect()){
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet result = pstmt.executeQuery();
             Integer question_id = result.next() ? result.getInt("question_id") : null;
 
-            String uri = "/api/question/" + inputQuesId;
+            String uri = "/api/question/" + question_id;
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
             int status = mvcResult.getResponse().getStatus();
             assertEquals(200, status);
@@ -199,7 +199,7 @@ public class QuestionControllerTest extends AbstractTest {
         int status = mvcPostResult.getResponse().getStatus();
         assertEquals(200, status);
 
-        String sql = "SELECT last_insert_rowid()";
+        String sql = "SELECT last_insert_rowid() from question";
 
         String getUri;
 
@@ -269,7 +269,7 @@ public class QuestionControllerTest extends AbstractTest {
         int status = mvcPostResult.getResponse().getStatus();
         assertEquals(200, status);
 
-        String sql = "SELECT last_insert_rowid()";
+        String sql = "SELECT last_insert_rowid() from question";
 
         String getUri;
 
