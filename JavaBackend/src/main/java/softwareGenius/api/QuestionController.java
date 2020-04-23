@@ -23,7 +23,7 @@ public class QuestionController {
         Question question = questionService.getQuestion(questionId);
         if (question == null){
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "session not found"
+                    HttpStatus.NOT_FOUND, "question not found"
             );
         }
         return question;
@@ -31,13 +31,24 @@ public class QuestionController {
 
     @GetMapping(path = "AllQuestions")
     public List<Question> getAllQuestions() {
-        return questionService.getAllQuestion();
+        List<Question> questions=questionService.getAllQuestion();
+        if (questions == null){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "question not found"
+            );
+        }
+        return questions;
     }
-
-
+    
     @GetMapping(path = "score/{qid}")
     public Float qnsScore(@PathVariable Integer qid) {
-        return questionService.getAccuracy(qid);
+        Float accuracy = questionService.getAccuracy(qid);
+        if (accuracy == null){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "question not found"
+            );
+        }
+        return accuracy;
     }
 
 
