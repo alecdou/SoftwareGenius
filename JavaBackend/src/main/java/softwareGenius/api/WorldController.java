@@ -183,6 +183,34 @@ public class WorldController {
         return map;
     }
 
+    @GetMapping("/unlock/checkUnlockedLands/{userId}")
+    public Map<String,Integer> getUnlockedLandsNumByUserId(@PathVariable Integer userId) {
+        User user=accountService.getUserById(userId);
+        if (user==null) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "User Not Found!"
+        );
+        Map<String, Integer> worldList = getWorldListByUserId(userId);
+        Map<String, Integer> result=new HashMap<>();
+        for (String s: worldList.keySet()) {
+            Integer worldId = worldList.get(s);
+            if (worldId == null) {
+                result.put(s, null);
+            } else {
+                List<Land> landList = getLandsByUserIdAndCategory(userId, s);
+                int count = 0;
+                for (Land l: landList) {
+                    if (l.getOwnerId() != 0) {
+                        count += 1;
+                    } else {
+                        break;
+                    }
+                }
+                result.put(s, count);
+            }
+        }
+        return result;
+    }
+
     /**
      * To unlock a new world
      * @param userId id of the user
