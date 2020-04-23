@@ -75,6 +75,10 @@ public class WorldController {
      */
     @GetMapping("/getLandsByUserIdAndCategory/{userId}/{category}")
     public List<Land> getLandsByUserIdAndCategory(@PathVariable Integer userId,@PathVariable String category) {
+        User user=accountService.getUserById(userId);
+        if (user==null) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "User Not Found!"
+        );
         List<World> worlds=worldService.getWorldByOwnerId(userId);
         try {
             for (World world:worlds) {
@@ -83,7 +87,6 @@ public class WorldController {
                     for (Land land:lands) {
                         int id=land.getOwnerId();
                         if (id==0) continue;
-                        User user=accountService.getUserById(id);
                         land.setOwnerName(user.getUsername());
                     }
                     return lands;

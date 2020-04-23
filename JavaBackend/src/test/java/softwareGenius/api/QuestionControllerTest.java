@@ -36,9 +36,12 @@ public class QuestionControllerTest extends AbstractTest {
         ques.setDifficultyLevel(3);
         ques.setAnswer(1);
         ques.setChoice1("choice 1");
-        ques.setChoice1("choice 2");
+        ques.setChoice2("choice 2");
+        ques.setChoice3("choice 3");
+        ques.setChoice4("choice 4");
         ques.setProblem("problem 1");
-
+        ques.setuserAnswered(0)
+        ques.setuserCorrect(0)
         // map the object to json in string
         String inputJson = super.mapToJson(ques);
 
@@ -72,7 +75,7 @@ public class QuestionControllerTest extends AbstractTest {
     }
 
     @Test
-    public void testGetUser() throws Exception{
+    public void testGetQuestion() throws Exception{
         int inputQuesId = 1;
         String uri = "/api/question/" + inputQuesId;
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -84,7 +87,7 @@ public class QuestionControllerTest extends AbstractTest {
     }
 
     @Test
-    public void testGetAllUser() throws Exception{
+    public void testGetAllQuestions() throws Exception{
         String uri = "/api/question/AllQuestions";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -131,13 +134,21 @@ public class QuestionControllerTest extends AbstractTest {
     @Test
     public void testDeleteQuestion() throws Exception {
         // positive test
-        Integer inputQuesId = 84;
-        String uri = "/api/question/" + inputQuesId;
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
-        int status = mvcResult.getResponse().getStatus();
-        assertEquals(200, status);
+        String sql = "SELECT last_insert_rowid()";
+        try (Connection conn = this.connect()){
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet result = pstmt.executeQuery();
+            Integer question_id = result.next() ? result.getInt("question_id") : null;
 
-        String content = mvcResult.getResponse().getContentAsString();
+            String uri = "/api/question/" + inputQuesId;
+            MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
+            int status = mvcResult.getResponse().getStatus();
+            assertEquals(200, status);
+            String content = mvcResult.getResponse().getContentAsString();
+            disconnectDB(conn);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
 //        assertEquals(content, "Product is deleted successsfully");
     }
 
@@ -152,15 +163,23 @@ public class QuestionControllerTest extends AbstractTest {
         ques1.setDifficultyLevel(3);
         ques1.setAnswer(1);
         ques1.setChoice1("choice 1");
-        ques1.setChoice1("choice 2");
+        ques1.setChoice2("choice 2");
+        ques1.setChoice3("choice 3");
+        ques1.setChoice4("choice 4");
         ques1.setProblem("problem 1");
+        ques1.setuserAnswered(0)
+        ques1.setuserCorrect(0)
         Question ques2 = new Question();
         ques2.setCategory("SE");
         ques2.setDifficultyLevel(3);
         ques2.setAnswer(1);
         ques2.setChoice1("choice 1");
-        ques2.setChoice1("choice 2");
+        ques2.setChoice2("choice 2");
+        ques2.setChoice3("choice 3");
+        ques2.setChoice4("choice 4");
         ques2.setProblem("problem 2");
+        ques2.setuserAnswered(0)
+        ques2.setuserCorrect(0)
 
         Integer quesLength = 2;
 
@@ -215,15 +234,23 @@ public class QuestionControllerTest extends AbstractTest {
         ques1.setAnswer(1);
         ques1.setChoice1("choice 1");
         ques1.setChoice1("choice 2");
+        ques1.setChoice3("choice 3");
+        ques1.setChoice4("choice 4");
         ques1.setProblem("problem 1");
+
+        ques1.setuserAnswered(0)
+        ques1.setuserCorrect(0)
         Question ques2 = new Question();
         ques2.setCategory("SE");
         ques2.setDifficultyLevel(3);
         ques2.setAnswer(1);
         ques2.setChoice1("choice 1");
         ques2.setChoice1("choice 2");
+        ques2.setChoice3("choice 3");
+        ques2.setChoice4("choice 4");
         ques2.setProblem("problem 2");
-
+        ques2.setuserAnswered(0)
+        ques2.setuserCorrect(0)
         Integer quesLength = 2;
 
         Question [] quesList = new Question[quesLength];
