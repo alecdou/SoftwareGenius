@@ -20,7 +20,13 @@ public class QuestionController {
 
     @GetMapping(path = "{questionId}")
     public Question getQuestionById(@PathVariable Integer questionId) {
-        return questionService.getQuestion(questionId);
+        Question question = questionService.getQuestion(questionId);
+        if (question == null){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "session not found"
+            );
+        }
+        return question;
     }
 
     @GetMapping(path = "AllQuestions")
