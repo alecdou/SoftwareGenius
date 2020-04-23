@@ -14,8 +14,7 @@ import softwareGenius.model.User;
 
 import java.sql.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QuestionControllerTest extends AbstractTest {
 
@@ -87,6 +86,18 @@ public class QuestionControllerTest extends AbstractTest {
     }
 
     @Test
+    public void testGetQuestionwrong() throws Exception{
+        String inputQuesId = "hi";
+        String uri = "/api/question/" + inputQuesId;
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        // check status
+        int status = mvcResult.getResponse().getStatus();
+        assertNotEquals(200, status);
+    }
+
+    @Test
     public void testGetAllQuestions() throws Exception{
         String uri = "/api/question/AllQuestions";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -112,6 +123,18 @@ public class QuestionControllerTest extends AbstractTest {
         // check status
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
+
+    }
+    @Test
+    public void testQnsScorewrong() throws Exception{
+        String inputQuesId = "hi";
+        String uri = "/api/question/score/" + inputQuesId;
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        // check status
+        int status = mvcResult.getResponse().getStatus();
+        assertNotEquals(200, status);
 
     }
 
