@@ -3,10 +3,15 @@ package softwareGenius.api;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import softwareGenius.model.*;
 import softwareGenius.model.Character;
 import softwareGenius.service.*;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,17 +27,19 @@ public class CombatController {
     private WorldService worldService;
     private CharacterService characterService;
     private AccountService accountService;
+    private SessionService sessionService;
 
     @Autowired
     public CombatController(CombatService combatService, LandService landService,
                             QuestionService questionService, WorldService worldService,
-                            CharacterService characterService, AccountService accountService) {
+                            CharacterService characterService, AccountService accountService, SessionService sessionService) {
         this.combatService = combatService;
         this.landService = landService;
         this.questionService = questionService;
         this.worldService = worldService;
         this.characterService = characterService;
         this.accountService = accountService;
+        this.sessionService = sessionService;
     }
 
     /**
@@ -211,6 +218,22 @@ public class CombatController {
         // update question record
         questionService.addQnsAnswered(idOfAnsweredQns);
         questionService.addQnsCorrectlyAnswered(idOfCorrectlyAnsweredQns);
+
+        // update session
+
+        // get the session list of the user
+        List<Session> sessionList = sessionService.getSessionByUserID(userId);
+
+        if (sessionList == null || sessionList.size() == 0){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "user session not found"
+            );
+        }
+
+        // get the latest session
+        Session session = sessionList.get(sessionList.size() - 1);
+        sessionService.updateSessionEndTime(session.getSessionId(), LocalDateTime.now());
+
         // update the land if combat succeeded
 
         if (!status.equals("failed")) {
