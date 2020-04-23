@@ -87,7 +87,8 @@ public class WorldController {
                     for (Land land:lands) {
                         int id=land.getOwnerId();
                         if (id==0) continue;
-                        land.setOwnerName(user.getUsername());
+                        User user2=accountService.getUserById(userId);
+                        land.setOwnerName(user2.getUsername());
                     }
                     return lands;
                 }
