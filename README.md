@@ -18,4 +18,7 @@ SoftwareGenius is a free educational mobile game which aims to teach students kn
 ## Instruction for Running the Program
 1. Download the project to your local machine
 2. Open Unity project in Unity
+  - Unity version recommendation(for the best possible compatibility) : 2019.3.2f1
+If you correctly setup backend application at localhost, remember to change url variable in the file "Assets/SourceCode/Control/StaticVariable.cs"
+url = "http://localhost:9090/api/"
 3. Open JavaBackend in IntelliJ or other IDEs
