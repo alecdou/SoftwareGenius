@@ -191,7 +191,7 @@ public class WorldController {
                 HttpStatus.NOT_FOUND, "User Not Found!"
         );
         Map<String, Integer> worldList = getWorldListByUserId(userId);
-        Map<String, Integer> result=new HashMap<>();
+        Map<String, Integer> result = new HashMap<>();
         for (String s: worldList.keySet()) {
             Integer worldId = worldList.get(s);
             if (worldId == null) {
@@ -203,7 +203,7 @@ public class WorldController {
                     if (l.getOwnerId() != 0) {
                         count += 1;
                     } else {
-                        break;
+                        continue;
                     }
                 }
                 result.put(s, count);
