@@ -18,10 +18,10 @@ SoftwareGenius is a free educational mobile game which aims to teach students kn
 
 ## Photo Gallery
 <p align="center">
-  <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img1.png" width="500">
-  <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img2.png" width="500">
-  <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img3.png" width="500">
-  <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img4.png" width="500">
+  <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img1.png" width="400">
+  <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img2.png" width="400">
+  <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img3.png" width="400">
+  <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img4.png" width="400">
 </p>
 
 
