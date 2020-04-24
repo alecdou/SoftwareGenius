@@ -133,6 +133,11 @@ public class WorldController {
         return map;
     }
 
+    /**
+     * To get a list of Users who unlocked the world of a given category
+     * @param category category of the world
+     * @return list of User object
+     */
     @GetMapping("/getUsersByCategory/{category}")
     public List<User> getUsersByCategory(@PathVariable String category) {
         List<User> all=accountService.getAll();
@@ -184,6 +189,11 @@ public class WorldController {
         return map;
     }
 
+    /**
+     * count the number of explored lands in each world of a user respectively
+     * @param userId id of the user
+     * @return map of explored lands number and its category
+     */
     @GetMapping("/unlock/checkUnlockedLands/{userId}")
     public Map<String,Integer> getUnlockedLandsNumByUserId(@PathVariable Integer userId) {
         User user=accountService.getUserById(userId);
@@ -211,7 +221,7 @@ public class WorldController {
     }
 
     /**
-     * To unlock a new world
+     * To unlock a new world and initialize its corresponding character and lands features
      * @param userId id of the user
      * @param category the new world category in String ("SE","SA","PM","QA")
      * @return the id of the new world
@@ -244,22 +254,46 @@ public class WorldController {
         return worldId;
     }
 
+    /**
+     * get all leader board
+     * @param offset the given offset
+     * @param limit the given limit
+     * @return 4 lists of Leaderboard Records
+     */
     @GetMapping("/getLeaderBoard/all/{offset}/{limit}")
     public List<List<LeaderBoardRecord>> getAllLeaderBoard(@PathVariable Integer offset,@PathVariable Integer limit) {
         return leaderboardService.getAllLeaderBoard(offset,limit);
     }
 
+    /**
+     * get the general leader board
+     * @param offset the given offset
+     * @param limit the given limit
+     * @return a list of leaderboard Records
+     */
     @GetMapping("/getLeaderBoard/general/{offset}/{limit}")
     public List<LeaderBoardRecord> getGeneralLeaderBoard(@PathVariable Integer offset,@PathVariable Integer limit) {
         return leaderboardService.getGeneralLeaderBoard(offset,limit);
     }
 
+    /**
+     * get the leader boarder of a given category of world
+     * @param category the given category of the world
+     * @param offset the given offset
+     * @param limit the given limit
+     * @return a list of Leaderboard Record
+     */
     @GetMapping("/getLeaderBoard/category/{category}/{offset}/{limit}")
     public List<LeaderBoardRecord> getLeaderBoardByWorldName(@PathVariable Category category,@PathVariable Integer offset,@PathVariable Integer limit) {
         return leaderboardService.getLeaderBoardByWorldName(category,offset,limit);
     }
 
-    //after win a combat
+    /**
+     * change the owner of a land after winning a combat
+     * @param landId id of the land
+     * @param ownerId id of the new owner
+     * @param difficulty new difficulty level
+     */
     @GetMapping("/changeOwner/{landId}/{ownerId}/{difficulty}")
     public void changeOwner(@PathVariable Integer landId,@PathVariable Integer ownerId,@PathVariable Integer difficulty) {
         if (difficulty > 3 || difficulty < 1) {
