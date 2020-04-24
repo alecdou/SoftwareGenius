@@ -74,14 +74,25 @@ public class CombatController {
         }
 
         // get character
-        Character character;
-        try {
-            Integer characterId = worldService.getCharIdByWorldId(combat.getWorldId());
-            character = characterService.getCharacterByCharId(characterId);
-        } catch (Exception e) {
+        Character character=null;
+        List<Character> chars=characterService.getCharacterByUserId(combat.getPlayerId());
+        for (Character ch:chars) {
+            if (ch.getCharName()==category) {
+                character=ch;
+                break;
+            }
+        }
+        if (character==null) {
             map.put("error", "Error: The system is not able to get the character required!");
             return map;
         }
+//        try {
+//            Integer characterId = worldService.getCharIdByWorldId(combat.getWorldId());
+//            character = characterService.getCharacterByCharId(characterId);
+//        } catch (Exception e) {
+//            map.put("error", "Error: The system is not able to get the character required!");
+//            return map;
+//        }
 
 
         //put all the values in the map
