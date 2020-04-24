@@ -202,8 +202,6 @@ public class WorldController {
                 for (Land l: landList) {
                     if (l.getOwnerId() != 0) {
                         count += 1;
-                    } else {
-                        break;
                     }
                 }
                 result.put(s, count);
