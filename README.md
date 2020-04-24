@@ -2,7 +2,7 @@
 
 ## *Other documents*
 - [Software Requirement Specification (SRS)](https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/SoftwareGenius%20SRS.pdf)
-- [=Design Document
+- Design Document
   1. [System Architecture](https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/ArchitectureDiagram.png)
   2. [Architecture Analysis](https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/Architecutre%20Analysis.pdf)
   3. [Class Diagram/Design](https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/ClassDiagram.png)
