@@ -1,4 +1,5 @@
 # Software Genius
+This project is developed by a team of 10 for the CZ3003 System Architecture and Analysis course in NTU.
 
 ## *Other documents*
 - [Software Requirement Specification (SRS)](https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/SoftwareGenius%20SRS.pdf)
@@ -8,6 +9,7 @@
   3. [Class Diagram/Design](https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/ClassDiagram.png)
   4. [State Transition Diagram](https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/DialogMap.png)
 - [Test Cases and Test Summary](https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/Test%20Summary.pdf)
+- [Video Link](https://youtu.be/AXvxKKn1OTU)
 
 
 ## Description
@@ -24,6 +26,9 @@ SoftwareGenius is a free educational mobile game which aims to teach students kn
   <img src="https://github.com/DouMaokang/SoftwareGenius/blob/master/Doc/img4.png" width="400">
 </p>
 
+## Tech Details
+1. The frontend is developed using Unity
+2. The backend is developed using the Spring Boot framework
 
 
 ## Instruction for Running the Program
