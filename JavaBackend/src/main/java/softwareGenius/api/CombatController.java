@@ -86,13 +86,6 @@ public class CombatController {
             map.put("error", "Error: The system is not able to get the character required!");
             return map;
         }
-//        try {
-//            Integer characterId = worldService.getCharIdByWorldId(combat.getWorldId());
-//            character = characterService.getCharacterByCharId(characterId);
-//        } catch (Exception e) {
-//            map.put("error", "Error: The system is not able to get the character required!");
-//            return map;
-//        }
 
 
         //put all the values in the map
